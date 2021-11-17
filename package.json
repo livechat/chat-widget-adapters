@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "engines": {
+    "node": "14",
+    "npm": "7"
+  },
+  "scripts": {
+    "clean": "lerna run clean",
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "lerna": "^4.0.0"
+  }
+}
