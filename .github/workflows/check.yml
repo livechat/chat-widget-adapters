@@ -1,0 +1,32 @@
+name: Check
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Run lint script
+        run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Run build script
+        run: npm run build

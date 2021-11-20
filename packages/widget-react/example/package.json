@@ -1,0 +1,20 @@
+{
+	"name": "widget-react-example",
+	"version": "0.0.0",
+	"private": "true",
+	"scripts": {
+		"start": "vite"
+	},
+	"dependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0",
+		"@livechat/widget-react": "1.0.0"
+	},
+	"devDependencies": {
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"@vitejs/plugin-react": "^1.0.0",
+		"typescript": "^4.3.2",
+		"vite": "^2.6.4"
+	}
+}

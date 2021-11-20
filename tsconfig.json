@@ -1,0 +1,7 @@
+{
+  "include": [
+    "packages/**/*.js",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
+  ]
+}

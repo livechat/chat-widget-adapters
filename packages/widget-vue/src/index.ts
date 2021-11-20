@@ -1,2 +1,1 @@
-export * from "./Hello";
-export * from "./sum";
+export { default as LiveChatWidget } from './LiveChatWidget'

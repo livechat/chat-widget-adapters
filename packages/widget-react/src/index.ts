@@ -1,2 +1,1 @@
-export * from "./sum";
-export * from "./Hello";
+export { LiveChatWidget } from './LiveChatWidget'

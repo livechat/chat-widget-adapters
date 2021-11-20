@@ -1,2 +1,2 @@
-export * from "./Hello.module";
-export * from "./sum";
+export { LiveChatWidgetModule } from './LiveChatWidget.module'
+export { LiveChatWidgetComponent } from './LiveChatWidget.component'

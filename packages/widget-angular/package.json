@@ -2,17 +2,22 @@
   "name": "@livechat/widget-angular",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/widget-angular.cjs.js",
+  "module": "dist/widget-angular.esm.js",
+  "types": "dist/widget-angular.d.ts",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "clean": "rimraf dts dist lib",
-    "prebuild": "npm run clean",
+    "prebuild": "rimraf dts dist lib",
     "build": "ngc && rollup -c",
     "postbuild": "rimraf dts lib"
+  },
+  "dependencies": {
+    "@livechat/widget-core": "1.0.0"
   },
   "peerDependencies": {
     "@angular/core": "13.0.1",
