@@ -1,11 +1,8 @@
 import { Component } from 'vue'
 import { createWidget } from '@livechat/widget-core'
+import type { WidgetInstance, WidgetConfig } from '@livechat/widget-core'
 
-type Props = {
-	license: string
-	group: string
-	env: string
-}
+type Props = Pick<WidgetConfig, 'license' | 'group'>
 
 export default {
 	template: '',
@@ -20,17 +17,13 @@ export default {
 		return {}
 	},
 	beforeMount() {
-		const that = this as Props & { destroy: VoidFunction }
-		that.destroy = createWidget({
-			license: that.license,
-			group: that.group,
-			env: that.env,
-		})
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		const that = this
+		that.widget = createWidget({ license: that.license, group: that.group })
+		that.widget.init()
 	},
 	beforeUnmount() {
-		const that = this as { destroy?: VoidFunction }
-		if (that.destroy) {
-			that.destroy()
-		}
+		const that = this as { widget?: WidgetInstance }
+		that.widget?.destroy()
 	},
-} as Component
+} as Component<Props>
