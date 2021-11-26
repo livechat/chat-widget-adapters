@@ -1,6 +1,7 @@
 import { defineConfig } from 'rollup'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import replace from '@rollup/plugin-replace'
 import dts from 'rollup-plugin-dts'
 
 import pkg from './package.json'
@@ -10,8 +11,12 @@ const extensions = ['.ts']
 export default defineConfig([
 	{
 		input: 'src/index.ts',
-		external: ['vue'],
-		plugins: [resolve({ extensions }), babel({ extensions, babelHelpers: 'bundled' })],
+		external: ['vue', '@livechat/widget-core'],
+		plugins: [
+			resolve({ extensions }),
+			replace({ 'process.env.PACKAGE_NAME': JSON.stringify(pkg.name) }),
+			babel({ extensions, babelHelpers: 'bundled' }),
+		],
 		output: [
 			{
 				file: pkg.main,

@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core'
 import { createWidget } from '@livechat/widget-core'
+import type { ExtendedWindow, WidgetInstance, WidgetConfig } from '@livechat/widget-core'
+
+declare const window: ExtendedWindow
 
 @Component({
 	selector: 'livechat-widget',
@@ -7,22 +10,17 @@ import { createWidget } from '@livechat/widget-core'
 	styles: [],
 })
 export class LiveChatWidgetComponent implements OnInit, OnDestroy {
-	@Input() license = ''
-	@Input() group?: string
-	@Input() env?: string
-	destroy?: VoidFunction
+	@Input() license: WidgetConfig['license'] = ''
+	@Input() group: WidgetConfig['group']
+	widget?: WidgetInstance
 
 	ngOnInit() {
-		this.destroy = createWidget({
-			license: this.license,
-			group: this.group,
-			env: this.env,
-		})
+		this.widget = createWidget({ license: this.license, group: this.group })
+		window.__lc.integration_name = process.env.PACKAGE_NAME
+		this.widget.init()
 	}
 
 	ngOnDestroy() {
-		if (this.destroy) {
-			this.destroy()
-		}
+		this.widget?.destroy()
 	}
 }

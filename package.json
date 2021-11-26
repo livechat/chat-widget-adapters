@@ -2,7 +2,7 @@
   "name": "chat-widget-adapters",
   "private": true,
   "engines": {
-    "node": "14"
+    "node": "16.13"
   },
   "scripts": {
     "build": "lerna run build",
