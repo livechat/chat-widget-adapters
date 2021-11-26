@@ -4,6 +4,7 @@ export type ExtendedWindow = Window & {
 		group?: number
 		params?: Array<{ name: string; value: string }>
 		chat_between_groups?: boolean
+		integration_name?: string
 	}
 	LiveChatWidget: {
 		on: typeof on

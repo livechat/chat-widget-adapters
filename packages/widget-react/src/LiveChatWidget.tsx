@@ -1,12 +1,15 @@
 import * as React from 'react'
 import { createWidget } from '@livechat/widget-core'
-import type { WidgetConfig, WidgetInstance } from '@livechat/widget-core'
+import type { ExtendedWindow, WidgetConfig, WidgetInstance } from '@livechat/widget-core'
+
+declare const window: ExtendedWindow
 
 export function LiveChatWidget(props: WidgetConfig) {
 	const widgetRef = React.useRef<WidgetInstance | null>(null)
 
 	React.useEffect(() => {
 		widgetRef.current = createWidget(props)
+		window.__lc.integration_name = process.env.PACKAGE_NAME
 		widgetRef.current.init()
 		return () => {
 			widgetRef.current?.destroy()

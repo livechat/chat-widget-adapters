@@ -17,14 +17,14 @@ export function App() {
 	const greeting = useWidgetGreeting()
 	const widgetState = useWidgetState()
 	const isWidgetReady = useWidgetIsReady()
-	const custoemrData = useWidgetCustomerData()
+	const customerData = useWidgetCustomerData()
 
 	return (
 		<main>
 			<h1>Hello React!</h1>
 			<pre>Widget is ready: {stringify(isWidgetReady)}</pre>
 			<pre>Widget state: {stringify(widgetState)}</pre>
-			<pre>Customer data: {stringify(custoemrData)}</pre>
+			<pre>Customer data: {stringify(customerData)}</pre>
 			<pre>Chat data: {stringify(chatData)}</pre>
 			<pre>Greeting: {stringify(greeting)}</pre>
 			<LiveChatWidget

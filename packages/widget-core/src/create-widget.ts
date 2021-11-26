@@ -64,6 +64,8 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 		},
 	})
 
+	window.__lc.integration_name = process.env.PACKAGE_NAME
+
 	return {
 		init: () => {
 			window.LiveChatWidget.init()

@@ -2,3 +2,4 @@ node_modules
 dist
 dts
 .DS_Store
+*.tgz
