@@ -27,6 +27,7 @@ declare function on(name: 'availability_changed', handler: EventHandlers['onAvai
 declare function on(name: 'customer_status_changed', handler: EventHandlers['onCustomerStatusChanged']): void
 declare function on(name: 'rich_message_button_clicked', handler: EventHandlers['onRichMessageButtonClicked']): void
 
+declare function get(name: 'state'): WidgetState
 declare function get(name: 'chat_data'): ChatData
 declare function get(name: 'customer_data'): CustomerData
 
@@ -99,3 +100,10 @@ export type EventHandlers = {
 	onGreetingHidden?: (greeting: NonNullable<Event['greeting']>) => void
 	onRichMessageButtonClicked?: (button: RichMessageButton) => void
 }
+
+export type EventHandlerPayload<T extends keyof EventHandlers, E = Required<EventHandlers>[T]> = E extends (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	...args: any
+) => void
+	? Parameters<E>['0']
+	: never
