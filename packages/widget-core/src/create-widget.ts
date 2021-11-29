@@ -55,13 +55,9 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 	assignConfiguration(config)
 	assignVisibility(config.visibility)
 	assignEventHandlers('on', state.currentEventHandlers)
-	assignEventHandlers('once', {
-		onReady: () => {
-			assignCustomerData({
-				name: config.customerName,
-				email: config.customerEmail,
-			})
-		},
+	assignCustomerData({
+		name: config.customerName,
+		email: config.customerEmail,
 	})
 
 	window.__lc.integration_name = process.env.PACKAGE_NAME

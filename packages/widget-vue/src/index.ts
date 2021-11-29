@@ -1,1 +1,2 @@
-export { default as LiveChatWidget } from './LiveChatWidget'
+export * from './composition'
+export { LiveChatWidget } from './LiveChatWidget'
