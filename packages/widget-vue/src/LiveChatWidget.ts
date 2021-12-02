@@ -65,13 +65,13 @@ export const LiveChatWidget = defineComponent({
 		},
 	},
 	mounted() {
-		this.createWidget()
+		this.setupWidget()
 	},
 	unmounted() {
 		this.widget?.destroy()
 	},
 	methods: {
-		createWidget() {
+		setupWidget() {
 			const emit = this.$emit
 			this.widget = createWidget({
 				group: this.group,
@@ -97,8 +97,7 @@ export const LiveChatWidget = defineComponent({
 		},
 		reinitialize() {
 			this.widget?.destroy()
-			this.createWidget()
+			this.setupWidget()
 		},
 	},
-	template: '',
 })
