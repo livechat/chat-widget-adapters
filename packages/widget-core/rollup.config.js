@@ -13,7 +13,7 @@ export default defineConfig([
 		input: 'src/index.ts',
 		plugins: [
 			resolve({ extensions }),
-			replace({ 'process.env.PACKAGE_NAME': JSON.stringify(pkg.name) }),
+			replace({ 'process.env.PACKAGE_NAME': JSON.stringify(pkg.name), preventAssignment: true }),
 			babel({ extensions, babelHelpers: 'bundled' }),
 		],
 		output: [

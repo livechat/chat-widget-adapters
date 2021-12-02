@@ -8,7 +8,8 @@
     "build": "lerna run build",
     "start": "lerna run start",
     "prepare": "husky install",
-    "postinstall": "lerna bootstrap",
+    "clean": "git clean -fdX",
+    "postinstall": "lerna bootstrap && prettier **/package*.json --write",
     "lint": "eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\""
   },
   "devDependencies": {
