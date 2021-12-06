@@ -1,20 +1,32 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import type { Ref } from 'vue'
-import { assignEventHandlers, getData } from '@livechat/widget-core'
+import { lcOnInit, lcOnDestroy, assignEventHandlers, getData } from '@livechat/widget-core'
 import type { WidgetState, CustomerData, ChatData, Event } from '@livechat/widget-core'
 
 export function useWidgetIsReady(): Ref<boolean> {
 	const isReady = ref(false)
+	let unsubscribeInit: VoidFunction | null = null
+	let unsubscribeDestroy: VoidFunction | null = null
 
 	const onReady = () => {
 		isReady.value = true
 	}
 
 	onMounted(() => {
-		assignEventHandlers('once', { onReady })
+		unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+		})
+		unsubscribeDestroy = lcOnDestroy(() => {
+			isReady.value = false
+		})
 	})
 	onUnmounted(() => {
-		assignEventHandlers('off', { onReady })
+		try {
+			assignEventHandlers('off', { onReady })
+		} finally {
+			unsubscribeInit?.()
+			unsubscribeDestroy?.()
+		}
 	})
 
 	return isReady
@@ -22,6 +34,8 @@ export function useWidgetIsReady(): Ref<boolean> {
 
 export function useWidgetState(): Ref<WidgetState | null> {
 	const widgetState = ref<WidgetState | null>(null)
+	let unsubscribeInit: VoidFunction | null = null
+	let unsubscribeDestroy: VoidFunction | null = null
 
 	const onReady = ({ state }: { state: WidgetState }) => {
 		widgetState.value = state
@@ -34,11 +48,21 @@ export function useWidgetState(): Ref<WidgetState | null> {
 	}
 
 	onMounted(() => {
-		assignEventHandlers('once', { onReady })
-		assignEventHandlers('on', { onVisibilityChanged, onAvailabilityChanged })
+		unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+			assignEventHandlers('on', { onVisibilityChanged, onAvailabilityChanged })
+		})
+		unsubscribeDestroy = lcOnDestroy(() => {
+			widgetState.value = null
+		})
 	})
 	onUnmounted(() => {
-		assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+		try {
+			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+		} finally {
+			unsubscribeInit?.()
+			unsubscribeDestroy?.()
+		}
 	})
 
 	return widgetState
@@ -46,6 +70,8 @@ export function useWidgetState(): Ref<WidgetState | null> {
 
 export function useWidgetCustomerData(): Ref<CustomerData | null> {
 	const customerData = ref<CustomerData | null>(null)
+	let unsubscribeInit: VoidFunction | null = null
+	let unsubscribeDestroy: VoidFunction | null = null
 
 	const onReady = (payload: { customerData: CustomerData }) => {
 		customerData.value = payload.customerData
@@ -55,11 +81,21 @@ export function useWidgetCustomerData(): Ref<CustomerData | null> {
 	}
 
 	onMounted(() => {
-		assignEventHandlers('once', { onReady })
-		assignEventHandlers('on', { onCustomerStatusChanged })
+		unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+			assignEventHandlers('on', { onCustomerStatusChanged })
+		})
+		unsubscribeDestroy = lcOnDestroy(() => {
+			customerData.value = null
+		})
 	})
 	onUnmounted(() => {
-		assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+		try {
+			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+		} finally {
+			unsubscribeInit?.()
+			unsubscribeDestroy?.()
+		}
 	})
 
 	return customerData
@@ -85,6 +121,8 @@ export function useWidgetChatData(): Ref<ChatData | null> {
 
 export function useWidgetGreeting(): Ref<Event['greeting'] | null> {
 	const greeting = ref<Event['greeting'] | null>(null)
+	let unsubscribeInit: VoidFunction | null = null
+	let unsubscribeDestroy: VoidFunction | null = null
 
 	const onGreetingDisplayed = (greetingData: Event['greeting']) => {
 		greeting.value = greetingData
@@ -94,10 +132,20 @@ export function useWidgetGreeting(): Ref<Event['greeting'] | null> {
 	}
 
 	onMounted(() => {
-		assignEventHandlers('on', { onGreetingDisplayed, onGreetingHidden })
+		unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('on', { onGreetingDisplayed, onGreetingHidden })
+		})
+		unsubscribeDestroy = lcOnDestroy(() => {
+			greeting.value = null
+		})
 	})
 	onUnmounted(() => {
-		assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+		try {
+			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+		} finally {
+			unsubscribeInit?.()
+			unsubscribeDestroy?.()
+		}
 	})
 
 	return greeting
