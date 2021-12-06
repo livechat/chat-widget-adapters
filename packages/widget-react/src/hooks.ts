@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { assignEventHandlers, getData } from '@livechat/widget-core'
+import { lcOnInit, lcOnDestroy, assignEventHandlers, getData } from '@livechat/widget-core'
 import type { WidgetState, CustomerData, Event, ChatData } from '@livechat/widget-core'
 
 export function useWidgetIsReady(): boolean {
@@ -7,9 +7,19 @@ export function useWidgetIsReady(): boolean {
 
 	React.useEffect(() => {
 		const onReady = () => setIsReady(true)
-		assignEventHandlers('once', { onReady })
+		const unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+		})
+		const unsubscribeDestroy = lcOnDestroy(() => {
+			setIsReady(false)
+		})
 		return () => {
-			assignEventHandlers('off', { onReady })
+			try {
+				assignEventHandlers('off', { onReady })
+			} finally {
+				unsubscribeInit()
+				unsubscribeDestroy()
+			}
 		}
 	}, [])
 
@@ -28,11 +38,21 @@ export function useWidgetState(): WidgetState | null {
 			setWidgetState((prevState) => (prevState ? { ...prevState, availability } : prevState))
 		}
 
-		assignEventHandlers('once', { onReady })
-		assignEventHandlers('on', { onVisibilityChanged, onAvailabilityChanged })
+		const unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+			assignEventHandlers('on', { onVisibilityChanged, onAvailabilityChanged })
+		})
+		const unsubscribeDestroy = lcOnDestroy(() => {
+			setWidgetState(null)
+		})
 
 		return () => {
-			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+			try {
+				assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+			} finally {
+				unsubscribeInit()
+				unsubscribeDestroy()
+			}
 		}
 	}, [])
 
@@ -46,11 +66,21 @@ export function useWidgetCustomerData(): CustomerData | null {
 		const onReady = ({ customerData }: { customerData: CustomerData }) => setCustomerData(customerData)
 		const onCustomerStatusChanged = () => setCustomerData(getData('customer'))
 
-		assignEventHandlers('once', { onReady })
-		assignEventHandlers('on', { onCustomerStatusChanged })
+		const unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('once', { onReady })
+			assignEventHandlers('on', { onCustomerStatusChanged })
+		})
+		const unsubscribeDestroy = lcOnDestroy(() => {
+			setCustomerData(null)
+		})
 
 		return () => {
-			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+			try {
+				assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+			} finally {
+				unsubscribeInit()
+				unsubscribeDestroy()
+			}
 		}
 	}, [])
 
@@ -80,9 +110,20 @@ export function useWidgetGreeting(): Event['greeting'] | null {
 		const onGreetingDisplayed = (greeting: Event['greeting']) => setGreeting(greeting)
 		const onGreetingHidden = () => setGreeting(null)
 
-		assignEventHandlers('on', { onGreetingDisplayed, onGreetingHidden })
+		const unsubscribeInit = lcOnInit(() => {
+			assignEventHandlers('on', { onGreetingDisplayed, onGreetingHidden })
+		})
+		const unsubscribeDestroy = lcOnDestroy(() => {
+			setGreeting(null)
+		})
+
 		return () => {
-			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+			try {
+				assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+			} finally {
+				unsubscribeInit()
+				unsubscribeDestroy()
+			}
 		}
 	}, [])
 
