@@ -56,7 +56,6 @@ describe('assignConfiguration', () => {
 	})
 
 	it('should throw an error if license is missign', () => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		expect(() => assignConfiguration({} as any)).toThrow()
 	})
 })
