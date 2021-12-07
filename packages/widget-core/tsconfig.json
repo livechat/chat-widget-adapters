@@ -1,8 +1,10 @@
 {
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
+    "dts",
+    "dist",
     "node_modules"
   ],
   "compilerOptions": {
