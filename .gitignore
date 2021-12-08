@@ -4,3 +4,4 @@ dts
 lib
 .DS_Store
 *.tgz
+coverage

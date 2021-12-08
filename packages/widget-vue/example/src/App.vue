@@ -1,6 +1,7 @@
 <template>
   <main>
     <h1>Hello Vue!</h1>
+    <button type="button" :disabled="!isWidgetReady" v-on:click="handleChangeGroup">Change group</button>
     <pre>Widget is ready: {{stringify(isWidgetReady)}}</pre>
     <pre>Widget state: {{stringify(widgetState)}}</pre>
     <pre>Customer data: {{stringify(customerData)}}</pre>
@@ -8,7 +9,7 @@
     <pre>Greeting: {{stringify(greeting)}}</pre>
     <LiveChatWidget
       license="12332502"
-      group="0"
+      :group="group"
       visibility="maximized"
 			customerName="John Doe"
 			customerEmail="joh.doe@example.com"
@@ -19,6 +20,7 @@
   </main>
 </template>
 <script lang="ts">
+import { ref } from 'vue'
 import {
   LiveChatWidget,
 	useWidgetState,
@@ -30,6 +32,7 @@ import {
 
 export default {
   setup() {
+    const group = ref<'0' | '1'>('0')
     const chatData = useWidgetChatData()
     const greeting = useWidgetGreeting()
     const widgetState = useWidgetState()
@@ -37,6 +40,7 @@ export default {
     const customerData = useWidgetCustomerData()
 
     return {
+      group,
       chatData,
       greeting,
       widgetState,
@@ -50,6 +54,9 @@ export default {
   methods: {
     stringify(value) {
       return JSON.stringify(value, null, 2)
+    },
+    handleChangeGroup() {
+      this.group = this.group === '0' ? '1' : '0'
     },
     handleNewEvent(event) {
       console.log('LiveChatWidget -> onNewEvent', this.stringify(event))

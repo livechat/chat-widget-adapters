@@ -6,10 +6,12 @@ declare const window: ExtendedWindow
 export function createJSApi(): void {
 	const { slice } = Array.prototype
 
+	/* istanbul ignore next */
 	function handle(args: any) {
 		// @ts-ignore
 		return api._h ? api._h.apply(null, args) : api._q.push(args)
 	}
+	/* istanbul ignore next */
 	const api = {
 		_q: [],
 		_h: null,
