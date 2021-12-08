@@ -55,7 +55,7 @@ describe('assignConfiguration', () => {
 	`)
 	})
 
-	it('should throw an error if license is missign', () => {
+	it('should throw an error if license is missing', () => {
 		expect(() => assignConfiguration({} as any)).toThrow()
 	})
 })
