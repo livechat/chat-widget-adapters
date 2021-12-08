@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/widget-core.cjs.js",
   "module": "dist/widget-core.esm.js",
+  "unpkg": "dist/widget-core.umd.js",
   "types": "dist/widget-core.d.ts",
   "keywords": [],
   "author": "",

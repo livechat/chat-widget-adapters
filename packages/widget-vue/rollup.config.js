@@ -26,6 +26,15 @@ export default defineConfig([
 				file: pkg.module,
 				format: 'esm',
 			},
+			{
+				file: pkg.unpkg,
+				format: 'umd',
+				name: 'LiveChatWidgetVue',
+				globals: {
+					vue: 'Vue',
+					'@livechat/widget-core': 'LiveChatWidgetCore',
+				},
+			},
 		],
 	},
 	{

@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/widget-vue.cjs.js",
   "module": "dist/widget-vue.esm.js",
+  "unpkg": "dist/widget-vue.umd.js",
   "types": "dist/widget-vue.d.ts",
   "keywords": [],
   "author": "",

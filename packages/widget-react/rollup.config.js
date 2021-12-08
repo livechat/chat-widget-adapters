@@ -26,6 +26,15 @@ export default defineConfig([
 				file: pkg.main,
 				format: 'cjs',
 			},
+			{
+				file: pkg.unpkg,
+				format: 'umd',
+				name: 'LiveChatWidgetReact',
+				globals: {
+					react: 'React',
+					'@livechat/widget-core': 'LiveChatWidgetCore',
+				},
+			},
 		],
 	},
 	{
