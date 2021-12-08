@@ -26,7 +26,7 @@ describe('getData', () => {
 		})
 	})
 
-	it('should return null for unsuported data type', () => {
+	it('should return null for unsupported data type', () => {
 		expect(getData(undefined as any)).toBeNull()
 	})
 })
