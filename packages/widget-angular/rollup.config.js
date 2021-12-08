@@ -12,7 +12,10 @@ export default defineConfig([
 		external: ['@angular/core', 'rxjs', '@livechat/widget-core'],
 		plugins: [
 			resolve(),
-			replace({ 'process.env.PACKAGE_NAME': JSON.stringify(pkg.name), preventAssignment: true }),
+			replace({
+				'process.env.PACKAGE_NAME': JSON.stringify(pkg.name),
+				preventAssignment: true,
+			}),
 			babel({ babelHelpers: 'bundled' }),
 		],
 		output: [

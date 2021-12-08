@@ -3,6 +3,7 @@ import { assignConfiguration } from './assign-configuration'
 import { assignEventHandlers } from './assign-event-handlers'
 import { assignCustomerData } from './assign-customere-data'
 import { assignVisibility } from './assign-visibility'
+import { lifecycleEmit } from './lifecycle'
 import type {
 	ExtendedWindow,
 	WidgetState,
@@ -64,9 +65,11 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 
 	return {
 		init: () => {
+			lifecycleEmit('init')
 			window.LiveChatWidget.init()
 		},
 		destroy: () => {
+			lifecycleEmit('destroy')
 			window.LiveChatWidget.call('destroy')
 		},
 		updateVisibility: (visibility) => {

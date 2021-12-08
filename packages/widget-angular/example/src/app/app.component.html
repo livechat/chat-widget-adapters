@@ -1,4 +1,20 @@
 <main>
-    <h1>Hello Angular!</h1>
-    <livechat-widget license="12332502" group="0"></livechat-widget>
+	<h1>Hello Angular!</h1>
+	<button type="button" [disabled]="!(widgetIsReady | async)" (click)="handleChangeGroup()">Change group</button>
+	<pre>Widget is ready: {{ stringify(widgetIsReady | async) }}</pre>
+	<pre>Widget state: {{ stringify(widgetState | async) }}</pre>
+	<pre>Customer data: {{ stringify(customerData | async) }}</pre>
+	<pre>Chat data: {{ stringify(chatData | async) }}</pre>
+	<pre>Greeting: {{ stringify(greeting | async) }}</pre>
+
+	<livechat-widget
+		license="12332502"
+		[group]="group"
+		visibility="maximized"
+		customerName="John Doe"
+		customerEmail="john.doe@example.com"
+		(onNewEvent)="handleNewEvent($event)"
+		(onFormSubmitted)="handleFormSubmitted($event)"
+		(onRatingSubmitted)="handleRatingSubmitted($event)"
+	></livechat-widget>
 </main>
