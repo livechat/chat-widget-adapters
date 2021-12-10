@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-react",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "dist/widget-react.cjs.js",
   "module": "dist/widget-react.esm.js",
