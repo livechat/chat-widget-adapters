@@ -10,7 +10,7 @@
     "test": "lerna run test",
     "prepare": "is-ci || husky install",
     "clean": "git clean -fdX",
-    "prepublish": "run-p lint test build",
+    "check": "run-p lint test build",
     "postinstall": "lerna bootstrap && prettier **/package*.json --write",
     "lint": "eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\""
   },

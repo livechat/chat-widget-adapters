@@ -22,7 +22,7 @@
     "postbuild": "rimraf dts"
   },
   "dependencies": {
-    "@livechat/widget-core": "1.0.0"
+    "@livechat/widget-core": "0.0.0"
   },
   "peerDependencies": {
     "vue": "3.2.22"

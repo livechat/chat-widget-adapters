@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "vue": "^3.2.16",
-    "@livechat/widget-vue": "1.0.0"
+    "@livechat/widget-vue": "0.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
