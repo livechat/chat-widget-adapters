@@ -1,6 +1,5 @@
 {
-  "name": "widget-react-example",
-  "version": "0.0.0",
+  "name": "react-example",
   "private": "true",
   "scripts": {
     "start": "vite"

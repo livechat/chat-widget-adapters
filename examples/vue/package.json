@@ -1,6 +1,5 @@
 {
-  "name": "widget-vue-example",
-  "version": "0.0.0",
+  "name": "vue-example",
   "private": "true",
   "scripts": {
     "start": "vite"
