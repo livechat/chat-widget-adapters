@@ -2,14 +2,15 @@
   "name": "chat-widget-adapters",
   "private": true,
   "engines": {
-    "node": "16.13"
+    "node": "16.x"
   },
   "scripts": {
     "build": "lerna run build",
     "start": "lerna run start",
     "test": "lerna run test",
-    "prepare": "husky install",
+    "prepare": "is-ci || husky install",
     "clean": "git clean -fdX",
+    "check": "run-p lint test build",
     "postinstall": "lerna bootstrap && prettier **/package*.json --write",
     "lint": "eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\""
   },
@@ -21,8 +22,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
+    "is-ci": "^3.0.1",
     "lerna": "^4.0.0",
     "lint-staged": "^12.0.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
     "typescript": "^4.5.2"
   }

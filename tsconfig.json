@@ -2,6 +2,9 @@
   "include": [
     "packages/**/*.js",
     "packages/**/*.ts",
-    "packages/**/*.tsx"
+    "packages/**/*.tsx",
+    "examples/**/*.js",
+    "examples/**/*.ts",
+    "examples/**/*.tsx"
   ]
 }

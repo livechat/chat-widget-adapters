@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-angular",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "dist/widget-angular.cjs.js",
   "module": "dist/widget-angular.esm.js",
@@ -8,6 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/livechat/chat-widget-adapters.git"
+  },
   "files": [
     "dist"
   ],
@@ -17,7 +21,7 @@
     "postbuild": "rimraf dts lib"
   },
   "dependencies": {
-    "@livechat/widget-core": "1.0.0"
+    "@livechat/widget-core": "0.0.0"
   },
   "peerDependencies": {
     "@angular/core": "13.0.3",

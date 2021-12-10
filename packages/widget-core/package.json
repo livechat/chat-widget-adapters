@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-core",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "dist/widget-core.cjs.js",
   "module": "dist/widget-core.esm.js",
@@ -9,6 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/livechat/chat-widget-adapters.git"
+  },
   "files": [
     "dist"
   ],
