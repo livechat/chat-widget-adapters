@@ -3,5 +3,13 @@
   "packages": [
     "packages/*",
     "examples/*"
-  ]
+  ],
+  "command": {
+    "version": {
+      "allowBranch": "master"
+    },
+    "publish": {
+      "verifyAccess": false
+    }
+  }
 }

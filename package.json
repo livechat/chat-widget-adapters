@@ -1,6 +1,6 @@
 {
-  "name": "chat-widget-adapters",
   "private": true,
+  "name": "chat-widget-adapters",
   "engines": {
     "node": "16.x"
   },
@@ -11,6 +11,7 @@
     "prepare": "is-ci || husky install",
     "clean": "git clean -fdX",
     "check": "run-p lint test build",
+    "lerna:publish": "is-ci && npm run check && lerna publish from-git --yes",
     "postinstall": "lerna bootstrap && prettier **/package*.json --write",
     "lint": "eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\""
   },
