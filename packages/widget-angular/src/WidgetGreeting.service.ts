@@ -1,15 +1,15 @@
 import { BehaviorSubject } from 'rxjs'
 import { Injectable, NgZone, OnDestroy } from '@angular/core'
 import { lcOnInit, lcOnDestroy, assignEventHandlers } from '@livechat/widget-core'
-import type { Event } from '@livechat/widget-core'
+import type { Greeting } from '@livechat/widget-core'
 
 @Injectable()
 export class WidgetGreetingService implements OnDestroy {
 	private onDestroy: VoidFunction
-	readonly subject = new BehaviorSubject<Event['greeting'] | null>(null)
+	readonly subject = new BehaviorSubject<Greeting | null>(null)
 
 	constructor(private zone: NgZone) {
-		const onGreetingDisplayed = (greeting: Event['greeting']) => this.setGreeting(greeting)
+		const onGreetingDisplayed = (greeting: Greeting) => this.setGreeting(greeting)
 		const onGreetingHidden = () => this.setGreeting(null)
 
 		const unsubscribeInit = lcOnInit(() => {
@@ -28,7 +28,7 @@ export class WidgetGreetingService implements OnDestroy {
 		}
 	}
 
-	setGreeting(greeting: Event['greeting'] | null) {
+	setGreeting(greeting: Greeting | null) {
 		this.zone.run(() => {
 			this.subject.next(greeting)
 		})

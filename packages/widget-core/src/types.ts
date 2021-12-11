@@ -65,23 +65,26 @@ export type ChatData = {
 	threadId: string
 }
 
-export type Event = {
+export type Greeting = {
+	id: number
+	uniqueId: string
+}
+
+export type ChatEvent = {
 	timestamp: number
 	type: 'message' | 'rich_message' | 'file'
 	author: {
 		id: string
 		type: 'customer' | 'agent'
 	}
-	greeting?: {
-		id: number
-		uniqueId: string
-	}
+	greeting?: Greeting
 }
 
 export type RichMessageButton = {
 	eventId: string
 	postbackId: string
-} & Pick<Event, 'greeting'>
+	greeting?: Greeting
+}
 
 export type WidgetState = {
 	availability: 'online' | 'offline'
@@ -93,11 +96,11 @@ export type EventHandlers = {
 	onAvailabilityChanged?: (data: Pick<WidgetState, 'availability'>) => void
 	onVisibilityChanged?: (data: Pick<WidgetState, 'visibility'>) => void
 	onCustomerStatusChanged?: (data: Pick<CustomerData, 'status'>) => void
-	onNewEvent?: (event: Event) => void
+	onNewEvent?: (event: ChatEvent) => void
 	onFormSubmitted?: (data: { type: 'prechat' | 'postchat' | 'ticket' }) => void
 	onRatingSubmitted?: (rating: 'good' | 'bad' | 'none') => void
-	onGreetingDisplayed?: (greeting: NonNullable<Event['greeting']>) => void
-	onGreetingHidden?: (greeting: NonNullable<Event['greeting']>) => void
+	onGreetingDisplayed?: (greeting: Greeting) => void
+	onGreetingHidden?: (greeting: Greeting) => void
 	onRichMessageButtonClicked?: (button: RichMessageButton) => void
 }
 
