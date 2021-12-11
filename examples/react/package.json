@@ -1,14 +1,14 @@
 {
   "name": "react-example",
   "private": "true",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "scripts": {
     "start": "vite"
   },
   "dependencies": {
+    "@livechat/widget-react": "^1.0.0-alpha.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "@livechat/widget-react": "0.0.0"
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
