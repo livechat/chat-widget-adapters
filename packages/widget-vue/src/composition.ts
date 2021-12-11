@@ -1,7 +1,7 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import type { Ref } from 'vue'
 import { lcOnInit, lcOnDestroy, assignEventHandlers, getData } from '@livechat/widget-core'
-import type { WidgetState, CustomerData, ChatData, Event } from '@livechat/widget-core'
+import type { WidgetState, CustomerData, ChatData, Greeting } from '@livechat/widget-core'
 
 export function useWidgetIsReady(): Ref<boolean> {
 	const isReady = ref(false)
@@ -119,12 +119,12 @@ export function useWidgetChatData(): Ref<ChatData | null> {
 	return chatData
 }
 
-export function useWidgetGreeting(): Ref<Event['greeting'] | null> {
-	const greeting = ref<Event['greeting'] | null>(null)
+export function useWidgetGreeting(): Ref<Greeting | null> {
+	const greeting = ref<Greeting | null>(null)
 	let unsubscribeInit: VoidFunction | null = null
 	let unsubscribeDestroy: VoidFunction | null = null
 
-	const onGreetingDisplayed = (greetingData: Event['greeting']) => {
+	const onGreetingDisplayed = (greetingData: Greeting) => {
 		greeting.value = greetingData
 	}
 	const onGreetingHidden = () => {

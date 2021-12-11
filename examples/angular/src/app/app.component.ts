@@ -5,8 +5,8 @@ import {
 	WidgetCustomerDataService,
 	WidgetChatDataService,
 	WidgetGreetingService,
+	EventHandlerPayload,
 } from '@livechat/widget-angular'
-import type { EventHandlerPayload } from '@livechat/widget-core'
 
 @Component({
 	selector: 'app-root',

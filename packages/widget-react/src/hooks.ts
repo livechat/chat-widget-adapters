@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { lcOnInit, lcOnDestroy, assignEventHandlers, getData } from '@livechat/widget-core'
-import type { WidgetState, CustomerData, Event, ChatData } from '@livechat/widget-core'
+import type { WidgetState, CustomerData, ChatData, Greeting } from '@livechat/widget-core'
 
 export function useWidgetIsReady(): boolean {
 	const [isReady, setIsReady] = React.useState(false)
@@ -103,11 +103,11 @@ export function useWidgetChatData(): ChatData | null {
 	return chatData
 }
 
-export function useWidgetGreeting(): Event['greeting'] | null {
-	const [greeting, setGreeting] = React.useState<Event['greeting'] | null>(null)
+export function useWidgetGreeting(): Greeting | null {
+	const [greeting, setGreeting] = React.useState<Greeting | null>(null)
 
 	React.useEffect(() => {
-		const onGreetingDisplayed = (greeting: Event['greeting']) => setGreeting(greeting)
+		const onGreetingDisplayed = (greeting: Greeting) => setGreeting(greeting)
 		const onGreetingHidden = () => setGreeting(null)
 
 		const unsubscribeInit = lcOnInit(() => {

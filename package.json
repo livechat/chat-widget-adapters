@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "chat-widget-adapters",
+  "license": "MIT",
   "engines": {
     "node": "16.x"
   },
