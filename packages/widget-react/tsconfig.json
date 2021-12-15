@@ -1,13 +1,20 @@
 {
-  "files": [
-    "src/index.ts"
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
   ],
   "compilerOptions": {
     "jsx": "react",
     "strict": true,
     "declaration": true,
-    "declarationDir": "dts",
     "emitDeclarationOnly": true,
+    "declarationDir": "dist",
+    "target": "ESNext",
+    "moduleResolution": "node",
     "paths": {
       "@livechat/widget-core": [
         "../widget-core"

@@ -6,14 +6,13 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "lerna run build",
-    "start": "lerna run start",
     "test": "lerna run test",
-    "prepare": "is-ci || husky install",
     "clean": "git clean -fdX",
-    "check": "run-p lint test build",
-    "lerna:publish": "is-ci && npm run check && lerna publish from-git --yes",
-    "postinstall": "lerna bootstrap && prettier **/package*.json --write",
+    "build": "node ./scripts/build.js",
+    "publish": "node ./scripts/publish.js",
+    "postinstall": "node ./scripts/bootstrap.js",
+    "watch:packages": "node ./scripts/watch.js packages",
+    "watch:examples": "node ./scripts/watch.js examples",
     "lint": "eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\""
   },
   "devDependencies": {

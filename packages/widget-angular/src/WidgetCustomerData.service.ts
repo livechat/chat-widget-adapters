@@ -22,12 +22,9 @@ export class WidgetCustomerDataService implements OnDestroy {
 		})
 
 		this.onDestroy = () => {
-			try {
-				assignEventHandlers('off', { onReady, onCustomerStatusChanged })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}
 

@@ -3,4 +3,5 @@ dist
 build
 lib
 dts
+scripts
 *.vue

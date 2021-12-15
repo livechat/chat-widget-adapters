@@ -16,9 +16,10 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "rimraf dts dist lib",
-    "build": "ngc && rollup -c",
-    "postbuild": "rimraf dts lib"
+    "build": "rimraf lib dist && ngc && rollup -c",
+    "watch:ngc": "ngc --watch",
+    "watch:rollup": "rollup -c --watch",
+    "start": "ngc && run-p watch:*"
   },
   "dependencies": {
     "@livechat/widget-core": "^1.0.0-alpha.0"

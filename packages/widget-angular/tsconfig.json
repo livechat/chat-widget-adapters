@@ -6,10 +6,9 @@
     "moduleResolution": "node",
     "strict": true,
     "target": "ESNext",
-    "outDir": "lib",
     "experimentalDecorators": true,
+    "outDir": "lib",
     "declaration": true,
-    "declarationDir": "dts",
     "paths": {
       "@livechat/widget-core": [
         "../widget-core"
