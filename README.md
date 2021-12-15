@@ -1,4 +1,4 @@
-# <img src="https://livechat.design/images/livechat/DIGITAL%20%28RGB%29/SVG/Mark_RGB_Orange.svg" widht="20px" height="20px" /> LiveChat Chat Widget Adapters
+# <img src="https://livechat.design/images/livechat/DIGITAL%20%28RGB%29/SVG/Mark_RGB_Orange.svg" widht="24px" height="24px" /> LiveChat Chat Widget Adapters
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
 [![Publish packages](https://github.com/livechat/chat-widget-adapters/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/livechat/chat-widget-adapters/actions/workflows/publish.yml)
@@ -14,14 +14,12 @@ This project contains set of libraries for adapting [LiveChat Chat Widget](https
 
 ## 📦 Installation
 
-Use the package manager [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/) or [pnpm](https://pnpm.io/) to install choosen package in your project.
+Use the package manager [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install choosen package in your project.
 
 ```bash
 npm install @livechat/widget-*
 # or
 yarn add @livechat/widget-*
-# or
-pnpm add @livechat/widget-*
 ```
 
 ## 🚀 Usage
@@ -85,7 +83,9 @@ export class AppModule {}
 
 - Build libraries using `npm run build` at the top level or inside single package
 
-- Start example apps showcasing usage of componenets for each framework using `npm start`
+- Start watch mode for all adapters packages running `npm run watch:packages`
+
+- Start example apps showcasing usage of componenets for each framework using `npm run watch:examples`
 
 ### Testing
 
@@ -115,7 +115,7 @@ The core package located contains a suite of unit tests with **100% coverage**. 
 
 ### Versioning
 
-This project uses [lerna](https://lerna.js.org/) to manage versions and publishing. It uses synced versions so each package has the same version at the time. You don't need and shouldn't manullay update touched packages versions. Changes will be introduced as soon as the next release will be rolled out. The new version will be committed just before that.
+This project uses [lerna](https://lerna.js.org/) to manage versions and publishing. It uses locked versioning so each package has the same version at the time. You don't need and shouldn't manullay update touched packages versions. Changes will be published as soon as the next release will be rolled out. In order to properly update all packages to a new version checkout to `master` branch and run `npx lerna version`. It will ask about update type and if accepted update all packages and push tagged commit with changes in `package*.json` files.
 
 ### Comitting
 
@@ -123,21 +123,25 @@ The project is setup with a code quality tools like `prettier` and `eslint`. The
 
 ### Opening a Pull Request
 
-This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build` and `test` scripts. Checks must pass in order to unlock merging. Remember that you can always run `check` script locally to quickly verify if your changes does not introdcue any linting, build or test related erros.
+This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build` and `test` scripts. Checks must pass in order to unlock merging.
 
 ### File structure
 
 ```
 project
+|
 └─── packages
 |    └─── widget-core      // source of @livechat/widget-core
 |    └─── widget-vue       // source of @livechat/widget-vue
 |    └─── widget-react     // source of @livechat/widget-react
 |    └─── widget-angular   // source of @livechat/widget-angular
+|
 └─── examples
-     └─── vue              // example Vue app
-     └─── react            // example React app
-     └─── angular          // example Angular app
+|    └─── vue              // example Vue app
+|    └─── react            // example React app
+|    └─── angular          // example Angular app
+|
+└─── scripts               // CLI commands used in root npm scripts
 ```
 
 ## 📃 License
