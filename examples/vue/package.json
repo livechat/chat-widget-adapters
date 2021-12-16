@@ -1,12 +1,12 @@
 {
   "name": "vue-example",
   "private": "true",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "scripts": {
     "start": "vite"
   },
   "dependencies": {
-    "@livechat/widget-vue": "^1.0.0-alpha.0",
+    "@livechat/widget-vue": "^1.0.0-alpha.1",
     "vue": "^3.2.16"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-react",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/widget-react.cjs.js",
   "module": "dist/widget-react.esm.js",
@@ -21,7 +21,7 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
-    "@livechat/widget-core": "^1.0.0-alpha.0"
+    "@livechat/widget-core": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
     "react": "17.0.2"

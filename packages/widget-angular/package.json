@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-angular",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/widget-angular.cjs.js",
   "module": "dist/widget-angular.esm.js",
@@ -22,7 +22,7 @@
     "start": "ngc && run-p watch:*"
   },
   "dependencies": {
-    "@livechat/widget-core": "^1.0.0-alpha.0"
+    "@livechat/widget-core": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
     "@angular/core": "13.0.3",
