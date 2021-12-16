@@ -58,9 +58,16 @@ describe('assignEventHandlers', () => {
 	})
 
 	it('should not register any handlers for empty data object', () => {
+		createJSApi()
 		const spy = jest.spyOn(window.LiveChatWidget, 'on')
+
 		assignEventHandlers('on', {})
 
 		expect(spy).not.toBeCalled()
+	})
+
+	it('should do nothing if unregistering with not existing global object', () => {
+		window.LiveChatWidget = undefined as any
+		expect(() => assignEventHandlers('off', { onReady: () => {} })).not.toThrow()
 	})
 })

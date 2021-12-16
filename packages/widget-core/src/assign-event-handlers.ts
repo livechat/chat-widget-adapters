@@ -3,6 +3,9 @@ import type { ExtendedWindow, EventHandlers } from './types'
 declare const window: ExtendedWindow
 
 export function assignEventHandlers(method: 'on' | 'off' | 'once', eventHandlers: EventHandlers): void {
+	if (method === 'off' && typeof window.LiveChatWidget === 'undefined') {
+		return
+	}
 	if (typeof eventHandlers.onReady === 'function') {
 		window.LiveChatWidget[method]('ready', eventHandlers.onReady)
 	}

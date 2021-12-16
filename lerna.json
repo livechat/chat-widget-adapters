@@ -10,6 +10,9 @@
     },
     "publish": {
       "verifyAccess": false
+    },
+    "run": {
+      "stream": true
     }
   }
 }

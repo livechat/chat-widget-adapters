@@ -21,12 +21,9 @@ export function useWidgetIsReady(): Ref<boolean> {
 		})
 	})
 	onUnmounted(() => {
-		try {
-			assignEventHandlers('off', { onReady })
-		} finally {
-			unsubscribeInit?.()
-			unsubscribeDestroy?.()
-		}
+		assignEventHandlers('off', { onReady })
+		unsubscribeInit?.()
+		unsubscribeDestroy?.()
 	})
 
 	return isReady
@@ -57,12 +54,9 @@ export function useWidgetState(): Ref<WidgetState | null> {
 		})
 	})
 	onUnmounted(() => {
-		try {
-			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
-		} finally {
-			unsubscribeInit?.()
-			unsubscribeDestroy?.()
-		}
+		assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+		unsubscribeInit?.()
+		unsubscribeDestroy?.()
 	})
 
 	return widgetState
@@ -90,12 +84,9 @@ export function useWidgetCustomerData(): Ref<CustomerData | null> {
 		})
 	})
 	onUnmounted(() => {
-		try {
-			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
-		} finally {
-			unsubscribeInit?.()
-			unsubscribeDestroy?.()
-		}
+		assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+		unsubscribeInit?.()
+		unsubscribeDestroy?.()
 	})
 
 	return customerData
@@ -140,12 +131,9 @@ export function useWidgetGreeting(): Ref<Greeting | null> {
 		})
 	})
 	onUnmounted(() => {
-		try {
-			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
-		} finally {
-			unsubscribeInit?.()
-			unsubscribeDestroy?.()
-		}
+		assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+		unsubscribeInit?.()
+		unsubscribeDestroy?.()
 	})
 
 	return greeting

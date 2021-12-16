@@ -14,12 +14,9 @@ export function useWidgetIsReady(): boolean {
 			setIsReady(false)
 		})
 		return () => {
-			try {
-				assignEventHandlers('off', { onReady })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onReady })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}, [])
 
@@ -47,12 +44,9 @@ export function useWidgetState(): WidgetState | null {
 		})
 
 		return () => {
-			try {
-				assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}, [])
 
@@ -75,12 +69,9 @@ export function useWidgetCustomerData(): CustomerData | null {
 		})
 
 		return () => {
-			try {
-				assignEventHandlers('off', { onReady, onCustomerStatusChanged })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}, [])
 
@@ -118,12 +109,9 @@ export function useWidgetGreeting(): Greeting | null {
 		})
 
 		return () => {
-			try {
-				assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}, [])
 

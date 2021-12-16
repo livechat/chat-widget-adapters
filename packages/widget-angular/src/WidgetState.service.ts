@@ -29,12 +29,9 @@ export class WidgetStateService implements OnDestroy {
 		})
 
 		this.onDestroy = () => {
-			try {
-				assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}
 

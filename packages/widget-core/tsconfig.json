@@ -3,14 +3,15 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "dts",
     "dist",
     "node_modules"
   ],
   "compilerOptions": {
     "strict": true,
     "declaration": true,
-    "declarationDir": "dts",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist",
+    "target": "ESNext",
+    "moduleResolution": "node"
   }
 }

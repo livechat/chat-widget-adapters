@@ -19,12 +19,9 @@ export class WidgetGreetingService implements OnDestroy {
 			setTimeout(() => this.setGreeting(null), 0)
 		})
 		this.onDestroy = () => {
-			try {
-				assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
-			} finally {
-				unsubscribeInit()
-				unsubscribeDestroy()
-			}
+			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
+			unsubscribeInit()
+			unsubscribeDestroy()
 		}
 	}
 
