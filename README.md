@@ -83,9 +83,11 @@ export class AppModule {}
 
 - Build libraries using `npm run build` at the top level or inside single package
 
-- Start watch mode for all adapters packages running `npm run watch:packages`
+- Start watch mode for all adapters packages running `npm start packages`
 
-- Start example apps showcasing usage of componenets for each framework using `npm run watch:examples`
+- Start example apps showcasing usage of componenets for each framework using `npm start examples`
+
+- Start watch mode for given adapter with its example app running `npm start vue/react/angular`
 
 ### Testing
 

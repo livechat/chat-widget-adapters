@@ -28,6 +28,6 @@
     "@types/jest": "27.0.3",
     "eslint-plugin-jest": "25.3.0",
     "jest": "27.4.3",
-    "ts-node": "10.4.0"
+    "@swc/jest": "0.2.15"
   }
 }
