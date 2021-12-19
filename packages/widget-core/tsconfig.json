@@ -12,6 +12,8 @@
     "emitDeclarationOnly": true,
     "declarationDir": "dist",
     "target": "ESNext",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error"
   }
 }
