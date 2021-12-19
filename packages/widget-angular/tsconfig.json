@@ -9,6 +9,8 @@
     "experimentalDecorators": true,
     "outDir": "lib",
     "declaration": true,
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error",
     "paths": {
       "@livechat/widget-core": [
         "../widget-core"
