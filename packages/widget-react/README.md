@@ -28,11 +28,15 @@ yarn add @livechat/widget-react
 import { LiveChatWidget } from '@livechat/widget-react'
 
 function App() {
+  function handleNewEvent(event) {
+    console.log('LiveChatWidget.onNewEvent', event)
+  }
+
   return (
     <LiveChatWidget
       license="12345678"
       visibility="maximized"
-      onNewEvent={(event) => console.log('LiveChatWidget.onNewEvent', event)}
+      onNewEvent={handleNewEvent}
     />
   )
 }
@@ -74,7 +78,7 @@ All event handlers listed below are registered when provided first time and late
 
 ### Hooks
 
-This package exports set of React Hooks that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
 
 #### useWidgetState
 
@@ -86,17 +90,14 @@ import { useWidgetState } from '@livechat/widget-react'
 function App() {
   const widgetState = useWidgetState()
 
-  if (!widgetState) {
-    // widget is not loaded yet
-    return null
+  if (widgetState) {
+    return (
+      <div>
+        <span>{widgetState.availability}</span>
+        <span>{widgetState.visibility}</span>
+      </div>
+    )
   }
-
-  return (
-    <div>
-      <span>{widgetState.availability}</span>
-      <span>{widgetState.visibility}</span>
-    </div>
-  )
 }
 ```
 
@@ -124,17 +125,14 @@ import { useWidgetChatData } from '@livechat/widget-react'
 function App() {
   const chatData = useWidgetChatData()
 
-  if (!chatData) {
-    // there is no ongoing chat
-    return null
+  if (chatData) {
+    return (
+      <div>
+        <span>{chatData.chatId}</span>
+        <span>{chatData.threadId}</span>
+      </div>
+    )
   }
-
-  return (
-    <div>
-      <span>{chatData.chatId}</span>
-      <span>{chatData.threadId}</span>
-    </div>
-  )
 }
 ```
 
@@ -147,23 +145,15 @@ import { useWidgetGreeting } from '@livechat/widget-react'
 
 function App() {
   const greeting = useWidgetGreeting()
-  return null
-}
 
-function App() {
-  const greeting = useWidgetGreeting()
-
-  if (!greeting) {
-    // there is no greeting in the chat or it was hidden
-    return null
+  if (greeting) {
+    return (
+      <div>
+        <span>{greeting.id}</span>
+        <span>{greeting.uniqueId}</span>
+      </div>
+    )
   }
-
-  return (
-    <div>
-      <span>{greeting.id}</span>
-      <span>{greeting.uniqueId}</span>
-    </div>
-  )
 }
 ```
 
@@ -177,21 +167,20 @@ import { useWidgetCustomerData } from '@livechat/widget-react'
 function App() {
   const customerData = useWidgetCustomerData()
 
-  if (!customerData) {
-    // widget is not loaded yet
-    return null
+  if (customerData) {
+    return (
+      <div>
+        <span>{customerData.id}</span>
+        <span>{customerData.isReturning}</span>
+        <span>{customerData.status}</span>
+        <ul>
+          {Object.entries(customerData.sessionVariables).map(([key, value]) => (
+            <li key={key}>{value}</li>
+          ))}
+        </ul>
+      </div>
+    )
   }
-
-  return (
-    <div>
-      <span>{customerData.id}</span>
-      <span>{customerData.isReturning}</span>
-      <span>{customerData.status}</span>
-      {Object.keys(customerData.sessionVariables).map((key) => {
-        return <span key={key}>{customerData.sessionVariables[key]}</span>
-      })}
-    </div>
-  )
 }
 ```
 

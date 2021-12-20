@@ -1,30 +1,178 @@
-# <img src="https://livechat.design/images/livechat/DIGITAL%20%28RGB%29/SVG/Mark_RGB_Orange.svg" widht="24px" height="24px" /> LiveChat Chat Widget Vue Adapter
+# @livechat/widget-vue
 
-Foobar is a Python library for dealing with word pluralization.
+> This library allows to render and interact with [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside [Vue 3](https://v3.vuejs.org/) application.
+
+![](https://img.shields.io/badge/license-MIT-blue.svg)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Check](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml/badge.svg?branch=master)](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml)
 
 ## Installation
 
-Use the package manager [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install choosen package in your project.
+Using npm:
 
 ```bash
 npm install @livechat/widget-vue
-# or
+```
+
+or using yarn:
+
+```bash
 yarn add @livechat/widget-vue
 ```
 
 ## Usage
 
-```python
-import foobar
+### Render
 
-# returns 'words'
-foobar.pluralize('word')
+```html
+<script setup>
+  import { LiveChatWidget } from '@livechat/widget-vue'
 
-# returns 'geese'
-foobar.pluralize('goose')
+  function handleNewEvent(event) {
+    console.log('LiveChatWidget.onNewEvent', event)
+  }
+</script>
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+<template>
+  <LiveChatWidget
+    license="12345678"
+    visibility="maximized"
+    v-on:new-event="handleNewEvent"
+  />
+</template>
+```
+
+### Props
+
+#### Config data
+
+All properties described below are used for initialization on first render and later updates chat widget with new values on change.
+
+| Prop              | Type                                   |
+| ----------------- | -------------------------------------- |
+| license           | string (required)                      |
+| group             | string                                 |
+| visibility        | string                                 |
+| customerName      | string                                 |
+| customerEmail     | string                                 |
+| customerEmail     | string                                 |
+| customerEmail     | string                                 |
+| chatBetweenGroups | boolean                                |
+| sessionVariables  | Record<string, string>                 |
+| visibility        | 'maximized' \| 'minimized' \| 'hidden' |
+
+#### Event handlers
+
+All event handlers listed below are registered when provided first time and later unregistered on componenet cleanup or property value change. Each event description is available after clicking an asociated link.
+
+- [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
+- [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
+- [onVisibilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-visibility-changed)
+- [onCustomerStatusChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-customer-status-changed)
+- [onNewEvent](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-new-event)
+- [onFormSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-form-submitted)
+- [onRatingSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rating-submitted)
+- [onGreetingDisplayed](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-displayed)
+- [onGreetingHidden](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-hidden)
+- [onRichMessageButtonClicked](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rich-message-button-clicked)
+
+### Composition API
+
+This package exports set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+
+#### useWidgetState
+
+Access current chat widget `availability` or `visibility` state if the chat widget is loaded.
+
+```html
+<script setup>
+  import { useWidgetState } from '@livechat/widget-vue'
+  const widgetState = useWidgetState()
+</script>
+
+<template>
+  <div v-if="widgetState">
+    <span>{{widgetState.availability}}</span>
+    <span>{{widgetState.visibility}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetIsReady
+
+Check if chat widget is ready using simple boolean flag `isWidgetReady`.
+
+```html
+<script setup>
+  import { useWidgetIsReady } from '@livechat/widget-vue'
+  const isWidgetReady = useWidgetIsReady()
+</script>
+
+<template>
+  <div>
+    <span>Chat Widget is</span>
+    <span v-if="isWidgetReady">loaded</span>
+    <span v-else>loading...</span>
+  </div>
+</template>
+```
+
+#### useWidgetChatData
+
+Access ongoing chat `chatId` and `threadId` if there is currently one available.
+
+```html
+<script setup>
+  import { useWidgetChatData } from '@livechat/widget-vue'
+  const chatData = useWidgetChatData()
+</script>
+
+<template>
+  <div v-if="chatData">
+    <span>{{chatData.chatId}}</span>
+    <span>{{chatData.threadId}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetGreeting
+
+Access current greeting `id` and `uniqueId` if there is currently one disaplyed (received and not hidden).
+
+```html
+<script setup>
+  import { useWidgetGreeting } from '@livechat/widget-vue'
+  const greeting = useWidgetGreeting()
+</script>
+
+<template>
+  <div v-if="greeting">
+    <span>{{greeting.id}}</span>
+    <span>{{greeting.uniqueId}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetCustomerData
+
+Access current customer `id`, `isReturning`, `status` and `sessionVariables` data if the chat widget is loaded.
+
+```html
+<script setup>
+  import { useWidgetCustomerData } from '@livechat/widget-vue'
+  const customerData = useWidgetCustomerData()
+</script>
+
+<template>
+  <div v-if="customerData">
+    <span>{{customerData.id}}</span>
+    <span>{{customerData.isReturning}}</span>
+    <span>{{customerData.status}}</span>
+    <ul>
+      <li v-for="variable in customerData.sessionVariables">{{variable}}</li>
+    </ul>
+  </div>
+</template>
 ```
 
 ## Contributing
