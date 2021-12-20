@@ -24,11 +24,11 @@ yarn add @livechat/widget-react
 
 ### Render
 
-```js
-import { LiveChatWidget } from '@livechat/widget-react'
+```ts
+import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
 
 function App() {
-  function handleNewEvent(event) {
+  function handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
     console.log('LiveChatWidget.onNewEvent', event)
   }
 
@@ -146,7 +146,7 @@ import { useWidgetGreeting } from '@livechat/widget-react'
 function App() {
   const greeting = useWidgetGreeting()
 
-  if (greeting) {
+  if (greeting) Ž
     return (
       <div>
         <span>{greeting.id}</span>

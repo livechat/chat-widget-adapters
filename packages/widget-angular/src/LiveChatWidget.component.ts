@@ -76,7 +76,10 @@ export class LiveChatWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			visibility: this.visibility,
 			customerName: this.customerName,
 			customerEmail: this.customerEmail,
-			sessionVariables: this.sessionVariables,
+			sessionVariables: {
+				foo: 'bar',
+				bar: 'baz',
+			},
 			chatBetweenGroups: this.chatBetweenGroups,
 			onReady: (data) => this.onReady.emit(data),
 			onNewEvent: (event) => this.onNewEvent.emit(event),

@@ -1,10 +1,10 @@
+export * from './WidgetIsReady.service'
+export * from './WidgetState.service'
+export * from './WidgetCustomerData.service'
+export * from './WidgetChatData.service'
+export * from './WidgetGreeting.service'
 export { LiveChatWidgetModule } from './LiveChatWidget.module'
 export { LiveChatWidgetComponent } from './LiveChatWidget.component'
-export { WidgetIsReadyService } from './WidgetIsReady.service'
-export { WidgetStateService } from './WidgetState.service'
-export { WidgetCustomerDataService } from './WidgetCustomerData.service'
-export { WidgetChatDataService } from './WidgetChatData.service'
-export { WidgetGreetingService } from './WidgetGreeting.service'
 
 export type {
 	ChatEvent,

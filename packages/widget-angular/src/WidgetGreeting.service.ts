@@ -3,6 +3,8 @@ import { Injectable, NgZone, OnDestroy } from '@angular/core'
 import { lcOnInit, lcOnDestroy, assignEventHandlers } from '@livechat/widget-core'
 import type { Greeting } from '@livechat/widget-core'
 
+export type WidgetGreetingSubject = typeof WidgetGreetingService.prototype.subject
+
 @Injectable()
 export class WidgetGreetingService implements OnDestroy {
 	private onDestroy: VoidFunction
@@ -19,6 +21,7 @@ export class WidgetGreetingService implements OnDestroy {
 			setTimeout(() => this.setGreeting(null), 0)
 		})
 		this.onDestroy = () => {
+			this.subject.complete()
 			assignEventHandlers('off', { onGreetingDisplayed, onGreetingHidden })
 			unsubscribeInit()
 			unsubscribeDestroy()

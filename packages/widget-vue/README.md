@@ -25,10 +25,10 @@ yarn add @livechat/widget-vue
 ### Render
 
 ```html
-<script setup>
-  import { LiveChatWidget } from '@livechat/widget-vue'
+<script lang="ts" setup>
+  import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-vue'
 
-  function handleNewEvent(event) {
+  function handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
     console.log('LiveChatWidget.onNewEvent', event)
   }
 </script>
