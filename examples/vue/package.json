@@ -1,13 +1,13 @@
 {
   "name": "vue-example",
   "private": "true",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "scripts": {
     "start": "vite",
     "start:umd": "serve"
   },
   "dependencies": {
-    "@livechat/widget-vue": "^1.0.0-alpha.2",
+    "@livechat/widget-vue": "^1.0.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {
