@@ -1,12 +1,14 @@
 {
   "name": "@livechat/widget-angular",
   "version": "1.0.0-alpha.1",
-  "description": "",
+  "description": "This library allows to render and interact with the LiveChat Chat Widget inside an Angular application",
   "main": "dist/widget-angular.cjs.js",
   "module": "dist/widget-angular.esm.js",
   "types": "dist/widget-angular.d.ts",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "livechat",
+    "angular"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

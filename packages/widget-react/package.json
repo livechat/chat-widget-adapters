@@ -1,13 +1,15 @@
 {
   "name": "@livechat/widget-react",
   "version": "1.0.0-alpha.1",
-  "description": "",
+  "description": "This library allows to render and interact with the LiveChat Chat Widget inside a React application",
   "main": "dist/widget-react.cjs.js",
   "module": "dist/widget-react.esm.js",
   "unpkg": "dist/widget-react.umd.js",
   "types": "dist/widget-react.d.ts",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "livechat",
+    "react"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

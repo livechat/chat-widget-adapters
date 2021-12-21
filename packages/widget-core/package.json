@@ -1,13 +1,14 @@
 {
   "name": "@livechat/widget-core",
   "version": "1.0.0-alpha.1",
-  "description": "",
+  "description": "LiveChat Chat Widget adapters implementation core",
   "main": "dist/widget-core.cjs.js",
   "module": "dist/widget-core.esm.js",
   "unpkg": "dist/widget-core.umd.js",
   "types": "dist/widget-core.d.ts",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "livechat"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
