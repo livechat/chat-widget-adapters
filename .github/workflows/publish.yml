@@ -15,9 +15,8 @@ jobs:
           node-version: '16.x'
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
-          scope: '@livechat'
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
