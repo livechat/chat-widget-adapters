@@ -30,6 +30,10 @@ switch (target) {
 		cmd(`lerna run start --parallel --scope '{@livechat/widget-${target},${target}-example}'`)
 		return
 
+	case 'umd':
+		ensureCorePackageIsBuilt()
+		cmd('lerna run start:umd --parallel --scope *-example')
+
 	default:
 		console.error("Unsuported target '%s' provided", target)
 		process.exit(1)
