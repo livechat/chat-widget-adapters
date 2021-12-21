@@ -1,6 +1,6 @@
 # @livechat/widget-react
 
-> This library allows to render and interact with [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside [React](https://reactjs.org/) application.
+> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside a [React](https://reactjs.org/) application.
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
@@ -46,7 +46,7 @@ function App() {
 
 #### Config data
 
-All properties described below are used for initialization on the first render and later update chat widget with new values on change.
+All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
 | Prop              | Type                                   |
 | ----------------- | -------------------------------------- |
@@ -63,7 +63,7 @@ All properties described below are used for initialization on the first render a
 
 #### Event handlers
 
-All event handlers listed below are registered provided for the first time. They unregister on component cleanup or property value change. Each event description is available after clicking an associated link.
+All event handlers listed below are registered if provided for the first time. They unregister on the component cleanup or the property value change. Descriptions of all events are available after clicking on the associated links.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -78,11 +78,11 @@ All event handlers listed below are registered provided for the first time. They
 
 ### Hooks
 
-This package exports a set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows consuming reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
 
 #### useWidgetState
 
-Access current chat widget `availability` or `visibility` state if the chat widget is loaded.
+Access the current chat widget `availability` or `visibility` state if the chat widget is loaded.
 
 ```js
 import { useWidgetState } from '@livechat/widget-react'
@@ -103,7 +103,7 @@ function App() {
 
 #### useWidgetIsReady
 
-Check if chat widget is ready using the boolean flag `isWidgetReady`.
+Check if the chat widget is ready using the boolean flag `isWidgetReady`.
 
 ```js
 import { useWidgetIsReady } from '@livechat/widget-react'
@@ -117,7 +117,7 @@ function App() {
 
 #### useWidgetChatData
 
-Access the `chatId` and `threadId` of the chat, if there is currently one available.
+Access the `chatId` and `threadId` of the chat if there's one currently available.
 
 ```js
 import { useWidgetChatData } from '@livechat/widget-react'
@@ -138,7 +138,7 @@ function App() {
 
 #### useWidgetGreeting
 
-Access current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
+Access the current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
 
 ```js
 import { useWidgetGreeting } from '@livechat/widget-react'
@@ -159,7 +159,7 @@ function App() {
 
 #### useWidgetCustomerData
 
-Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer, if the chat widget is loaded.
+Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer if the chat widget is loaded.
 
 ```js
 import { useWidgetCustomerData } from '@livechat/widget-react'
@@ -186,7 +186,7 @@ function App() {
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more detials.
+Pull requests are welcome. For major changes, please open an issue first so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more details.
 
 ## License
 

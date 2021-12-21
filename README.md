@@ -1,6 +1,6 @@
 # <img src="https://livechat.design/images/livechat/DIGITAL%20%28RGB%29/SVG/Mark_RGB_Orange.svg" widht="24px" height="24px" /> LiveChat Chat Widget Adapters
 
-> This project contains set of libraries for adapting [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) with certain frontend framework.
+> This project contains a set of libraries for adapting the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) with certain frontend frameworks.
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
