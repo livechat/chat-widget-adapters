@@ -22,7 +22,7 @@ yarn add @livechat/widget-core
 
 ## Usage
 
-See one of listed below packages for usage reference
+See one of the listed below packages for usage reference
 
 - [@livechat/widget-react](https://www.npmjs.com/package/@livechat/widget-react)
 - [@livechat/widget-vue](https://www.npmjs.com/package/@livechat/widget-vue)

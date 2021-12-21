@@ -54,7 +54,7 @@ export class AppComponent {
 
 #### Config data
 
-All properties described below are used for initialization on first render and later updates chat widget with new values on change.
+All properties described below are used for initialization on the first render and later update chat widget with new values on change.
 
 | Prop              | Type                                   |
 | ----------------- | -------------------------------------- |
@@ -71,7 +71,7 @@ All properties described below are used for initialization on first render and l
 
 #### Event handlers
 
-All event handlers listed below are registered when provided first time and later unregistered on componenet cleanup or property value change. Each event description is available after clicking an asociated link.
+All event handlers listed below are registered when provided first time and later unregistered on component cleanup or property value change. Each event description is available after clicking an associated link.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -86,7 +86,7 @@ All event handlers listed below are registered when provided first time and late
 
 ### Services
 
-The `LiveChatWidgetModule`, exported from this package, registers set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+The `LiveChatWidgetModule`, exported from this package, registers a set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance. It allows consuming reactive data from chat widget in any place of the application, as long as the `LiveChatWidget` component is rendered in the tree.
 
 #### WidgetStateService
 
@@ -131,7 +131,7 @@ export class AppComponent implements OnInit {
 
 #### WidgetIsReadyService
 
-Check if chat widget is ready using simple boolean flag `isWidgetReady`.
+Check if chat widget is ready using the boolean flag `isWidgetReady`.
 
 ```ts
 // app.component.ts
@@ -169,7 +169,7 @@ export class AppComponent implements OnInit {
 
 #### WidgetChatDataService
 
-Access ongoing chat `chatId` and `threadId` if there is currently one available.
+Access the `chatId` and `threadId` of the chat, if there is currently one available.
 
 ```ts
 // app.component.ts
@@ -210,7 +210,7 @@ export class AppComponent implements OnInit {
 
 #### WidgetGreetingService
 
-Access current greeting `id` and `uniqueId` if there is currently one disaplyed (received and not hidden).
+Access the `id` and `uniqueId` of the current greeting, if there is currently one displayed (received and not hidden).
 
 ```ts
 // app.component.ts
@@ -251,7 +251,7 @@ export class AppComponent implements OnInit {
 
 #### WidgetCustomerDataService
 
-Access current customer `id`, `isReturning`, `status` and `sessionVariables` data if the chat widget is loaded.
+Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer, if the chat widget is loaded.
 
 ```ts
 // app.component.ts
@@ -298,7 +298,7 @@ export class AppComponent implements OnInit {
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more detials.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more details.
 
 ## License
 

@@ -46,7 +46,7 @@ function App() {
 
 #### Config data
 
-All properties described below are used for initialization on first render and later updates chat widget with new values on change.
+All properties described below are used for initialization on the first render and later update chat widget with new values on change.
 
 | Prop              | Type                                   |
 | ----------------- | -------------------------------------- |
@@ -63,7 +63,7 @@ All properties described below are used for initialization on first render and l
 
 #### Event handlers
 
-All event handlers listed below are registered when provided first time and later unregistered on componenet cleanup or property value change. Each event description is available after clicking an asociated link.
+All event handlers listed below are registered when provided first time and later unregistered on component cleanup or property value change. Each event description is available after clicking an associated link.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -78,7 +78,7 @@ All event handlers listed below are registered when provided first time and late
 
 ### Hooks
 
-This package exports set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows consuming reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
 
 #### useWidgetState
 
@@ -103,7 +103,7 @@ function App() {
 
 #### useWidgetIsReady
 
-Check if chat widget is ready using simple boolean flag `isWidgetReady`.
+Check if chat widget is ready using the boolean flag `isWidgetReady`.
 
 ```js
 import { useWidgetIsReady } from '@livechat/widget-react'

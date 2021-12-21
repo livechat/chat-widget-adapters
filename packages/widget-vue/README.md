@@ -63,7 +63,7 @@ All properties described below are used for initialization on first render and l
 
 #### Event handlers
 
-All event handlers listed below are registered when provided first time and later unregistered on componenet cleanup or property value change. Each event description is available after clicking an asociated link.
+All event handlers listed below are registered when provided first time and later unregistered on component cleanup or property value change. Each event description is available after clicking an associated link.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -78,7 +78,7 @@ All event handlers listed below are registered when provided first time and late
 
 ### Composition API
 
-This package exports set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allows to consume reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
 
 #### useWidgetState
 
@@ -119,7 +119,7 @@ Check if chat widget is ready using simple boolean flag `isWidgetReady`.
 
 #### useWidgetChatData
 
-Access ongoing chat `chatId` and `threadId` if there is currently one available.
+Access the `chatId` and `threadId` of the chat, if there is currently one available.
 
 ```html
 <script setup>
@@ -137,7 +137,7 @@ Access ongoing chat `chatId` and `threadId` if there is currently one available.
 
 #### useWidgetGreeting
 
-Access current greeting `id` and `uniqueId` if there is currently one disaplyed (received and not hidden).
+Access the `id` and `uniqueId` of the current greeting, if there is currently one displayed (received and not hidden).
 
 ```html
 <script setup>
@@ -155,7 +155,7 @@ Access current greeting `id` and `uniqueId` if there is currently one disaplyed 
 
 #### useWidgetCustomerData
 
-Access current customer `id`, `isReturning`, `status` and `sessionVariables` data if the chat widget is loaded.
+Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer, if the chat widget is loaded.
 
 ```html
 <script setup>
