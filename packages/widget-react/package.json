@@ -24,7 +24,7 @@
     "@livechat/widget-core": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
-    "react": "17.0.2"
+    "react": "17.*.*"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",
