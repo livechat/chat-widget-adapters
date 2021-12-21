@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-react",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "This library allows to render and interact with the LiveChat Chat Widget inside a React application",
   "main": "dist/widget-react.cjs.js",
   "module": "dist/widget-react.esm.js",
@@ -23,7 +23,7 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
-    "@livechat/widget-core": "^1.0.0-alpha.1"
+    "@livechat/widget-core": "^1.0.0-alpha.2"
   },
   "peerDependencies": {
     "react": "17.*.*"
