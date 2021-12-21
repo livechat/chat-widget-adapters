@@ -63,7 +63,7 @@ All properties described below are used for initialization on the first render a
 
 #### Event handlers
 
-All event handlers listed below are registered when provided first time and later unregistered on component cleanup or property value change. Each event description is available after clicking an associated link.
+All event handlers listed below are registered provided for the first time. They unregister on component cleanup or property value change. Each event description is available after clicking an associated link.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -117,7 +117,7 @@ function App() {
 
 #### useWidgetChatData
 
-Access ongoing chat `chatId` and `threadId` if there is currently one available.
+Access the `chatId` and `threadId` of the chat, if there is currently one available.
 
 ```js
 import { useWidgetChatData } from '@livechat/widget-react'
@@ -138,7 +138,7 @@ function App() {
 
 #### useWidgetGreeting
 
-Access current greeting `id` and `uniqueId` if there is currently one disaplyed (received and not hidden).
+Access current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
 
 ```js
 import { useWidgetGreeting } from '@livechat/widget-react'
@@ -159,7 +159,7 @@ function App() {
 
 #### useWidgetCustomerData
 
-Access current customer `id`, `isReturning`, `status` and `sessionVariables` data if the chat widget is loaded.
+Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer, if the chat widget is loaded.
 
 ```js
 import { useWidgetCustomerData } from '@livechat/widget-react'

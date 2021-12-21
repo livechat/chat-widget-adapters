@@ -71,7 +71,7 @@ All properties described below are used for initialization on the first render a
 
 #### Event handlers
 
-All event handlers listed below are registered when provided first time and later unregistered on component cleanup or property value change. Each event description is available after clicking an associated link.
+All event handlers listed below are registered provided for the first time. They unregister on component cleanup or property value change. Each event description is available after clicking an associated link.
 
 - [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
 - [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
@@ -210,7 +210,7 @@ export class AppComponent implements OnInit {
 
 #### WidgetGreetingService
 
-Access the `id` and `uniqueId` of the current greeting, if there is currently one displayed (received and not hidden).
+Access current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
 
 ```ts
 // app.component.ts
