@@ -2,6 +2,8 @@ import { BehaviorSubject } from 'rxjs'
 import { Injectable, NgZone, OnDestroy } from '@angular/core'
 import { lcOnInit, lcOnDestroy, assignEventHandlers } from '@livechat/widget-core'
 
+export type WidgetIsReadySubject = typeof WidgetIsReadyService.prototype.subject
+
 @Injectable()
 export class WidgetIsReadyService implements OnDestroy {
 	private onDestroy: VoidFunction
@@ -16,6 +18,7 @@ export class WidgetIsReadyService implements OnDestroy {
 			setTimeout(() => this.setIsReady(false), 0)
 		})
 		this.onDestroy = () => {
+			this.subject.complete()
 			assignEventHandlers('off', { onReady })
 			unsubscribeInit()
 			unsubscribeDestroy()

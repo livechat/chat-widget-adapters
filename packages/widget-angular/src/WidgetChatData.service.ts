@@ -3,7 +3,9 @@ import { Injectable, NgZone, OnDestroy } from '@angular/core'
 import { getData } from '@livechat/widget-core'
 import type { ChatData } from '@livechat/widget-core'
 
-import type { WidgetCustomerDataService } from './WidgetCustomerData.service'
+import { WidgetCustomerDataService } from './WidgetCustomerData.service'
+
+export type WidgetChatDataSubject = typeof WidgetChatDataService.prototype.subject
 
 @Injectable()
 export class WidgetChatDataService implements OnDestroy {
@@ -21,6 +23,7 @@ export class WidgetChatDataService implements OnDestroy {
 		})
 
 		this.onDestroy = () => {
+			this.subject.complete()
 			subscribtion.unsubscribe()
 		}
 	}

@@ -1,16 +1,16 @@
 # <img src="https://livechat.design/images/livechat/DIGITAL%20%28RGB%29/SVG/Mark_RGB_Orange.svg" widht="24px" height="24px" /> LiveChat Chat Widget Adapters
 
+> This project contains a set of libraries for adapting the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) with certain frontend frameworks.
+
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
-[![Publish packages](https://github.com/livechat/chat-widget-adapters/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/livechat/chat-widget-adapters/actions/workflows/publish.yml)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Check](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml/badge.svg?branch=master)](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml)
 
-This project contains set of libraries for adapting [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) with certain frontend framework.
-
-| 🛠 Framework                                                                                                          | 📦 Library                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" /> **React**   | [@livechat/widget-react](https://github.com/livechat/chat-widget-adapters/packages/1144228)   |
-| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" /> **Vue**         | [@livechat/widget-vue](https://github.com/livechat/chat-widget-adapters/packages/1144230)     |
-| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/angular-226066.png" /> **Angular** | [@livechat/widget-angular](https://github.com/livechat/chat-widget-adapters/packages/1144229) |
+| 🛠 Framework                                                                                                          | 📦 Library                                                                         |
+| -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" /> **React**   | [@livechat/widget-react](https://www.npmjs.com/package/@livechat/widget-react)     |
+| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" /> **Vue**         | [@livechat/widget-vue](https://www.npmjs.com/package/@livechat/widget-vue)         |
+| <img widht="12px" height="12px" src ="https://cdn.iconscout.com/icon/free/png-256/angular-226066.png" /> **Angular** | [@livechat/widget-angular](https://www.npmjs.com/package/@livechat/widget-angular) |
 
 ## 📦 Installation
 
@@ -24,7 +24,7 @@ yarn add @livechat/widget-*
 
 ## 🚀 Usage
 
-### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" /> **React**
+### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png" /> **[React](/packages/widget-react)**
 
 ```ts
 // App.tsx
@@ -36,7 +36,7 @@ export function App() {
 }
 ```
 
-### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" /> **Vue**
+### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" /> **[Vue](/packages/widget-vue)**
 
 ```html
 <!-- App.vue -->
@@ -50,7 +50,7 @@ export function App() {
 </template>
 ```
 
-### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/angular-226066.png" /> **Angular**
+### <img widht="16px" height="16px" src ="https://cdn.iconscout.com/icon/free/png-256/angular-226066.png" /> **[Angular](/packages/widget-angular)**
 
 ```ts
 // app.module.ts

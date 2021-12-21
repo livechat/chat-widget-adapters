@@ -1,9 +1,29 @@
+# @livechat/widget-core
+
+> [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) adapters implementation core
+
+![](https://img.shields.io/badge/license-MIT-blue.svg)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Check](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml/badge.svg?branch=master)](https://github.com/livechat/chat-widget-adapters/actions/workflows/check.yml)
+
 ## Installation
 
-Use the package manager [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install choosen package in your project.
+Using npm:
 
 ```bash
 npm install @livechat/widget-core
-# or
+```
+
+or using yarn:
+
+```bash
 yarn add @livechat/widget-core
 ```
+
+## Usage
+
+See one of the packages listed below for usage reference
+
+- [@livechat/widget-react](https://www.npmjs.com/package/@livechat/widget-react)
+- [@livechat/widget-vue](https://www.npmjs.com/package/@livechat/widget-vue)
+- [@livechat/widget-angular](https://www.npmjs.com/package/@livechat/widget-angular)

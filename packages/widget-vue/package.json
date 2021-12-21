@@ -24,7 +24,7 @@
     "@livechat/widget-core": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
-    "vue": "3.2.22"
+    "vue": "3.*.*"
   },
   "devDependencies": {
     "eslint-plugin-vue": "8.1.1",

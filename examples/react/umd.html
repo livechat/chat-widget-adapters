@@ -7,14 +7,21 @@
 		<title>React Sandbox</title>
 		<script src="https://unpkg.com/react@17.0.0/umd/react.production.min.js"></script>
 		<script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.production.min.js"></script>
-		<script src="widget-core.umd.js"></script>
-		<script src="widget-react.umd.js"></script>
+		<script src="./node_modules/@livechat/widget-react/node_modules/@livechat/widget-core/dist/widget-core.umd.js"></script>
+		<script src="./node_modules/@livechat/widget-react/dist/widget-react.umd.js"></script>
 	</head>
 	<body>
 		<div id="root"></div>
 		<script>
 			ReactDOM.render(
-				React.createElement(LiveChatWidgetReact.LiveChatWidget, { license: '12332502' }, null),
+				React.createElement(
+					LiveChatWidgetReact.LiveChatWidget,
+					{
+						license: '12332502',
+						visibility: 'maximized',
+					},
+					null,
+				),
 				document.getElementById('root'),
 			)
 		</script>
