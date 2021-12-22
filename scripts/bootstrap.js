@@ -5,5 +5,6 @@ if (isCI) {
 	cmd('lerna bootstrap --no-private')
 } else {
 	cmd('lerna bootstrap')
+	cmd('prettier **/package*.json --write --loglevel silent')
 	cmd('husky install')
 }
