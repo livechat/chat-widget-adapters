@@ -26,7 +26,6 @@
     "mitt": "3.0.0"
   },
   "devDependencies": {
-    "@swc/jest": "0.2.15",
     "@types/jest": "27.0.3",
     "eslint-plugin-jest": "25.3.0",
     "jest": "27.4.3"

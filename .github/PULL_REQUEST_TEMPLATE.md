@@ -2,6 +2,7 @@
 
 <!-- Check what type of PR it is by putting the 'x' sign in a bracket -->
 
+- [ ] Docs
 - [ ] Bug fix
 - [ ] Feature
 
