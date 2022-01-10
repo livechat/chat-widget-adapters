@@ -1,9 +1,6 @@
 {
   "version": "1.0.0",
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ],
+  "useWorkspaces": true,
   "command": {
     "version": {
       "allowBranch": "master"
