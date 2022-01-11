@@ -24,10 +24,5 @@
   },
   "dependencies": {
     "mitt": "3.0.0"
-  },
-  "devDependencies": {
-    "@types/jest": "27.0.3",
-    "eslint-plugin-jest": "25.3.0",
-    "jest": "27.4.3"
   }
 }
