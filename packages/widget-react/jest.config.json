@@ -1,0 +1,12 @@
+{
+  "rootDir": "src",
+  "timers": "fake",
+  "testEnvironment": "jsdom",
+  "testMatch": [
+    "**/__tests__/*.spec.[jt]s?(x)"
+  ],
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "__tests__"
+  ]
+}
