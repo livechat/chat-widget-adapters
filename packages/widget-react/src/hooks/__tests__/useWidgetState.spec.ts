@@ -37,7 +37,7 @@ describe('useWidgetState', () => {
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `null` when after chnage evets if widget is not ready yet', () => {
+	it('should return `null` if after change events widget is not ready yet', () => {
 		const { getResultContent } = container
 
 		act(() => {
