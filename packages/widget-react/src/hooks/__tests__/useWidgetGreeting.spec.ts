@@ -1,16 +1,17 @@
+import mitt from 'mitt'
 import { act } from 'react-dom/test-utils'
 import { createWidget, Greeting } from '@livechat/widget-core'
 import type { ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
 
 import { useWidgetGreeting } from '../useWidgetGreeting'
-import { createDispatcher, createHookValueContainer } from './test-utils'
+import { createHookValueContainer } from './test-utils'
 
 declare const window: ExtendedWindow
 
 describe('useWidgetGreeting', () => {
+	const emitter = mitt()
 	let widget: WidgetInstance
 	let container: ReturnType<typeof createHookValueContainer>
-	const { setListener, dispatch } = createDispatcher()
 	const greeting: Greeting = {
 		id: 1,
 		uniqueId: 'abcdef',
@@ -20,7 +21,7 @@ describe('useWidgetGreeting', () => {
 		document.body.innerHTML = '<div id="root"></div>'
 		widget = createWidget({ license: '123456' })
 		container = createHookValueContainer(useWidgetGreeting, document.getElementById('root'))
-		window.LiveChatWidget.on = window.LiveChatWidget.once = setListener as typeof window.LiveChatWidget.on
+		window.LiveChatWidget.on = window.LiveChatWidget.once = emitter.on.bind(null) as typeof window.LiveChatWidget.on
 
 		act(() => {
 			container.mount()
@@ -45,7 +46,7 @@ describe('useWidgetGreeting', () => {
 		const { getResultContent } = container
 
 		act(() => {
-			dispatch('greeting_displayed', greeting)
+			emitter.emit('greeting_displayed', greeting)
 		})
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
@@ -60,7 +61,7 @@ describe('useWidgetGreeting', () => {
 		const { getResultContent } = container
 
 		act(() => {
-			dispatch('greeting_hidden')
+			emitter.emit('greeting_hidden')
 		})
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)

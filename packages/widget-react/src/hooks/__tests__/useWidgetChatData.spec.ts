@@ -1,22 +1,23 @@
+import mitt from 'mitt'
 import { act } from 'react-dom/test-utils'
 import { createWidget, CustomerData } from '@livechat/widget-core'
 import type { ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
 
 import { useWidgetChatData } from '../useWidgetChatData'
-import { createDispatcher, createHookValueContainer } from './test-utils'
+import { createHookValueContainer } from './test-utils'
 
 declare const window: ExtendedWindow
 
 describe('React Hooks', () => {
+	const emitter = mitt()
 	let widget: WidgetInstance
 	let container: ReturnType<typeof createHookValueContainer>
-	const { setListener, dispatch } = createDispatcher()
 
 	beforeEach(() => {
 		document.body.innerHTML = '<div id="root"></div>'
 		widget = createWidget({ license: '123456' })
 		container = createHookValueContainer(useWidgetChatData, document.getElementById('root'))
-		window.LiveChatWidget.on = window.LiveChatWidget.once = setListener as typeof window.LiveChatWidget.on
+		window.LiveChatWidget.on = window.LiveChatWidget.once = emitter.on.bind(null) as typeof window.LiveChatWidget.on
 
 		act(() => {
 			container.mount()
@@ -52,8 +53,9 @@ describe('React Hooks', () => {
 		}) as typeof window.LiveChatWidget.get)
 
 		act(() => {
-			dispatch('customer_status_changed')
+			emitter.emit('customer_status_changed')
 		})
+
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
 		  \\"chatId\\": \\"abcdef\\",
@@ -69,7 +71,7 @@ describe('React Hooks', () => {
 		})
 
 		act(() => {
-			dispatch('customer_status_changed')
+			emitter.emit('customer_status_changed')
 		})
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
