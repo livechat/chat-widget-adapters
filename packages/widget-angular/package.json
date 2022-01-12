@@ -18,6 +18,7 @@
     "dist"
   ],
   "scripts": {
+    "test": "jest",
     "build": "rimraf lib dist && ngc && rollup -c",
     "watch:ngc": "ngc --watch",
     "watch:rollup": "rollup -c --watch",
@@ -34,6 +35,7 @@
     "@angular/compiler": "13.0.3",
     "@angular/compiler-cli": "13.0.3",
     "@angular/core": "13.0.3",
+    "jest-preset-angular": "^11.0.1",
     "rxjs": "7.4.0"
   }
 }

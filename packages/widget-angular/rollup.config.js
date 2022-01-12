@@ -5,7 +5,7 @@ import replace from '@rollup/plugin-replace'
 import dts from 'rollup-plugin-dts'
 import pkg from './package.json'
 
-const extensions = ['.ts']
+const extensions = ['.js', '.ts']
 
 const baseConfig = defineConfig({
 	input: 'lib/index.js',

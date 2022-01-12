@@ -1,4 +1,5 @@
 {
+  "maxWorkers": "25%",
   "testEnvironment": "jsdom",
   "testMatch": [
     "**/*.spec.[jt]s"

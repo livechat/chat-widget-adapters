@@ -24,6 +24,7 @@ export class WidgetChatDataService implements OnDestroy {
 
 		this.onDestroy = () => {
 			this.subject.complete()
+			this.subject.unsubscribe()
 			subscribtion.unsubscribe()
 		}
 	}

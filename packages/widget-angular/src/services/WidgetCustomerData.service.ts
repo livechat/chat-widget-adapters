@@ -25,6 +25,7 @@ export class WidgetCustomerDataService implements OnDestroy {
 
 		this.onDestroy = () => {
 			this.subject.complete()
+			this.subject.unsubscribe()
 			assignEventHandlers('off', { onReady, onCustomerStatusChanged })
 			unsubscribeInit()
 			unsubscribeDestroy()
