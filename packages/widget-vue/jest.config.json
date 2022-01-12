@@ -1,0 +1,13 @@
+{
+  "testEnvironment": "jsdom",
+  "testMatch": [
+    "**/*.spec.[jt]s"
+  ],
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "__tests__"
+  ],
+  "setupFilesAfterEnv": [
+    "./jest.setup.js"
+  ]
+}

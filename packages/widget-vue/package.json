@@ -19,6 +19,7 @@
     "dist"
   ],
   "scripts": {
+    "test": "jest",
     "build": "rimraf dist && rollup -c",
     "start": "rollup -c -w"
   },
