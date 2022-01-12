@@ -33,7 +33,7 @@ describe('useWidgetState', () => {
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `null` when after chnage evets if widget is not ready yet', async () => {
+	it('should return `null` if after change events widget is not ready yet', async () => {
 		const { getResultContent } = container
 
 		emitter.emit('visibility_changed', { visibility: 'visible' })
