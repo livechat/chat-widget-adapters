@@ -1,7 +1,6 @@
 import mitt from 'mitt'
-import { act } from 'react-dom/test-utils'
-import { createWidget } from '@livechat/widget-core'
-import type { ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
+import { nextTick } from 'vue'
+import { createWidget, ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
 
 import { useWidgetState } from '../useWidgetState'
 import { createHookValueContainer } from './test-utils'
@@ -16,20 +15,16 @@ describe('useWidgetState', () => {
 	beforeEach(() => {
 		document.body.innerHTML = '<div id="root"></div>'
 		widget = createWidget({ license: '123456' })
-		container = createHookValueContainer(useWidgetState, document.getElementById('root'))
+		container = createHookValueContainer(useWidgetState, document.getElementById('root') as HTMLElement)
 		window.LiveChatWidget.on = window.LiveChatWidget.once = emitter.on.bind(null) as typeof window.LiveChatWidget.on
 
-		act(() => {
-			container.mount()
-			widget.init()
-		})
+		container.mount()
+		widget.init()
 	})
 
 	afterEach(() => {
 		jest.clearAllMocks()
-		act(() => {
-			widget.destroy()
-		})
+		widget.destroy()
 	})
 
 	it('should return `null` as default value', () => {
@@ -38,28 +33,26 @@ describe('useWidgetState', () => {
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `null` if after change events widget is not ready yet', () => {
+	it('should return `null` if after change events widget is not ready yet', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('visibility_changed', { visibility: 'visible' })
-			emitter.emit('availability_changed', { availability: 'online' })
-		})
+		emitter.emit('visibility_changed', { visibility: 'visible' })
+		emitter.emit('availability_changed', { availability: 'online' })
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `state` when widget is ready', () => {
+	it('should return `state` when widget is ready', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('ready', {
-				state: {
-					visibility: 'hidden',
-					availability: 'offline',
-				},
-			})
+		emitter.emit('ready', {
+			state: {
+				visibility: 'hidden',
+				availability: 'offline',
+			},
 		})
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
@@ -69,18 +62,17 @@ describe('useWidgetState', () => {
 	`)
 	})
 
-	it('should return updated `visibility`', () => {
+	it('should return updated `visibility`', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('ready', {
-				state: {
-					visibility: 'hidden',
-					availability: 'offline',
-				},
-			})
-			emitter.emit('visibility_changed', { visibility: 'visible' })
+		emitter.emit('ready', {
+			state: {
+				visibility: 'hidden',
+				availability: 'offline',
+			},
 		})
+		emitter.emit('visibility_changed', { visibility: 'visible' })
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
@@ -90,18 +82,17 @@ describe('useWidgetState', () => {
 	`)
 	})
 
-	it('should return updated `availability`', () => {
+	it('should return updated `availability`', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('ready', {
-				state: {
-					visibility: 'hidden',
-					availability: 'offline',
-				},
-			})
-			emitter.emit('availability_changed', { availability: 'online' })
+		emitter.emit('ready', {
+			state: {
+				visibility: 'hidden',
+				availability: 'offline',
+			},
 		})
+		emitter.emit('availability_changed', { availability: 'online' })
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
@@ -111,23 +102,21 @@ describe('useWidgetState', () => {
 	`)
 	})
 
-	it('should return `null` if widget was destroyed', () => {
+	it('should return `null` if widget was destroyed', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			widget.destroy()
-		})
+		widget.destroy()
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should cleanup event listeners on component unmount', () => {
+	it('should cleanup event listeners on component unmount', async () => {
 		const { unmount } = container
 		const offSpy = jest.spyOn(window.LiveChatWidget, 'off')
 
-		act(() => {
-			unmount()
-		})
+		unmount()
+		await nextTick()
 
 		expect(offSpy).toBeCalled()
 	})

@@ -1,5 +1,5 @@
 import mitt from 'mitt'
-import { act } from 'react-dom/test-utils'
+import { nextTick } from 'vue'
 import { createWidget, Greeting } from '@livechat/widget-core'
 import type { ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
 
@@ -20,20 +20,16 @@ describe('useWidgetGreeting', () => {
 	beforeEach(() => {
 		document.body.innerHTML = '<div id="root"></div>'
 		widget = createWidget({ license: '123456' })
-		container = createHookValueContainer(useWidgetGreeting, document.getElementById('root'))
+		container = createHookValueContainer(useWidgetGreeting, document.getElementById('root') as HTMLElement)
 		window.LiveChatWidget.on = window.LiveChatWidget.once = emitter.on.bind(null) as typeof window.LiveChatWidget.on
 
-		act(() => {
-			container.mount()
-			widget.init()
-		})
+		container.mount()
+		widget.init()
 	})
 
 	afterEach(() => {
 		jest.clearAllMocks()
-		act(() => {
-			widget.destroy()
-		})
+		widget.destroy()
 	})
 
 	it('should return `null` as default value', () => {
@@ -42,12 +38,11 @@ describe('useWidgetGreeting', () => {
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `greeting` when it is displayed', () => {
+	it('should return `greeting` when it is displayed', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('greeting_displayed', greeting)
-		})
+		emitter.emit('greeting_displayed', greeting)
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
@@ -57,33 +52,30 @@ describe('useWidgetGreeting', () => {
 	`)
 	})
 
-	it('should return `null` if greeting was hidden', () => {
+	it('should return `null` if greeting was hidden', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			emitter.emit('greeting_hidden')
-		})
+		emitter.emit('greeting_hidden')
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return `null` if widget was destroyed', () => {
+	it('should return `null` if widget was destroyed', async () => {
 		const { getResultContent } = container
 
-		act(() => {
-			widget?.destroy()
-		})
+		widget?.destroy()
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should cleanup event listeners on component unmount', () => {
+	it('should cleanup event listeners on component unmount', async () => {
 		const { unmount } = container
 		const offSpy = jest.spyOn(window.LiveChatWidget, 'off')
 
-		act(() => {
-			unmount()
-		})
+		unmount()
+		await nextTick()
 
 		expect(offSpy).toBeCalled()
 	})

@@ -1,23 +1,6 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-export function createDispatcher() {
-	const events = new Map<string, VoidFunction | ((...args: any) => void)>()
-
-	function setListener(name: Parameters<typeof events.set>['0'], callback: Parameters<typeof events.set>['1']) {
-		events.set(name, callback)
-	}
-
-	function dispatch(name: Parameters<typeof events.set>['0'], payload?: any) {
-		const callback = events.get(name)
-		if (callback) {
-			callback(payload)
-		}
-	}
-
-	return { setListener, dispatch }
-}
-
 export function createHookValueContainer(hook: () => any, root: HTMLElement | null) {
 	const resultId = 'result'
 

@@ -1,5 +1,5 @@
 import mitt from 'mitt'
-import { act } from 'react-dom/test-utils'
+import { nextTick } from 'vue'
 import { createWidget, CustomerData } from '@livechat/widget-core'
 import type { ExtendedWindow, WidgetInstance } from '@livechat/widget-core'
 
@@ -16,20 +16,16 @@ describe('React Hooks', () => {
 	beforeEach(() => {
 		document.body.innerHTML = '<div id="root"></div>'
 		widget = createWidget({ license: '123456' })
-		container = createHookValueContainer(useWidgetChatData, document.getElementById('root'))
+		container = createHookValueContainer(useWidgetChatData, document.getElementById('root') as HTMLElement)
 		window.LiveChatWidget.on = window.LiveChatWidget.once = emitter.on.bind(null) as typeof window.LiveChatWidget.on
 
-		act(() => {
-			container.mount()
-			widget.init()
-		})
+		container.mount()
+		widget.init()
 	})
 
 	afterEach(() => {
 		jest.clearAllMocks()
-		act(() => {
-			widget.destroy()
-		})
+		widget.destroy()
 	})
 
 	it('should return `null` as default value', () => {
@@ -38,7 +34,7 @@ describe('React Hooks', () => {
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
 
-	it('should return updated `chatData` if customer is chatting', () => {
+	it('should return updated `chatData` if customer is chatting', async () => {
 		const { getResultContent } = container
 		jest.spyOn(window.LiveChatWidget, 'get').mockImplementation(((name) => {
 			if (name === 'customer_data') {
@@ -52,9 +48,8 @@ describe('React Hooks', () => {
 			}
 		}) as typeof window.LiveChatWidget.get)
 
-		act(() => {
-			emitter.emit('customer_status_changed')
-		})
+		emitter.emit('customer_status_changed')
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`
 		"{
@@ -64,15 +59,14 @@ describe('React Hooks', () => {
 	`)
 	})
 
-	it('should return `null` if customer is not chatting', () => {
+	it('should return `null` if customer is not chatting', async () => {
 		const { getResultContent } = container
 		jest.spyOn(window.LiveChatWidget, 'get').mockImplementation((): CustomerData => {
 			return { status: 'browsing' } as CustomerData
 		})
 
-		act(() => {
-			emitter.emit('customer_status_changed')
-		})
+		emitter.emit('customer_status_changed')
+		await nextTick()
 
 		expect(getResultContent()).toMatchInlineSnapshot(`"null"`)
 	})
