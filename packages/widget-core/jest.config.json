@@ -1,4 +1,4 @@
 {
-  "rootDir": "src",
+  "maxWorkers": "25%",
   "testEnvironment": "jsdom"
 }

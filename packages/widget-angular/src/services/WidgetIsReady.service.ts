@@ -19,6 +19,7 @@ export class WidgetIsReadyService implements OnDestroy {
 		})
 		this.onDestroy = () => {
 			this.subject.complete()
+			this.subject.unsubscribe()
 			assignEventHandlers('off', { onReady })
 			unsubscribeInit()
 			unsubscribeDestroy()

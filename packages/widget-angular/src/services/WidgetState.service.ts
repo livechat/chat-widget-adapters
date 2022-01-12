@@ -32,6 +32,7 @@ export class WidgetStateService implements OnDestroy {
 
 		this.onDestroy = () => {
 			this.subject.complete()
+			this.subject.unsubscribe()
 			assignEventHandlers('off', { onReady, onVisibilityChanged, onAvailabilityChanged })
 			unsubscribeInit()
 			unsubscribeDestroy()

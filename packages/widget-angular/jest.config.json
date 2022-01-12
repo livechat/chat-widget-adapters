@@ -1,6 +1,7 @@
 {
   "timers": "fake",
   "maxWorkers": "25%",
+  "preset": "jest-preset-angular",
   "testEnvironment": "jsdom",
   "testMatch": [
     "**/__tests__/*.spec.[jt]s?(x)"
@@ -8,5 +9,8 @@
   "coveragePathIgnorePatterns": [
     "node_modules",
     "__tests__"
+  ],
+  "setupFilesAfterEnv": [
+    "./jest.setup.js"
   ]
 }

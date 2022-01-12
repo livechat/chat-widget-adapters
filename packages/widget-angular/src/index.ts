@@ -1,8 +1,4 @@
-export * from './WidgetIsReady.service'
-export * from './WidgetState.service'
-export * from './WidgetCustomerData.service'
-export * from './WidgetChatData.service'
-export * from './WidgetGreeting.service'
+export * from './services'
 export { LiveChatWidgetModule } from './LiveChatWidget.module'
 export { LiveChatWidgetComponent } from './LiveChatWidget.component'
 
