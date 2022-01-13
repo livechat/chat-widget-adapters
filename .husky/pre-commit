@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx manypkg check
+npm run check-pkgs
 npx lint-staged
