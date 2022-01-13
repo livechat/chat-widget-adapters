@@ -16,6 +16,7 @@
     "start": "zx ./scripts/start.mjs",
     "build": "zx ./scripts/build.mjs",
     "publish": "zx ./scripts/publish.mjs",
+    "check-pkgs": "zx ./scripts/check-pkgs.mjs",
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
