@@ -10,15 +10,15 @@ We track public bugs in [GitHub Issues](https://github.com/livechat/chat-widget-
 
 ## Development Workflow
 
-- Install dependecies using `npm install`. This will also bootstrap a monorepo installing dependencies inside each package and linking them together.
+- Install the dependecies using `npm install`. This will also bootstrap a monorepo installing dependencies inside each package and linking them together.
 
-- Build libraries using `npm run build` at the top level or inside single package.
+- Build the libraries using `npm run build` at the top level or inside single package.
 
-- Start watch mode for all adapters packages running `npm start packages`.
+- Start watch mode for all of the adapters packages running `npm start packages`.
 
-- Start example apps showcasing usage of componenets for each framework using `npm start examples`.
+- Start the example apps showcasing the usage of components for each framework using `npm start examples`.
 
-- Start watch mode for given adapter with its example app running `npm start vue/react/angular`.
+- Start watch mode for the given adapter with its example app running `npm start vue/react/angular`.
 
 ## Versioning
 
@@ -26,7 +26,7 @@ This project uses [lerna](https://lerna.js.org/) to manage versions and publishi
 
 ## Comitting
 
-The project is setup with a code quality tools like [`prettier`](https://npm.im/prettier), [`eslint`](https://npm.im/eslint) and [`manypkg`](https://npm.im/@manypkg/cli). They are being automatically run against changed files on `pre-commit` hook.
+The project is set up with a code quality tools like [`prettier`](https://npm.im/prettier), [`eslint`](https://npm.im/eslint) and [`manypkg`](https://npm.im/@manypkg/cli). They are being automatically run against changed files on `pre-commit` hook.
 
 ## Branch Organization
 
@@ -63,16 +63,16 @@ project
 
 ### Manual testing
 
-In order to manually test introduced changes, use one of example apps for the framework whcih package you are chaning. It contains ready to use setup for testing basic functionalities. If you have added something new, make sure to extend the example with possiblity to visually test your changes.
+In order to manually test introduced changes, use one of the example apps for the framework whcih package you are changing. It contains ready to use setup for testing basic functionalities. If you have added something new, please make sure to extend the example with possibility to visually test your changes.
 
 ### Automated testing
 
 #### Unit tests
 
-Packages contains a suite of unit tests dedicated for their core functionallities. Whenever you make change or introduce some new functionality, make sure that exisitng tests passes and that coverage remains at the same level.
+Packages contain a suite of unit tests dedicated for their core functionalities. Whenever you make change or introduce some new functionality, please make sure that existing tests pass and that the coverage remains at the same level.
 
 - To run tests use: `npm run test`
-- Tests are localted in: `packages/**/src/**/__tests__`
+- Tests are located in: `packages/**/src/**/__tests__`
 - In order to verify the current coverage use: `npm run test -- --coverage`
 
 #### E2E tests
