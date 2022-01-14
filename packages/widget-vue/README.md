@@ -55,8 +55,6 @@ All properties described below are used for initialization on the first render a
 | visibility        | string                                 |
 | customerName      | string                                 |
 | customerEmail     | string                                 |
-| customerEmail     | string                                 |
-| customerEmail     | string                                 |
 | chatBetweenGroups | boolean                                |
 | sessionVariables  | Record<string, string>                 |
 | visibility        | 'maximized' \| 'minimized' \| 'hidden' |
@@ -177,8 +175,8 @@ Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current 
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more details.
+Pull requests are welcome. For major changes, please open an issue first, so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters/blob/master/CONTRIBUTING.md) for more details.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+This project is [MIT licensed](https://choosealicense.com/licenses/mit/)

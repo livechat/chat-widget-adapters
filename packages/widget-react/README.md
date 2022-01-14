@@ -55,8 +55,6 @@ All properties described below are used for initialization on the first render a
 | visibility        | string                                 |
 | customerName      | string                                 |
 | customerEmail     | string                                 |
-| customerEmail     | string                                 |
-| customerEmail     | string                                 |
 | chatBetweenGroups | boolean                                |
 | sessionVariables  | Record<string, string>                 |
 | visibility        | 'maximized' \| 'minimized' \| 'hidden' |
@@ -146,7 +144,7 @@ import { useWidgetGreeting } from '@livechat/widget-react'
 function App() {
   const greeting = useWidgetGreeting()
 
-  if (greeting) Ž
+  if (greeting) {
     return (
       <div>
         <span>{greeting.id}</span>
@@ -186,8 +184,8 @@ function App() {
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters#-contributing) for more details.
+Pull requests are welcome. For major changes, please open an issue first, so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters/blob/master/CONTRIBUTING.md) for more details.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+The code and documentation in this project are released under the [MIT License](https://choosealicense.com/licenses/mit/).

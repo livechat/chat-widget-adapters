@@ -28,6 +28,10 @@ See one of the packages listed below for usage reference
 - [@livechat/widget-vue](https://www.npmjs.com/package/@livechat/widget-vue)
 - [@livechat/widget-angular](https://www.npmjs.com/package/@livechat/widget-angular)
 
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first, so we can discuss what you would like to change. Follow a [Contributing guide](https://github.com/livechat/chat-widget-adapters/blob/master/CONTRIBUTING.md) for more details.
+
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+The code and documentation in this project are released under the [MIT License](https://choosealicense.com/licenses/mit/).
