@@ -1,3 +1,5 @@
-export { useWidgetIsReady } from './useWidgetIsReady'
-export { useWidgetState } from './useWidgetState'
-export { useWidgetCustomerData } from './useWidgetCustomerData'
+export * from './useWidgetIsReady'
+export * from './useWidgetState'
+export * from './useWidgetCustomerData'
+export * from './useWidgetChatData'
+export * from './useWidgetGreeting'

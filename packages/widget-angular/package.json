@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "build": "rimraf lib dist && ngc && rollup -c",
     "watch:ngc": "ngc --watch",
     "watch:rollup": "rollup -c --watch",
