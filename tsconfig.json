@@ -5,6 +5,7 @@
     "packages/**/*.tsx",
     "examples/**/*.js",
     "examples/**/*.ts",
-    "examples/**/*.tsx"
+    "examples/**/*.tsx",
+    "e2e/**/*.ts"
   ]
 }

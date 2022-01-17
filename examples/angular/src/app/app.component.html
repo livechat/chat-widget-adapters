@@ -1,11 +1,11 @@
 <main>
 	<h1>Hello Angular!</h1>
 	<button type="button" [disabled]="!(widgetIsReady$ | async)" (click)="handleChangeGroup()">Change group</button>
-	<pre>Widget is ready: {{ widgetIsReady$ | async }}</pre>
-	<pre>Widget state: {{ widgetState$ | async | json }}</pre>
-	<pre>Customer data: {{ customerData$ | async | json }}</pre>
-	<pre>Chat data: {{ chatData$ | async | json }}</pre>
-	<pre>Greeting: {{ greeting$ | async | json }}</pre>
+	<pre id="widget-readiness">Widget is ready: {{ widgetIsReady$ | async }}</pre>
+	<pre id="widget-state">Widget state: {{ widgetState$ | async | json }}</pre>
+	<pre id="customer-data">Customer data: {{ customerData$ | async | json }}</pre>
+	<pre id="chat-data">Chat data: {{ chatData$ | async | json }}</pre>
+	<pre id="greeting">Greeting: {{ greeting$ | async | json }}</pre>
 
 	<livechat-widget
 		license="12332502"
