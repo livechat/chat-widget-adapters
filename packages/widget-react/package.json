@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "build": "rimraf dist && rollup -c",
     "start": "rollup -c -w"
   },
