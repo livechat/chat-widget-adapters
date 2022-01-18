@@ -2,17 +2,17 @@
   <main>
     <h1>Hello Vue!</h1>
     <button type="button" :disabled="!isWidgetReady" v-on:click="handleChangeGroup">Change group</button>
-    <pre>Widget is ready: {{stringify(isWidgetReady)}}</pre>
-    <pre>Widget state: {{stringify(widgetState)}}</pre>
-    <pre>Customer data: {{stringify(customerData)}}</pre>
-    <pre>Chat data: {{stringify(chatData)}}</pre>
-    <pre>Greeting: {{stringify(greeting)}}</pre>
+    <pre id="widget-readiness">Widget is ready: {{stringify(isWidgetReady)}}</pre>
+    <pre id="widget-state">Widget state: {{stringify(widgetState)}}</pre>
+    <pre id="customer-data">Customer data: {{stringify(customerData)}}</pre>
+    <pre id="chat-data">Chat data: {{stringify(chatData)}}</pre>
+    <pre id="greeting">Greeting: {{stringify(greeting)}}</pre>
     <LiveChatWidget
       license="12332502"
       :group="group"
       visibility="maximized"
 			customerName="John Doe"
-			customerEmail="joh.doe@example.com"
+			customerEmail="john.doe@example.com"
       v-on:new-event="handleNewEvent"
       v-on:form-submitted="handleFormSubmitted"
       v-on:rating-submitted="handleRatingSubmitted"

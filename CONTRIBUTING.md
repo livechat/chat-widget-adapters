@@ -34,7 +34,7 @@ Submit all changes directly to the `master` branch. We don’t use separate bran
 
 ## Sending a Pull Request
 
-This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build` and `test` scripts. Checks must pass in order to unlock merging.
+This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build`, `test` and `e2e` scripts. Checks must pass in order to unlock merging.
 
 ## File structure
 
@@ -55,6 +55,8 @@ project
 |    └─── vue              // example Vue app
 |    └─── react            // example React app
 |    └─── angular          // example Angular app
+|
+└─── e2e                   // set of e2e tests run on `examples`
 |
 └─── scripts               // CLI commands used in root npm scripts
 ```
@@ -77,7 +79,10 @@ Packages contain a suite of unit tests dedicated for their core functionalities.
 
 #### E2E tests
 
-TODO: Describe E2E tests setup
+In order to make sure that the packages are all in sync and their core functionalities are working, we have created a suite of end-to-end tests based on the prepared `examples`. They simply navigate to the URL of each example in the repository and validate the Chat Widget presence and related data.
+
+- To run tests use: `npm run e2e`
+- Tests are located in: `e2e`
 
 ### Coverage
 
