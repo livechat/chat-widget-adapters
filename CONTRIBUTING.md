@@ -34,7 +34,7 @@ Submit all changes directly to the `master` branch. We don’t use separate bran
 
 ## Sending a Pull Request
 
-This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build` and `test` scripts. Checks must pass in order to unlock merging.
+This project uses a GitHub Actions setup to run on each commit `push` which triggers `lint`, `build`, `test` and `e2e` scripts. Checks must pass in order to unlock merging.
 
 ## File structure
 
