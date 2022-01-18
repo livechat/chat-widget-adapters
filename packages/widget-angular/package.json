@@ -29,8 +29,8 @@
     "@livechat/widget-core": "^1.0.0"
   },
   "peerDependencies": {
-    "@angular/core": "13.*.*",
-    "rxjs": "7.*.*"
+    "@angular/core": "12 || 13",
+    "rxjs": "6 || 7"
   },
   "devDependencies": {
     "@angular/compiler": "13.0.3",
