@@ -1,5 +1,5 @@
-import { ElementHandle, Frame, Locator, Page } from '@playwright/test'
-import { ChatData, WidgetState } from '@livechat/widget-core'
+import { Frame, Locator, Page } from '@playwright/test'
+import { ChatData } from '@livechat/widget-core'
 import { matchFrame } from './utils'
 
 export const MAP_FRAMEWORK_TO_PORT = {
@@ -9,24 +9,19 @@ export const MAP_FRAMEWORK_TO_PORT = {
 } as const
 
 export class ExamplePage {
-	readonly widgetIframeId: string = '#chat-widget'
-	readonly widgetReadiness: Locator
+	serverChat: null | ChatData = null
+
 	readonly dataContainers: {
 		chatData: Locator
 		customerData: Locator
 		widgetIsReady: Locator
 		widgetState: Locator
 	}
-	preChat: {
-		emailInput: ElementHandle<SVGElement | HTMLElement>
-		nameInput: ElementHandle<SVGElement | HTMLElement>
-	}
-	sentFrames: string[] = []
-	receivedFrames: string[] = []
-	serverCustomerId: null | string = null
-	serverChat: null | ChatData = null
-	widgetFrame: Frame
-	widgetState: WidgetState
+
+	private widgetIframeId = '#chat-widget'
+	private sentFrames: string[] = []
+	private receivedFrames: string[] = []
+	private widgetFrame: Frame
 
 	constructor(private page: Page, private framework: keyof typeof MAP_FRAMEWORK_TO_PORT) {
 		this.dataContainers = {
