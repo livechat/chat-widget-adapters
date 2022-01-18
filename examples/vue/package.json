@@ -3,8 +3,7 @@
   "private": "true",
   "version": "1.0.0",
   "scripts": {
-    "start": "vite",
-    "start:umd": "serve"
+    "start": "vite"
   },
   "dependencies": {
     "@livechat/widget-vue": "^1.0.0",
@@ -12,7 +11,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
-    "serve": "13.0.2",
     "vue-tsc": "^0.3.0"
   }
 }
