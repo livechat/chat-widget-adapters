@@ -30,8 +30,7 @@ switch (target) {
 		break
 
 	case 'umd':
-		await ensureCorePackageIsBuilt()
-		await $`lerna run start:umd --parallel --scope *-example`
+		await $`npx serve .`
 
 	default:
 		console.error("Unsuported target '%s' provided", target)

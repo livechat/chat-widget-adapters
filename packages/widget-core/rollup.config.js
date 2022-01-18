@@ -13,6 +13,7 @@ const extensions = ['.ts']
 
 const baseConfig = defineConfig({
 	input,
+	external: ['mitt'],
 	plugins: [
 		resolve({ extensions }),
 		replace({ 'process.env.PACKAGE_NAME': JSON.stringify(pkg.name), preventAssignment: true }),
@@ -46,6 +47,12 @@ export default process.env.ROLLUP_WATCH
 						file: pkg.main,
 						format: 'cjs',
 					},
+				],
+			},
+			{
+				...baseConfig,
+				external: [],
+				output: [
 					{
 						file: pkg.unpkg,
 						format: 'umd',
