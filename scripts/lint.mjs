@@ -1,1 +1,1 @@
-await Promise.all([$`npm run check-pkgs`, $`eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\"`])
+await Promise.all([$`yarn check-pkgs`, $`eslint \"{,!(node_modules)/**/}*.{js,ts,tsx}\"`])
