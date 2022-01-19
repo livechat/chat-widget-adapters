@@ -1,7 +1,10 @@
 import isCI from 'is-ci'
 
 if (isCI) {
-	await Promise.all([$`yarn lint`, $`yarn test`, $`yarn build`])
+	await $`yarn lint`
+	await $`yarn build`
+	await $`yarn test`
+	await $`yarn e2e`
 	await $`lerna publish from-git --yes`
 } else {
 	console.error('Publish script should be run only on CI')
