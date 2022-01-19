@@ -30,7 +30,7 @@ switch (target) {
 		break
 
 	case 'umd':
-		await $`npx serve .`
+		await $`yarn serve .`
 
 	default:
 		console.error("Unsuported target '%s' provided", target)
