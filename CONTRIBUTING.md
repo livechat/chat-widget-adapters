@@ -10,19 +10,19 @@ We track public bugs in [GitHub Issues](https://github.com/livechat/chat-widget-
 
 ## Development Workflow
 
-- Install the dependecies using `npm install`. This will also bootstrap a monorepo installing dependencies inside each package and linking them together.
+- Install the dependecies using `yarn`. This will also bootstrap a monorepo installing dependencies inside each package and linking them together.
 
-- Build the libraries using `npm run build` at the top level or inside single package.
+- Build the libraries using `yarn build` at the top level or inside single package.
 
-- Start watch mode for all of the adapters packages running `npm start packages`.
+- Start watch mode for all of the adapters packages running `yarn start packages`.
 
-- Start the example apps showcasing the usage of components for each framework using `npm start examples`.
+- Start the example apps showcasing the usage of components for each framework using `yarn start examples`.
 
-- Start watch mode for the given adapter with its example app running `npm start vue/react/angular`.
+- Start watch mode for the given adapter with its example app running `yarn start vue/react/angular`.
 
 ## Versioning
 
-This project uses [lerna](https://lerna.js.org/) to manage versions and publishing. It uses locked [semantic versioning](https://semver.org/) so each package has the same version at the time. You don't need and shouldn't manullay update touched packages versions. Changes will be published as soon as the next release will be rolled out. In order to properly update all packages to a new version checkout to `master` branch and run `npx lerna version`. It will ask about update type and if accepted update all packages and push tagged commit with changes in `package*.json` files.
+This project uses [lerna](https://lerna.js.org/) to manage versions and publishing. It uses locked [semantic versioning](https://semver.org/) so each package has the same version at the time. You don't need and shouldn't manullay update touched packages versions. Changes will be published as soon as the next release will be rolled out. In order to properly update all packages to a new version checkout to `master` branch and run `yarn lerna version`. It will ask about update type and if accepted update all packages and push tagged commit with changes in `package*.json` files.
 
 ## Comitting
 
@@ -58,7 +58,7 @@ project
 |
 └─── e2e                   // set of e2e tests run on `examples`
 |
-└─── scripts               // CLI commands used in root npm scripts
+└─── scripts               // CLI commands used in root package.json scripts
 ```
 
 ## Testing
@@ -73,15 +73,15 @@ In order to manually test introduced changes, use one of the example apps for th
 
 Packages contain a suite of unit tests dedicated for their core functionalities. Whenever you make change or introduce some new functionality, please make sure that existing tests pass and that the coverage remains at the same level.
 
-- To run tests use: `npm run test`
+- To run tests use: `yarn test`
 - Tests are located in: `packages/**/src/**/__tests__`
-- In order to verify the current coverage use: `npm run test -- --coverage`
+- In order to verify the current coverage use: `yarn test -- --coverage`
 
 #### E2E tests
 
 In order to make sure that the packages are all in sync and their core functionalities are working, we have created a suite of end-to-end tests based on the prepared `examples`. They simply navigate to the URL of each example in the repository and validate the Chat Widget presence and related data.
 
-- To run tests use: `npm run e2e`
+- To run tests use: `yarn e2e`
 - Tests are located in: `e2e`
 
 ### Coverage
