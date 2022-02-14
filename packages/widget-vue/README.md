@@ -1,6 +1,6 @@
 # @livechat/widget-vue
 
-> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside a [Vue 3](https://v3.vuejs.org/) application.
+> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside a [Vue](https://vuejs.org/) application.
 
 [![mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 ![Github lerna version](https://img.shields.io/github/lerna-json/v/livechat/chat-widget-adapters?label=version)
@@ -25,6 +25,8 @@ yarn add @livechat/widget-vue
 
 ### Render
 
+#### Vue 3
+
 ```html
 <script lang="ts" setup>
   import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-vue'
@@ -41,6 +43,34 @@ yarn add @livechat/widget-vue
     v-on:new-event="handleNewEvent"
   />
 </template>
+```
+
+#### Vue 2
+
+```html
+<template>
+  <LiveChatWidget
+    license="12345678"
+    visibility="maximized"
+    v-on:new-event="handleNewEvent"
+  />
+</template>
+
+<script>
+  import { LiveChatWidget } from '@livechat/widget-vue/v2'
+
+  export default {
+    name: 'App',
+    components: {
+      LiveChatWidget,
+    },
+    methods: {
+      handleNewEvent(event) {
+        console.log('LiveChatWidget.onNewEvent', event)
+      },
+    },
+  }
+</script>
 ```
 
 ### Props
@@ -78,6 +108,8 @@ All event handlers listed below are registered if provided for the first time. T
 ### Composition API
 
 This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+
+**The composition API is only availble for Vue 3 apps.**
 
 #### useWidgetState
 

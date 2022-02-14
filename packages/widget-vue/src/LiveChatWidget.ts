@@ -1,5 +1,4 @@
 import { defineComponent } from 'vue'
-import type { PropType } from 'vue'
 import { createWidget } from '@livechat/widget-core'
 import type { ExtendedWindow, WidgetInstance, WidgetConfig, CustomerData, WidgetState } from '@livechat/widget-core'
 
@@ -8,40 +7,52 @@ declare const window: ExtendedWindow
 export const LiveChatWidget = defineComponent({
 	props: {
 		license: {
-			type: Object as PropType<WidgetConfig['license']>,
+			type: String,
 			required: true,
 		},
 		group: {
-			type: Object as PropType<WidgetConfig['group']>,
+			type: String,
 			required: false,
 			default: undefined,
 		},
 		visibility: {
-			type: Object as PropType<WidgetConfig['visibility']>,
+			type: String,
 			required: false,
 			default: undefined,
 		},
 		customerName: {
-			type: Object as PropType<WidgetConfig['customerName']>,
+			type: String,
 			required: false,
 			default: undefined,
 		},
 		customerEmail: {
-			type: Object as PropType<WidgetConfig['customerEmail']>,
+			type: String,
 			required: false,
 			default: undefined,
 		},
 		sessionVariables: {
-			type: Object as PropType<WidgetConfig['sessionVariables']>,
+			type: Object,
 			required: false,
 			default: undefined,
 		},
 		chatBetweenGroups: {
-			type: Object as PropType<WidgetConfig['chatBetweenGroups']>,
+			type: Boolean,
 			required: false,
 			default: undefined,
 		},
 	},
+	emits: [
+		'ready',
+		'new-event',
+		'form-submitted',
+		'rating-submitted',
+		'greeting-hidden',
+		'greeting-displayed',
+		'visibility-changed',
+		'customer-status-changed',
+		'rich-message-button-clicked',
+		'availability-changed',
+	],
 	data(): { widget: WidgetInstance | null } {
 		return {
 			widget: null,
@@ -72,25 +83,24 @@ export const LiveChatWidget = defineComponent({
 	},
 	methods: {
 		setupWidget() {
-			const emit = this.$emit
 			this.widget = createWidget({
 				group: this.group,
 				license: this.license,
-				visibility: this.visibility,
 				customerName: this.customerName,
 				customerEmail: this.customerEmail,
 				sessionVariables: this.sessionVariables,
 				chatBetweenGroups: this.chatBetweenGroups,
-				onReady: (data) => emit('ready', data),
-				onNewEvent: (event) => emit('new-event', event),
-				onFormSubmitted: (form) => emit('form-submitted', form),
-				onRatingSubmitted: (rating) => emit('rating-submitted', rating),
-				onGreetingHidden: (greeting) => emit('greeting-hidden', greeting),
-				onGreetingDisplayed: (greeting) => emit('greeting-displayed', greeting),
-				onVisibilityChanged: (visibility) => emit('visibility-changed', visibility),
-				onCustomerStatusChanged: (status) => emit('customer-status-changed', status),
-				onRichMessageButtonClicked: (button) => emit('rich-message-button-clicked', button),
-				onAvailabilityChanged: (availability) => emit('availability-changed', availability),
+				visibility: this.visibility as WidgetConfig['visibility'],
+				onReady: (data) => this.$emit('ready', data),
+				onNewEvent: (event) => this.$emit('new-event', event),
+				onFormSubmitted: (form) => this.$emit('form-submitted', form),
+				onRatingSubmitted: (rating) => this.$emit('rating-submitted', rating),
+				onGreetingHidden: (greeting) => this.$emit('greeting-hidden', greeting),
+				onGreetingDisplayed: (greeting) => this.$emit('greeting-displayed', greeting),
+				onVisibilityChanged: (visibility) => this.$emit('visibility-changed', visibility),
+				onCustomerStatusChanged: (status) => this.$emit('customer-status-changed', status),
+				onRichMessageButtonClicked: (button) => this.$emit('rich-message-button-clicked', button),
+				onAvailabilityChanged: (availability) => this.$emit('availability-changed', availability),
 			})
 			window.__lc.integration_name = process.env.PACKAGE_NAME
 			this.widget.init()
@@ -99,5 +109,8 @@ export const LiveChatWidget = defineComponent({
 			this.widget?.destroy()
 			this.setupWidget()
 		},
+	},
+	render() {
+		return null
 	},
 })
