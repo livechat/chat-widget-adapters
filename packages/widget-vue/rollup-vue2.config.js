@@ -2,11 +2,16 @@ import fs from 'fs'
 import { defineConfig } from 'rollup'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import replace from '@rollup/plugin-replace'
+import { terser } from 'rollup-plugin-terser'
+
+import mainPkg from './package.json'
 
 const extensions = ['.ts']
 const pkg = {
 	main: 'LiveChatWidget.cjs.js',
 	module: 'LiveChatWidget.esm.js',
+	unpkg: 'LiveChatWidget.umd.js',
 }
 
 /**
@@ -78,6 +83,7 @@ export default defineConfig({
 	external: ['vue', '@livechat/widget-core'],
 	plugins: [
 		resolve({ extensions }),
+		replace({ 'process.env.PACKAGE_NAME': JSON.stringify(`${String(mainPkg.name)}/v2`), preventAssignment: true }),
 		babel({ extensions, babelHelpers: 'bundled', plugins: [removeVueDefineComponentCall] }),
 		makePkgJSON(),
 	],
@@ -89,6 +95,16 @@ export default defineConfig({
 		{
 			file: `v2/${pkg.main}`,
 			format: 'cjs',
+		},
+		{
+			file: `v2/${pkg.unpkg}`,
+			format: 'umd',
+			name: 'LiveChatWidgetVue',
+			plugins: [terser()],
+			globals: {
+				vue: 'Vue',
+				'@livechat/widget-core': 'LiveChatWidgetCore',
+			},
 		},
 	],
 })
