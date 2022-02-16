@@ -17,19 +17,22 @@
     "url": "https://github.com/livechat/chat-widget-adapters.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "v2"
   ],
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "build": "rimraf dist && rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "build": "run-p build:*",
+    "build:default": "rimraf dist && rollup -c",
+    "build:vue2": "rimraf v2 && rollup -c rollup-vue2.config.js"
   },
   "dependencies": {
     "@livechat/widget-core": "^1.0.1"
   },
   "peerDependencies": {
-    "vue": "3"
+    "vue": "2 || 3"
   },
   "devDependencies": {
     "eslint-plugin-vue": "8.1.1",
