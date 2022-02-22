@@ -26,6 +26,19 @@ yarn add @livechat/widget-angular
 ### Render
 
 ```ts
+// app.module.ts
+
+import { NgModule } from '@angular/core'
+import { LiveChatWidgetModule } from '@livechat/widget-angular'
+
+@NgModule({
+  /* ... */
+  imports: [LiveChatWidgetModule],
+})
+export class AppModule {}
+```
+
+```ts
 // app.component.ts
 
 import { Component } from '@angular/core'
