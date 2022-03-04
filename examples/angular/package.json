@@ -1,7 +1,7 @@
 {
   "name": "angular-example",
   "private": "true",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "scripts": {
     "start": "ng serve --port 3003"
   },
@@ -14,7 +14,7 @@
     "@angular/platform-browser": "13.1.2",
     "@angular/platform-browser-dynamic": "13.1.2",
     "@angular/router": "13.1.2",
-    "@livechat/widget-angular": "^1.0.1",
+    "@livechat/widget-angular": "^1.1.0",
     "rxjs": "7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "0.11.4"
