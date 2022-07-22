@@ -1,8 +1,11 @@
 import * as React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
-export function createHookValueContainer(hook: () => any, root: HTMLElement | null) {
+Object.defineProperty(global, 'IS_REACT_ACT_ENVIRONMENT', { value: true })
+
+export function createHookValueContainer(hook: () => any, rootElement: HTMLElement | null) {
 	const resultId = 'result'
+	const root = createRoot(rootElement as HTMLElement)
 
 	function RenderHookValue() {
 		const value = hook()
@@ -14,11 +17,11 @@ export function createHookValueContainer(hook: () => any, root: HTMLElement | nu
 	}
 
 	function mount() {
-		render(<RenderHookValue />, root)
+		root.render(<RenderHookValue />)
 	}
 
 	function unmount() {
-		render(<RenderNothing />, root)
+		root.render(<RenderNothing />)
 	}
 
 	function getResultContent() {
