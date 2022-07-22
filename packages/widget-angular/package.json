@@ -30,7 +30,7 @@
     "@livechat/widget-core": "^1.1.0"
   },
   "peerDependencies": {
-    "@angular/core": "12 || 13",
+    "@angular/core": "12 || 13 || 14",
     "rxjs": "6 || 7"
   },
   "devDependencies": {
