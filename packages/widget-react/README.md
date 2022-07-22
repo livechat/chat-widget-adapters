@@ -53,7 +53,6 @@ All properties described below are used for initialization on the first render a
 | ----------------- | -------------------------------------- |
 | license           | string (required)                      |
 | group             | string                                 |
-| visibility        | string                                 |
 | customerName      | string                                 |
 | customerEmail     | string                                 |
 | chatBetweenGroups | boolean                                |
