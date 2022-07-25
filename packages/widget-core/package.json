@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-core",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "sideEffects": false,
   "description": "LiveChat Chat Widget adapters implementation core",
   "main": "dist/widget-core.cjs.js",
