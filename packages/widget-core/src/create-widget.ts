@@ -33,11 +33,15 @@ export type WidgetInstance = {
 }
 
 type State = {
+	isLoading: boolean
 	currentEventHandlers: EventHandlers
+	desiredState: 'loaded' | 'destroyed' | 'unknown'
 }
 
 export function createWidget(config: WidgetConfig): WidgetInstance {
 	const state: State = {
+		isLoading: false,
+		desiredState: 'unknown',
 		currentEventHandlers: {
 			onReady: config.onReady,
 			onNewEvent: config.onNewEvent,
@@ -52,7 +56,7 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 		},
 	}
 
-	createJSApi()
+	const scriptRef = createJSApi()
 	assignConfiguration(config)
 	assignVisibility(config.visibility)
 	assignEventHandlers('on', state.currentEventHandlers)
@@ -65,11 +69,35 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 
 	return {
 		init: () => {
+			state.desiredState = 'loaded'
+			if (state.isLoading) {
+				return
+			}
+
+			// @ts-ignore
+			// eslint-disable-next-line
+			;(window.LC_API = window.LC_API || {}).on_after_load = () => {
+				state.isLoading = false
+				if (state.desiredState === 'destroyed') {
+					lifecycleEmit('destroy')
+					scriptRef.current?.remove()
+					window.LiveChatWidget.call('destroy')
+				}
+				state.desiredState = 'unknown'
+			}
+
 			lifecycleEmit('init')
+			state.isLoading = true
 			window.LiveChatWidget.init()
 		},
 		destroy: () => {
+			state.desiredState = 'destroyed'
+			if (state.isLoading) {
+				return
+			}
+
 			lifecycleEmit('destroy')
+			scriptRef.current?.remove()
 			window.LiveChatWidget.call('destroy')
 		},
 		updateVisibility: (visibility) => {
