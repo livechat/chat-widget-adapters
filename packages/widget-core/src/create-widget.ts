@@ -68,20 +68,17 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 	window.__lc.integration_name = process.env.PACKAGE_NAME
 
 	return {
-		init: () => {
+		init() {
 			state.desiredState = 'loaded'
 			if (state.isLoading) {
 				return
 			}
 
-			// @ts-ignore
-			// eslint-disable-next-line
-			;(window.LC_API = window.LC_API || {}).on_after_load = () => {
+			window.LC_API = window.LC_API || {}
+			window.LC_API.on_after_load = () => {
 				state.isLoading = false
 				if (state.desiredState === 'destroyed') {
-					lifecycleEmit('destroy')
-					scriptRef.current?.remove()
-					window.LiveChatWidget.call('destroy')
+					this.destroy()
 				}
 				state.desiredState = 'unknown'
 			}
@@ -90,7 +87,8 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 			state.isLoading = true
 			window.LiveChatWidget.init()
 		},
-		destroy: () => {
+
+		destroy() {
 			state.desiredState = 'destroyed'
 			if (state.isLoading) {
 				return
@@ -100,23 +98,28 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 			scriptRef.current?.remove()
 			window.LiveChatWidget.call('destroy')
 		},
-		updateVisibility: (visibility) => {
+
+		updateVisibility(visibility) {
 			assignVisibility(visibility)
 		},
-		updateEventHandlers: (eventHabndlers) => {
+
+		updateEventHandlers(eventHabndlers) {
 			assignEventHandlers('off', state.currentEventHandlers)
 			assignEventHandlers('on', eventHabndlers)
 			state.currentEventHandlers = { ...eventHabndlers }
 		},
-		updateSessionVariables: (sessionVariables) => {
+
+		updateSessionVariables(sessionVariables) {
 			if (sessionVariables) {
 				window.LiveChatWidget.call('update_session_variables', sessionVariables)
 			}
 		},
-		hideGreeting: () => {
+
+		hideGreeting() {
 			window.LiveChatWidget.call('hide_greeting')
 		},
-		updateCustomerData: (customerData) => {
+
+		updateCustomerData(customerData) {
 			assignCustomerData(customerData)
 		},
 	}

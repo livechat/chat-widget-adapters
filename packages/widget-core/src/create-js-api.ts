@@ -46,9 +46,7 @@ export function createJSApi() {
 		},
 	}
 
-	if (scriptRef.current) {
-		scriptRef.current.remove()
-	}
+	scriptRef.current?.remove()
 
 	window.LiveChatWidget = window.LiveChatWidget || api
 
