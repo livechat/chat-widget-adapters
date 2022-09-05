@@ -163,4 +163,38 @@ describe('createWidget', () => {
 
 		expect(mockAssignCustomerData).toBeCalledWith({ name: 'foo' })
 	})
+
+	it('should prevent from multiple initializations', () => {
+		const widget: WidgetInstance = createWidget(widgetConfig)
+
+		widget.init()
+		widget.init()
+
+		expect(mockLiveChatWidget.init).toBeCalledTimes(1)
+	})
+
+	it('should prevent destroying widget while it is loading', () => {
+		const widget: WidgetInstance = createWidget(widgetConfig)
+
+		widget.init()
+		widget.destroy()
+
+		expect(mockLiveChatWidget.call).not.toBeCalledWith('destroy')
+	})
+
+	it('should handle `on_after_load` callback', () => {
+		const widget: WidgetInstance = createWidget(widgetConfig)
+		widget.destroy = jest.fn(widget.destroy)
+
+		widget.init()
+
+		expect(window.LC_API?.on_after_load).toBeDefined()
+
+		window.LC_API?.on_after_load?.()
+		expect(widget.destroy).not.toBeCalled()
+
+		widget.destroy()
+		window.LC_API?.on_after_load?.()
+		expect(widget.destroy).toBeCalledTimes(2)
+	})
 })

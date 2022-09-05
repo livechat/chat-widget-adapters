@@ -3,7 +3,9 @@ import type { ExtendedWindow } from './types'
 
 declare const window: ExtendedWindow
 
-export function createJSApi(): void {
+const scriptRef: { current: HTMLScriptElement | null } = { current: null }
+
+export function createJSApi() {
 	const { slice } = Array.prototype
 
 	/* istanbul ignore next */
@@ -40,7 +42,13 @@ export function createJSApi(): void {
 			script.type = 'text/javascript'
 			script.src = 'https://cdn.livechatinc.com/tracking.js'
 			document.head.appendChild(script)
+			scriptRef.current = script
 		},
 	}
+
+	scriptRef.current?.remove()
+
 	window.LiveChatWidget = window.LiveChatWidget || api
+
+	return scriptRef
 }

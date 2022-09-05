@@ -14,6 +14,9 @@ export type ExtendedWindow = Window & {
 		call: typeof call
 		init: VoidFunction
 	}
+	LC_API?: {
+		on_after_load?: VoidFunction
+	}
 }
 
 declare function on(name: 'ready', handler: EventHandlers['onReady']): void
