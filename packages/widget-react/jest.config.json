@@ -1,5 +1,7 @@
 {
-  "timers": "fake",
+  "fakeTimers": {
+    "enableGlobally": true
+  },
   "maxWorkers": "25%",
   "testEnvironment": "jsdom",
   "testMatch": [

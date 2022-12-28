@@ -1,5 +1,7 @@
 {
-  "timers": "fake",
+  "fakeTimers": {
+    "enableGlobally": true
+  },
   "maxWorkers": "25%",
   "preset": "jest-preset-angular",
   "testEnvironment": "jsdom",
@@ -12,6 +14,9 @@
   ],
   "setupFilesAfterEnv": [
     "./jest.setup.js"
+  ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
   ],
   "coverageReporters": [
     "text"
