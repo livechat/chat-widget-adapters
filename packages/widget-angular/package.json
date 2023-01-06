@@ -34,12 +34,12 @@
     "rxjs": "6 || 7"
   },
   "devDependencies": {
-    "@angular/common": "14.2.12",
-    "@angular/compiler": "14.2.12",
-    "@angular/compiler-cli": "14.2.12",
-    "@angular/core": "14.2.12",
-    "@angular/platform-browser": "14.2.12",
-    "@angular/platform-browser-dynamic": "14.2.12",
+    "@angular/common": "13.1.2",
+    "@angular/compiler": "13.1.2",
+    "@angular/compiler-cli": "13.1.2",
+    "@angular/core": "13.1.2",
+    "@angular/platform-browser": "13.1.2",
+    "@angular/platform-browser-dynamic": "13.1.2",
     "jest-preset-angular": "^11.0.1",
     "rxjs": "7.4.0"
   }
