@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-vue",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "sideEffects": false,
   "description": "This library allows to render and interact with the LiveChat Chat Widget inside a Vue 3 application",
   "main": "dist/widget-vue.cjs.js",
@@ -29,7 +29,7 @@
     "build:vue2": "rimraf v2 && rollup -c rollup-vue2.config.js"
   },
   "dependencies": {
-    "@livechat/widget-core": "^1.2.2"
+    "@livechat/widget-core": "^1.2.3"
   },
   "peerDependencies": {
     "vue": "2 || 3"
