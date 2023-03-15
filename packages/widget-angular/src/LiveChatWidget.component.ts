@@ -26,6 +26,7 @@ export class LiveChatWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() customerEmail: WidgetConfig['customerEmail']
 	@Input() sessionVariables: WidgetConfig['sessionVariables']
 	@Input() chatBetweenGroups: WidgetConfig['chatBetweenGroups']
+	@Input() customIdentityProvider: WidgetConfig['customIdentityProvider']
 
 	@Output() onReady = new EventEmitter<EventHandlerPayload<'onReady'>>()
 	@Output() onNewEvent = new EventEmitter<EventHandlerPayload<'onNewEvent'>>()
@@ -45,7 +46,12 @@ export class LiveChatWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: Changes) {
-		const fullReloadProps: Array<keyof WidgetConfig> = ['license', 'group', 'chatBetweenGroups']
+		const fullReloadProps: Array<keyof WidgetConfig> = [
+			'license',
+			'group',
+			'chatBetweenGroups',
+			'customIdentityProvider',
+		]
 		if (fullReloadProps.some((prop) => changes[prop] !== undefined && !changes[prop]?.isFirstChange())) {
 			this.reinitialize()
 			return
@@ -78,6 +84,7 @@ export class LiveChatWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			customerEmail: this.customerEmail,
 			sessionVariables: this.sessionVariables,
 			chatBetweenGroups: this.chatBetweenGroups,
+			customIdentityProvider: this.customIdentityProvider,
 			onReady: (data) => this.onReady.emit(data),
 			onNewEvent: (event) => this.onNewEvent.emit(event),
 			onFormSubmitted: (form) => this.onFormSubmitted.emit(form),

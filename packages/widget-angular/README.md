@@ -70,15 +70,107 @@ export class AppComponent {
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop              | Type                                   |
-| ----------------- | -------------------------------------- |
-| license           | string (required)                      |
-| group             | string                                 |
-| customerName      | string                                 |
-| customerEmail     | string                                 |
-| chatBetweenGroups | boolean                                |
-| sessionVariables  | Record<string, string>                 |
-| visibility        | 'maximized' \| 'minimized' \| 'hidden' |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license                  | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider\* | () => {                                |
+|                          | getToken: () => Promise<string>        |
+|                          | getFreshToken: () => Promise<string>   |
+|                          | hasToken: () => Promise<boolean>       |
+|                          | invalidate: () => Promise<void>        |
+|                          | }                                      |
+
+#### Custom Identity Provider
+
+In order to make Custom Identity Provider work, you'll have to properly implement and provide a set of following methods:
+
+- `getToken` - resolving Chat Widget token. If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
+- `getFreshToken` - resolving Chat Widget token. This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
+- `hasToken` - resolving boolean. It determines whether a token has been acquired.
+- `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterward.
+
+##### Example usage
+
+```ts
+// app.component.ts
+
+import { Component } from '@angular/core'
+import { EventHandlerPayload } from '@livechat/widget-angular'
+
+@Component({
+  /* ... */
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  customIdentityProvider() {
+    const baseAPI = 'YOUR_API_URL'
+    const userId = '30317220-c72d-11ed-2137-0242ac120002'
+
+    const getToken = async () => {
+      const apiURL = baseAPI + 'getToken/'
+      const response = await fetch(apiURL + userId)
+
+      if (response.status >= 400) {
+        return null
+      }
+
+      const token = await response.json()
+      console.log('getToken', token)
+      return token ? token : false
+    }
+
+    const getFreshToken = async () => {
+      const apiURL = baseAPI + 'getFreshToken/'
+      const response = await fetch(apiURL + userId)
+
+      if (response.status >= 400) {
+        return null
+      }
+
+      const token = await response.json()
+      return token ? token : false
+    }
+
+    const hasToken = async () => {
+      const apiURL = baseAPI + 'hasToken/'
+      const response = await fetch(apiURL + userId)
+      const data = await response.json()
+      return JSON.stringify(data) === 'true'
+    }
+
+    const invalidateToken = async () => {
+      const apiURL = baseAPI + 'invalidate/'
+      const response = await fetch(apiURL + userId)
+      const data = await response.json()
+      console.log(data)
+    }
+
+    return {
+      getToken,
+      getFreshToken,
+      hasToken,
+      invalidate: invalidateToken,
+    }
+  }
+}
+```
+
+```html
+<!-- app.component.html -->
+<livechat-widget
+  license="12345678"
+  visibility="maximized"
+  [customIdentityProvider]="customIdentityProvider"
+></livechat-widget>
+```
+
+For more information about Custom Identity Provider, checkout https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
 
 #### Event handlers
 

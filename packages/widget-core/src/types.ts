@@ -5,6 +5,7 @@ export type ExtendedWindow = Window & {
 		params?: Array<{ name: string; value: string }>
 		chat_between_groups?: boolean
 		integration_name?: string
+		custom_identity_provider?: CustomIdentityProvider
 	}
 	LiveChatWidget: {
 		on: typeof on
@@ -61,6 +62,7 @@ export type ConfigurationOptions = {
 	group?: string
 	chatBetweenGroups?: boolean
 	sessionVariables?: CustomerData['sessionVariables']
+	customIdentityProvider?: CustomIdentityProvider
 }
 
 export type ChatData = {
@@ -113,3 +115,10 @@ export type EventHandlerPayload<T extends keyof EventHandlers, E = Required<Even
 ) => void
 	? Parameters<E>['0']
 	: never
+
+export type CustomIdentityProvider = () => {
+	getToken: () => Promise<string>
+	getFreshToken: () => Promise<string>
+	hasToken: () => Promise<boolean>
+	invalidate: () => Promise<void>
+}

@@ -15,7 +15,7 @@ export function LiveChatWidget(props: WidgetConfig) {
 			widgetRef.current?.destroy()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.license, props.group, props.chatBetweenGroups])
+	}, [props.license, props.group, props.chatBetweenGroups, props.customIdentityProvider])
 
 	React.useEffect(() => {
 		widgetRef.current?.updateVisibility(props.visibility)

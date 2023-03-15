@@ -4,6 +4,9 @@ import type { ExtendedWindow } from '../types'
 declare const window: ExtendedWindow
 
 describe('assignConfiguration', () => {
+	beforeEach(() => {
+		window.__lc = {} as ExtendedWindow['__lc']
+	})
 	it('should assign full proper config', () => {
 		assignConfiguration({
 			license: '123456',
@@ -13,11 +16,18 @@ describe('assignConfiguration', () => {
 				foo: 'bar',
 				bar: 'baz',
 			},
+			customIdentityProvider: () => ({
+				getToken: () => Promise.resolve(String(Math.random())),
+				getFreshToken: () => Promise.resolve(String(Math.random())),
+				hasToken: () => Promise.resolve(true),
+				invalidate: () => Promise.resolve(),
+			}),
 		})
 
 		expect(window.__lc).toMatchInlineSnapshot(`
 		Object {
 		  "chat_between_groups": true,
+		  "custom_identity_provider": [Function],
 		  "group": 0,
 		  "license": 123456,
 		  "params": Array [
@@ -38,19 +48,7 @@ describe('assignConfiguration', () => {
 		assignConfiguration({ license: '123456' })
 		expect(window.__lc).toMatchInlineSnapshot(`
 		Object {
-		  "chat_between_groups": true,
-		  "group": 0,
 		  "license": 123456,
-		  "params": Array [
-		    Object {
-		      "name": "foo",
-		      "value": "bar",
-		    },
-		    Object {
-		      "name": "bar",
-		      "value": "baz",
-		    },
-		  ],
 		}
 	`)
 	})

@@ -7,6 +7,7 @@ export function assignConfiguration({
 	group,
 	chatBetweenGroups,
 	sessionVariables,
+	customIdentityProvider,
 }: ConfigurationOptions): void {
 	window.__lc = window.__lc || {}
 
@@ -23,5 +24,8 @@ export function assignConfiguration({
 	}
 	if (sessionVariables instanceof Object) {
 		window.__lc.params = Object.entries(sessionVariables).map(([name, value]) => ({ name, value }))
+	}
+	if (typeof customIdentityProvider !== 'undefined') {
+		window.__lc.custom_identity_provider = customIdentityProvider
 	}
 }
