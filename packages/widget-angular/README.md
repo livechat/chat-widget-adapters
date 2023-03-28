@@ -93,7 +93,7 @@ In order to make Custom Identity Provider work, you'll have to properly implemen
 - `getToken` - resolving Chat Widget token. If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
 - `getFreshToken` - resolving Chat Widget token. This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
 - `hasToken` - resolving boolean. It determines whether a token has been acquired.
-- `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterward.
+- `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterwards.
 
 ##### Example usage
 
@@ -113,40 +113,29 @@ export class AppComponent {
     const userId = '30317220-c72d-11ed-2137-0242ac120002'
 
     const getToken = async () => {
-      const apiURL = baseAPI + 'getToken/'
-      const response = await fetch(apiURL + userId)
-
-      if (response.status >= 400) {
-        return null
-      }
+      const response = await fetch(`${baseAPI}/getToken/${userId}`)
 
       const token = await response.json()
       console.log('getToken', token)
-      return token ? token : false
+      return token
     }
 
     const getFreshToken = async () => {
-      const apiURL = baseAPI + 'getFreshToken/'
-      const response = await fetch(apiURL + userId)
-
-      if (response.status >= 400) {
-        return null
-      }
+      const response = await fetch(`${baseAPI}/getFreshToken/${userId}`)
 
       const token = await response.json()
-      return token ? token : false
+      console.log('getFreshToken', token)
+      return token
     }
 
     const hasToken = async () => {
-      const apiURL = baseAPI + 'hasToken/'
-      const response = await fetch(apiURL + userId)
+      const response = await fetch(`${baseAPI}/hasToken/${userId}`)
       const data = await response.json()
-      return JSON.stringify(data) === 'true'
+      return data
     }
 
     const invalidateToken = async () => {
-      const apiURL = baseAPI + 'invalidate/'
-      const response = await fetch(apiURL + userId)
+      const response = await fetch(`${baseAPI}/invalidate/${userId}`)
       const data = await response.json()
       console.log(data)
     }
@@ -170,7 +159,7 @@ export class AppComponent {
 ></livechat-widget>
 ```
 
-For more information about Custom Identity Provider, checkout https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
+For more information about Custom Identity Provider, check out https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
 
 #### Event handlers
 
