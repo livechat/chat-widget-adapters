@@ -116,9 +116,18 @@ export type EventHandlerPayload<T extends keyof EventHandlers, E = Required<Even
 	? Parameters<E>['0']
 	: never
 
+export type Token = {
+	accessToken: string
+	entityId: number
+	expiresIn: number
+	tokenType: 'Bearer'
+	creationDate: number
+	licenseId: number
+}
+
 export type CustomIdentityProvider = () => {
-	getToken: () => Promise<string>
-	getFreshToken: () => Promise<string>
+	getToken: () => Promise<Token>
+	getFreshToken: () => Promise<Token>
 	hasToken: () => Promise<boolean>
 	invalidate: () => Promise<void>
 }

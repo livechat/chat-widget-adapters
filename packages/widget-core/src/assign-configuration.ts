@@ -25,7 +25,7 @@ export function assignConfiguration({
 	if (sessionVariables instanceof Object) {
 		window.__lc.params = Object.entries(sessionVariables).map(([name, value]) => ({ name, value }))
 	}
-	if (typeof customIdentityProvider !== 'undefined') {
+	if (typeof customIdentityProvider === 'function') {
 		window.__lc.custom_identity_provider = customIdentityProvider
 	}
 }

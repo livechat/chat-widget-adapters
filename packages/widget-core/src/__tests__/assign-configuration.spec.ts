@@ -1,7 +1,33 @@
 import { assignConfiguration } from '../assign-configuration'
-import type { ExtendedWindow } from '../types'
+import type { ExtendedWindow, Token } from '../types'
 
 declare const window: ExtendedWindow
+
+//example token based on export type Token = {
+// 	accessToken: string
+// 	entityId: number
+// 	expiresIn: number
+// 	tokenType: 'Bearer'
+// 	creationDate: number
+// 	licenseId: number
+// }
+
+const exampleToken: Token = {
+	accessToken:
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+	entityId: 123456,
+	expiresIn: 3600,
+	tokenType: 'Bearer',
+	creationDate: 1593641600,
+	licenseId: 15044244,
+}
+
+const customIdentityProvider = () => ({
+	getToken: () => Promise.resolve(exampleToken),
+	getFreshToken: () => Promise.resolve(exampleToken),
+	hasToken: () => Promise.resolve(true),
+	invalidate: () => Promise.resolve(),
+})
 
 describe('assignConfiguration', () => {
 	beforeEach(() => {
@@ -16,12 +42,7 @@ describe('assignConfiguration', () => {
 				foo: 'bar',
 				bar: 'baz',
 			},
-			customIdentityProvider: () => ({
-				getToken: () => Promise.resolve(String(Math.random())),
-				getFreshToken: () => Promise.resolve(String(Math.random())),
-				hasToken: () => Promise.resolve(true),
-				invalidate: () => Promise.resolve(),
-			}),
+			customIdentityProvider,
 		})
 
 		expect(window.__lc).toMatchInlineSnapshot(`
@@ -42,6 +63,8 @@ describe('assignConfiguration', () => {
 		  ],
 		}
 	`)
+
+		expect(window.__lc.custom_identity_provider).toStrictEqual(customIdentityProvider)
 	})
 
 	it('should allow to pass only license', () => {

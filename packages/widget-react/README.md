@@ -58,75 +58,16 @@ All properties described below are used for initialization on the first render a
 | chatBetweenGroups      | boolean                                |
 | sessionVariables       | Record<string, string>                 |
 | visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => {                                |
-|                        | getToken: () => Promise<string>        |
-|                        | getFreshToken: () => Promise<string>   |
-|                        | hasToken: () => Promise<boolean>       |
-|                        | invalidate: () => Promise<void>        |
-|                        | }                                      |
+| customIdentityProvider | () => CustomerAuth                     |
 
-#### Custom Identity Provider
+CustomerAuth:
 
-In order to make Custom Identity Provider work, you'll have to properly implement and provide a set of following methods:
-
-- `getToken` - resolving Chat Widget token. If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
-- `getFreshToken` - resolving Chat Widget token. This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
-- `hasToken` - resolving boolean. It determines whether a token has been acquired.
-- `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterwards.
-
-##### Example usage
-
-```ts
-import { LiveChatWidget } from '@livechat/widget-react'
-
-const baseAPI = 'YOUR_API_URL'
-const userId = '30317220-c72d-11ed-2137-0242ac120002'
-
-const getToken = async () => {
-  const response = await fetch(`${baseAPI}/getToken/${userId}`)
-
-  const token = await response.json()
-  console.log('getToken', token)
-  return token
-}
-
-const getFreshToken = async () => {
-  const response = await fetch(`${baseAPI}/getFreshToken/${userId}`)
-
-  const token = await response.json()
-  console.log('getFreshToken, token')
-  return token
-}
-
-const hasToken = async () => {
-  const response = await fetch(`${baseAPI}/hasToken/${userId}`)
-  const data = await response.json()
-  return data
-}
-
-const invalidateToken = async () => {
-  const response = await fetch(`${baseAPI}/invalidate/${userId}`)
-  const data = await response.json()
-  console.log(data)
-}
-
-function App() {
-  return (
-    <LiveChatWidget
-      license="12345678"
-      visibility="maximized"
-      customIdentityProvider={() => ({
-        getToken,
-        getFreshToken,
-        hasToken,
-        invalidate: invalidateToken,
-      })}
-    />
-  )
-}
-```
-
-For more information about Custom Identity Provider, check out https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
+| parameters    | type                   | description                                                                            |
+| ------------- | ---------------------- | -------------------------------------------------------------------------------------- |
+| getFreshToken | () => Promise<Token>   | Should resolve with freshly requested customer access token.                           |
+| getToken      | () => Promise<Token>   | Should resolve with currently stored customer access token.                            |
+| hasToken      | () => Promise<boolean> | Should resolve with a boolean value representing if a token has been already acquired. |
+| invalidate    | () => Promise<void>    | Should handle token invalidation and/or clearing the locally cached value.             |
 
 #### Event handlers
 
@@ -250,6 +191,73 @@ function App() {
   }
 }
 ```
+
+#### Custom Identity Provider
+
+In order to make Custom Identity Provider work, you'll have to properly implement and provide a set of following methods:
+
+- `getToken` - resolving [Chat Widget token]('https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider#chat-widget-token'). If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
+- `getFreshToken` - resolving [Chat Widget token]('https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider#chat-widget-token'). This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
+- `hasToken` - resolving boolean. It determines whether a token has been acquired.
+- `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterwards.
+
+##### Example usage
+
+```ts
+import { LiveChatWidget } from '@livechat/widget-react'
+
+const customIdentityProvider = () => {
+  const baseAPI = 'YOUR_API_URL'
+  const userId = '30317220-c72d-11ed-2137-0242ac120002'
+
+  const getToken = async () => {
+    const response = await fetch(`${baseAPI}/getToken/${userId}`)
+
+    const token = await response.json()
+    console.log('getToken', token)
+    return token
+  }
+
+  const getFreshToken = async () => {
+    const response = await fetch(`${baseAPI}/getFreshToken/${userId}`)
+
+    const token = await response.json()
+    console.log('getFreshToken, token')
+    return token
+  }
+
+  const hasToken = async () => {
+    const response = await fetch(`${baseAPI}/hasToken/${userId}`)
+    const data = await response.json()
+    return data
+  }
+
+  const invalidateToken = async () => {
+    const response = await fetch(`${baseAPI}/invalidate/${userId}`)
+    const data = await response.json()
+    console.log(data)
+  }
+
+  return {
+    getToken,
+    getFreshToken,
+    hasToken,
+    invalidate: invalidateToken,
+  }
+}
+
+function App() {
+  return (
+    <LiveChatWidget
+      license="12345678"
+      visibility="maximized"
+      customIdentityProvider={customIdentityProvider}
+    />
+  )
+}
+```
+
+For more information about Custom Identity Provider, check out https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
 
 ## Contributing
 

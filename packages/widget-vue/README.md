@@ -88,19 +88,139 @@ All properties described below are used for initialization on the first render a
 | chatBetweenGroups      | boolean                                |
 | sessionVariables       | Record<string, string>                 |
 | visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => {                                |
-|                        | getToken: () => Promise<string>        |
-|                        | getFreshToken: () => Promise<string>   |
-|                        | hasToken: () => Promise<boolean>       |
-|                        | invalidate: () => Promise<void>        |
-|                        | }                                      |
+| customIdentityProvider | () => CustomerAuth                     |
+
+CustomerAuth:
+
+| parameters    | type                   | description                                                                            |
+| ------------- | ---------------------- | -------------------------------------------------------------------------------------- |
+| getFreshToken | () => Promise<Token>   | Should resolve with freshly requested customer access token.                           |
+| getToken      | () => Promise<Token>   | Should resolve with currently stored customer access token.                            |
+| hasToken      | () => Promise<boolean> | Should resolve with a boolean value representing if a token has been already acquired. |
+| invalidate    | () => Promise<void>    | Should handle token invalidation and/or clearing the locally cached value.             |
+
+#### Event handlers
+
+All event handlers listed below are registered if provided for the first time. They unregister on the component cleanup or the property value change. Descriptions of all events are available after clicking on the associated links.
+
+- [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
+- [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
+- [onVisibilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-visibility-changed)
+- [onCustomerStatusChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-customer-status-changed)
+- [onNewEvent](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-new-event)
+- [onFormSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-form-submitted)
+- [onRatingSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rating-submitted)
+- [onGreetingDisplayed](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-displayed)
+- [onGreetingHidden](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-hidden)
+- [onRichMessageButtonClicked](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rich-message-button-clicked)
+
+### Composition API
+
+This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+
+**The composition API is only availble for Vue 3 apps.**
+
+#### useWidgetState
+
+Access the current chat widget `availability` or `visibility` state if the chat widget is loaded.
+
+```html
+<script setup>
+  import { useWidgetState } from '@livechat/widget-vue'
+  const widgetState = useWidgetState()
+</script>
+
+<template>
+  <div v-if="widgetState">
+    <span>{{widgetState.availability}}</span>
+    <span>{{widgetState.visibility}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetIsReady
+
+Check if the chat widget is ready using the boolean flag `isWidgetReady`.
+
+```html
+<script setup>
+  import { useWidgetIsReady } from '@livechat/widget-vue'
+  const isWidgetReady = useWidgetIsReady()
+</script>
+
+<template>
+  <div>
+    <span>Chat Widget is</span>
+    <span v-if="isWidgetReady">loaded</span>
+    <span v-else>loading...</span>
+  </div>
+</template>
+```
+
+#### useWidgetChatData
+
+Access the `chatId` and `threadId` of the chat if there's one currently available.
+
+```html
+<script setup>
+  import { useWidgetChatData } from '@livechat/widget-vue'
+  const chatData = useWidgetChatData()
+</script>
+
+<template>
+  <div v-if="chatData">
+    <span>{{chatData.chatId}}</span>
+    <span>{{chatData.threadId}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetGreeting
+
+Access the current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
+
+```html
+<script setup>
+  import { useWidgetGreeting } from '@livechat/widget-vue'
+  const greeting = useWidgetGreeting()
+</script>
+
+<template>
+  <div v-if="greeting">
+    <span>{{greeting.id}}</span>
+    <span>{{greeting.uniqueId}}</span>
+  </div>
+</template>
+```
+
+#### useWidgetCustomerData
+
+Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer if the chat widget is loaded.
+
+```html
+<script setup>
+  import { useWidgetCustomerData } from '@livechat/widget-vue'
+  const customerData = useWidgetCustomerData()
+</script>
+
+<template>
+  <div v-if="customerData">
+    <span>{{customerData.id}}</span>
+    <span>{{customerData.isReturning}}</span>
+    <span>{{customerData.status}}</span>
+    <ul>
+      <li v-for="variable in customerData.sessionVariables">{{variable}}</li>
+    </ul>
+  </div>
+</template>
+```
 
 #### Custom Identity Provider
 
 In order to make Custom Identity Provider work, you'll have to properly implement and provide a set of following methods:
 
-- `getToken` - resolving Chat Widget token. If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
-- `getFreshToken` - resolving Chat Widget token. This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
+- `getToken` - resolving [Chat Widget token]('https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider#chat-widget-token'). If you want to cache the token, this should return the cached token instead of a fresh request to https://accounts.livechat.com/customer/token endpoint.
+- `getFreshToken` - resolving [Chat Widget token]('https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider#chat-widget-token'). This should always make a call for a fresh token from https://accounts.livechat.com/customer/token endpoint.
 - `hasToken` - resolving boolean. It determines whether a token has been acquired.
 - `invalidate` - resolving nothing. When called, it should remove the current token. There is no need to do anything else as a new token will be requested by getFreshToken afterwards.
 
@@ -227,122 +347,6 @@ In order to make Custom Identity Provider work, you'll have to properly implemen
 ```
 
 For more information about Custom Identity Provider, check out https://developers.livechat.com/docs/extending-chat-widget/custom-identity-provider
-
-#### Event handlers
-
-All event handlers listed below are registered if provided for the first time. They unregister on the component cleanup or the property value change. Descriptions of all events are available after clicking on the associated links.
-
-- [onReady](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-ready)
-- [onAvailabilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-availability-changed)
-- [onVisibilityChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-visibility-changed)
-- [onCustomerStatusChanged](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-customer-status-changed)
-- [onNewEvent](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-new-event)
-- [onFormSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-form-submitted)
-- [onRatingSubmitted](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rating-submitted)
-- [onGreetingDisplayed](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-displayed)
-- [onGreetingHidden](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-greeting-hidden)
-- [onRichMessageButtonClicked](https://developers.livechat.com/docs/extending-chat-widget/javascript-api#on-rich-message-button-clicked)
-
-### Composition API
-
-This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
-
-**The composition API is only availble for Vue 3 apps.**
-
-#### useWidgetState
-
-Access the current chat widget `availability` or `visibility` state if the chat widget is loaded.
-
-```html
-<script setup>
-  import { useWidgetState } from '@livechat/widget-vue'
-  const widgetState = useWidgetState()
-</script>
-
-<template>
-  <div v-if="widgetState">
-    <span>{{widgetState.availability}}</span>
-    <span>{{widgetState.visibility}}</span>
-  </div>
-</template>
-```
-
-#### useWidgetIsReady
-
-Check if the chat widget is ready using the boolean flag `isWidgetReady`.
-
-```html
-<script setup>
-  import { useWidgetIsReady } from '@livechat/widget-vue'
-  const isWidgetReady = useWidgetIsReady()
-</script>
-
-<template>
-  <div>
-    <span>Chat Widget is</span>
-    <span v-if="isWidgetReady">loaded</span>
-    <span v-else>loading...</span>
-  </div>
-</template>
-```
-
-#### useWidgetChatData
-
-Access the `chatId` and `threadId` of the chat if there's one currently available.
-
-```html
-<script setup>
-  import { useWidgetChatData } from '@livechat/widget-vue'
-  const chatData = useWidgetChatData()
-</script>
-
-<template>
-  <div v-if="chatData">
-    <span>{{chatData.chatId}}</span>
-    <span>{{chatData.threadId}}</span>
-  </div>
-</template>
-```
-
-#### useWidgetGreeting
-
-Access the current greeting `id` and `uniqueId` if one is currently displayed (received and not hidden).
-
-```html
-<script setup>
-  import { useWidgetGreeting } from '@livechat/widget-vue'
-  const greeting = useWidgetGreeting()
-</script>
-
-<template>
-  <div v-if="greeting">
-    <span>{{greeting.id}}</span>
-    <span>{{greeting.uniqueId}}</span>
-  </div>
-</template>
-```
-
-#### useWidgetCustomerData
-
-Access the `id`, `isReturning`, `status`, and `sessionVariables` of the current customer if the chat widget is loaded.
-
-```html
-<script setup>
-  import { useWidgetCustomerData } from '@livechat/widget-vue'
-  const customerData = useWidgetCustomerData()
-</script>
-
-<template>
-  <div v-if="customerData">
-    <span>{{customerData.id}}</span>
-    <span>{{customerData.isReturning}}</span>
-    <span>{{customerData.status}}</span>
-    <ul>
-      <li v-for="variable in customerData.sessionVariables">{{variable}}</li>
-    </ul>
-  </div>
-</template>
-```
 
 ## Contributing
 
