@@ -3,15 +3,6 @@ import type { ExtendedWindow, Token } from '../types'
 
 declare const window: ExtendedWindow
 
-//example token based on export type Token = {
-// 	accessToken: string
-// 	entityId: number
-// 	expiresIn: number
-// 	tokenType: 'Bearer'
-// 	creationDate: number
-// 	licenseId: number
-// }
-
 const exampleToken: Token = {
 	accessToken:
 		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
