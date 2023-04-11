@@ -46,12 +46,7 @@ export class LiveChatWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: Changes) {
-		const fullReloadProps: Array<keyof WidgetConfig> = [
-			'license',
-			'group',
-			'chatBetweenGroups',
-			'customIdentityProvider',
-		]
+		const fullReloadProps: Array<keyof WidgetConfig> = ['license', 'group', 'chatBetweenGroups']
 		if (fullReloadProps.some((prop) => changes[prop] !== undefined && !changes[prop]?.isFirstChange())) {
 			this.reinitialize()
 			return

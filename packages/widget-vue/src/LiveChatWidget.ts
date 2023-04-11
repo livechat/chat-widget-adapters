@@ -67,7 +67,6 @@ export const LiveChatWidget = defineComponent({
 		license: 'reinitialize',
 		group: 'reinitialize',
 		chatBetweenGroups: 'reinitialize',
-		customIdentityProvider: 'reinitialize',
 
 		visibility(visibility: WidgetState['visibility']) {
 			this.widget?.updateVisibility(visibility)

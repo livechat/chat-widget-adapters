@@ -118,7 +118,7 @@ export type EventHandlerPayload<T extends keyof EventHandlers, E = Required<Even
 
 export type Token = {
 	accessToken: string
-	entityId: number
+	entityId: string
 	expiresIn: number
 	tokenType: 'Bearer'
 	creationDate: number

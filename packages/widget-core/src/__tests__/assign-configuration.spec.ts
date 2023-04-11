@@ -4,9 +4,8 @@ import type { ExtendedWindow, Token } from '../types'
 declare const window: ExtendedWindow
 
 const exampleToken: Token = {
-	accessToken:
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-	entityId: 123456,
+	accessToken: 'dal:HEedfafaSpij3KhwMAY-bA',
+	entityId: 'ec3469fc-5f12-4d05-a7a8-48baecd30208',
 	expiresIn: 3600,
 	tokenType: 'Bearer',
 	creationDate: 1593641600,

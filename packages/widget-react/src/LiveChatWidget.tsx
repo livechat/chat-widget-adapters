@@ -11,11 +11,12 @@ export function LiveChatWidget(props: WidgetConfig) {
 		widgetRef.current = createWidget(props)
 		window.__lc.integration_name = process.env.PACKAGE_NAME
 		widgetRef.current.init()
+
 		return () => {
 			widgetRef.current?.destroy()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.license, props.group, props.chatBetweenGroups, props.customIdentityProvider])
+	}, [props.license, props.group, props.chatBetweenGroups])
 
 	React.useEffect(() => {
 		widgetRef.current?.updateVisibility(props.visibility)
