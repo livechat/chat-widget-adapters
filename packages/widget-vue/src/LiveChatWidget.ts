@@ -40,6 +40,11 @@ export const LiveChatWidget = defineComponent({
 			required: false,
 			default: undefined,
 		},
+		customIdentityProvider: {
+			type: Function,
+			required: false,
+			default: undefined,
+		},
 	},
 	emits: [
 		'ready',
@@ -62,6 +67,7 @@ export const LiveChatWidget = defineComponent({
 		license: 'reinitialize',
 		group: 'reinitialize',
 		chatBetweenGroups: 'reinitialize',
+
 		visibility(visibility: WidgetState['visibility']) {
 			this.widget?.updateVisibility(visibility)
 		},
@@ -91,6 +97,7 @@ export const LiveChatWidget = defineComponent({
 				sessionVariables: this.sessionVariables,
 				chatBetweenGroups: this.chatBetweenGroups,
 				visibility: this.visibility as WidgetConfig['visibility'],
+				customIdentityProvider: this.customIdentityProvider as WidgetConfig['customIdentityProvider'],
 				onReady: (data) => this.$emit('ready', data),
 				onNewEvent: (event) => this.$emit('new-event', event),
 				onFormSubmitted: (form) => this.$emit('form-submitted', form),

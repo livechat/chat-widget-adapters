@@ -11,6 +11,7 @@ export function LiveChatWidget(props: WidgetConfig) {
 		widgetRef.current = createWidget(props)
 		window.__lc.integration_name = process.env.PACKAGE_NAME
 		widgetRef.current.init()
+
 		return () => {
 			widgetRef.current?.destroy()
 		}
