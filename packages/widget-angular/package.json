@@ -1,6 +1,6 @@
 {
   "name": "@livechat/widget-angular",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "sideEffects": false,
   "description": "This library allows to render and interact with the LiveChat Chat Widget inside an Angular application",
   "main": "dist/widget-angular.cjs.js",
@@ -27,7 +27,7 @@
     "start": "ngc && run-p watch:*"
   },
   "dependencies": {
-    "@livechat/widget-core": "^1.3.0"
+    "@livechat/widget-core": "^1.3.1"
   },
   "peerDependencies": {
     "@angular/core": "12 || 13 || 14 || 15 || 16",
