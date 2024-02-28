@@ -56,7 +56,7 @@
     "rollup-plugin-terser": "7.0.2",
     "serve": "^13.0.2",
     "typescript": "4.5.2",
-    "vite": "^2.6.4",
+    "vite": "^5.1.4",
     "zx": "^4.2.0"
   }
 }
