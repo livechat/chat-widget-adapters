@@ -49,6 +49,10 @@ export class ExamplePage {
 		this.widgetFrame = await elementHandle.contentFrame()
 	}
 
+	async openChatView() {
+		await this.widgetFrame.locator('text=Chat now').click()
+	}
+
 	async startTheChat() {
 		const startTheChatButton = await this.widgetFrame.waitForSelector('text=Start the chat', {
 			state: 'visible',
