@@ -25,7 +25,6 @@ test.describe.parallel('Example applications', () => {
 			const examplePage = new ExamplePage(page, framework)
 			await examplePage.goto()
 			await examplePage.getWidgetIframe()
-			await examplePage.openChatView()
 
 			customerData.id = examplePage.getServerCustomerId()
 			await expect(examplePage.dataContainers.widgetIsReady).toHaveText('Widget is ready: true')
