@@ -9,12 +9,12 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
-          cache: 'yarn'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "16"
+          cache: "yarn"
+          registry-url: "https://registry.npmjs.org"
       - run: yarn
       - run: yarn run publish
         env:
