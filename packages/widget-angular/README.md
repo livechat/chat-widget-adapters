@@ -23,7 +23,7 @@ yarn add @livechat/widget-angular
 
 ## Usage
 
-### Render
+### Render LiveChat Widget
 
 ```ts
 // app.module.ts
@@ -64,22 +64,63 @@ export class AppComponent {
 ></livechat-widget>
 ```
 
+### Render Text Widget
+
+```ts
+// app.module.ts
+
+import { NgModule } from '@angular/core'
+import { LiveChatWidgetModule } from '@livechat/widget-angular'
+
+@NgModule({
+  /* ... */
+  imports: [LiveChatWidgetModule],
+})
+export class AppModule {}
+```
+
+```ts
+// app.component.ts
+
+import { Component } from '@angular/core'
+import { EventHandlerPayload } from '@livechat/widget-angular'
+
+@Component({
+  /* ... */
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
+    console.log('TextWidget.onNewEvent', event)
+  }
+}
+```
+
+```html
+<!-- app.component.html -->
+<text-widget
+  organizationId="614fe72f-3319-43c6-9ae6-c410c65df230"
+  visibility="maximized"
+  (onNewEvent)="handleNewEvent($event)"
+></text-widget>
+```
+
 ### Assignable properties
 
 #### Config data
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop                   | Type                                   |
-| ---------------------- | -------------------------------------- |
-| license                | string (required)                      |
-| customerName           | string                                 |
-| group                  | string                                 |
-| customerEmail          | string                                 |
-| chatBetweenGroups      | boolean                                |
-| sessionVariables       | Record<string, string>                 |
-| visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => CustomerAuth                     |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license / organizationId | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider   | () => CustomerAuth                     |
 
 CustomerAuth:
 
@@ -107,7 +148,7 @@ All event handlers listed below are registered if provided for the first time. T
 
 ### Services
 
-The `LiveChatWidgetModule`, exported from this package, registers a set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance. It allows consuming reactive data from the chat widget in any place of the application, as long as the `LiveChatWidget` component is rendered in the tree.
+The `LiveChatWidgetModule`, exported from this package, registers a set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance. It allows consuming reactive data from the chat widget in any place of the application, as long as the `LiveChatWidget` or `TextWidget` component is rendered in the tree.
 
 #### WidgetStateService
 

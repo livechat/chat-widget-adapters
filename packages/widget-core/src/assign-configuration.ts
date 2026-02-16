@@ -4,6 +4,7 @@ declare const window: ExtendedWindow
 
 export function assignConfiguration({
 	license,
+	organizationId,
 	group,
 	chatBetweenGroups,
 	sessionVariables,
@@ -11,10 +12,12 @@ export function assignConfiguration({
 }: ConfigurationOptions): void {
 	window.__lc = window.__lc || {}
 
-	if (typeof license === 'string') {
+	if (typeof organizationId === 'string' && organizationId.trim() !== '') {
+		window.__lc.organizationId = organizationId
+	} else if (typeof license === 'string' && license.trim() !== '') {
 		window.__lc.license = Number(license)
 	} else {
-		throw new Error('[LiveChatWidget] The license property is required for initialization')
+		throw new Error('[LiveChatWidget] The license or organizationId property is required for initialization')
 	}
 	if (typeof group !== 'undefined') {
 		window.__lc.group = Number(group)

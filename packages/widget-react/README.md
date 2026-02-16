@@ -23,7 +23,7 @@ yarn add @livechat/widget-react
 
 ## Usage
 
-### Render
+### Render LiveChat Widget
 
 ```ts
 import { LiveChatWidget, EventHandlerPayload } from '@livechat/widget-react'
@@ -43,22 +43,42 @@ function App() {
 }
 ```
 
+### Render Text Widget
+
+```ts
+import { TextWidget, EventHandlerPayload } from '@livechat/widget-react'
+
+function App() {
+  function handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
+    console.log('TextWidget.onNewEvent', event)
+  }
+
+  return (
+    <TextWidget
+      organizationId="614fe72f-3319-43c6-9ae6-c410c65df230"
+      visibility="maximized"
+      onNewEvent={handleNewEvent}
+    />
+  )
+}
+```
+
 ### Props
 
 #### Config data
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop                   | Type                                   |
-| ---------------------- | -------------------------------------- |
-| license                | string (required)                      |
-| customerName           | string                                 |
-| group                  | string                                 |
-| customerEmail          | string                                 |
-| chatBetweenGroups      | boolean                                |
-| sessionVariables       | Record<string, string>                 |
-| visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => CustomerAuth                     |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license / organizationId | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider   | () => CustomerAuth                     |
 
 CustomerAuth:
 
@@ -86,7 +106,7 @@ All event handlers listed below are registered if provided for the first time. T
 
 ### Hooks
 
-This package exports a set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [React Hooks](https://reactjs.org/docs/hooks-reference.html) that allows consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` or `TextWidget` component is rendered in the tree.
 
 #### useWidgetState
 

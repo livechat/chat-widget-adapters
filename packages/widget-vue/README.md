@@ -45,6 +45,26 @@ yarn add @livechat/widget-vue
 </template>
 ```
 
+#### Vue 3 - Text Widget
+
+```html
+<script lang="ts" setup>
+  import { TextWidget, EventHandlerPayload } from '@livechat/widget-vue'
+
+  function handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
+    console.log('TextWidget.onNewEvent', event)
+  }
+</script>
+
+<template>
+  <TextWidget
+    organizationId="614fe72f-3319-43c6-9ae6-c410c65df230"
+    visibility="maximized"
+    v-on:new-event="handleNewEvent"
+  />
+</template>
+```
+
 #### Vue 2
 
 ```html
@@ -79,16 +99,16 @@ yarn add @livechat/widget-vue
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop                   | Type                                   |
-| ---------------------- | -------------------------------------- |
-| license                | string (required)                      |
-| customerName           | string                                 |
-| group                  | string                                 |
-| customerEmail          | string                                 |
-| chatBetweenGroups      | boolean                                |
-| sessionVariables       | Record<string, string>                 |
-| visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => CustomerAuth                     |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license / organizationId | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider   | () => CustomerAuth                     |
 
 CustomerAuth:
 
@@ -116,7 +136,7 @@ All event handlers listed below are registered if provided for the first time. T
 
 ### Composition API
 
-This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` or `TextWidget` component is rendered in the tree.
 
 **The composition API is only availble for Vue 3 apps.**
 
