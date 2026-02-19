@@ -1,6 +1,6 @@
 # @livechat/widget-angular
 
-> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside an [Angular](http://angular.io/) application.
+> This library lets you easily add [chat widget functionality](https://platform.text.com/open-chat-widget) to your [Angular](http://angular.io/) application, whether you have an account on [livechat.com](https://livechat.com) or [text.com](https://text.com). This package supports both the LiveChat and Text widgets.
 
 [![mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 ![Github lerna version](https://img.shields.io/github/lerna-json/v/livechat/chat-widget-adapters?label=version)
@@ -23,7 +23,9 @@ yarn add @livechat/widget-angular
 
 ## Usage
 
-### Render LiveChat Widget
+### 1. LiveChat Widget (for livechat.com accounts)
+
+If you have an account on [livechat.com](https://livechat.com), use the `livechat-widget` component and provide your license number:
 
 ```ts
 // app.module.ts
@@ -64,7 +66,9 @@ export class AppComponent {
 ></livechat-widget>
 ```
 
-### Render Text Widget
+### 2. Text Widget (for text.com accounts)
+
+If you have an account on [text.com](https://text.com), use the `text-widget` component and provide your `organizationId`:
 
 ```ts
 // app.module.ts

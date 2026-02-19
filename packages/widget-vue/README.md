@@ -1,6 +1,6 @@
 # @livechat/widget-vue
 
-> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside a [Vue](https://vuejs.org/) application.
+> This library lets you easily add [chat widget functionality](https://platform.text.com/open-chat-widget) to your [Vue](https://vuejs.org/) application, whether you have an account on [livechat.com](https://livechat.com) or [text.com](https://text.com). This package supports both the LiveChat and Text widgets.
 
 [![mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 ![Github lerna version](https://img.shields.io/github/lerna-json/v/livechat/chat-widget-adapters?label=version)
@@ -23,9 +23,9 @@ yarn add @livechat/widget-vue
 
 ## Usage
 
-### Render
+### 1. LiveChat Widget (for livechat.com accounts)
 
-#### Vue 3
+If you have an account on [livechat.com](https://livechat.com), use the `LiveChatWidget` component and provide your license number:
 
 ```html
 <script lang="ts" setup>
@@ -45,7 +45,9 @@ yarn add @livechat/widget-vue
 </template>
 ```
 
-#### Vue 3 - Text Widget
+### 2. Text Widget (for text.com accounts)
+
+If you have an account on [text.com](https://text.com), use the `TextWidget` component and provide your `organizationId`:
 
 ```html
 <script lang="ts" setup>
