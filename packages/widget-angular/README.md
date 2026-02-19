@@ -1,6 +1,6 @@
 # @livechat/widget-angular
 
-> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside an [Angular](http://angular.io/) application.
+> This library lets you easily add [chat widget functionality](https://platform.text.com/open-chat-widget) to your [Angular](http://angular.io/) application, whether you have an account on [livechat.com](https://livechat.com) or [text.com](https://text.com). This package supports both the LiveChat and Text widgets.
 
 [![mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 ![Github lerna version](https://img.shields.io/github/lerna-json/v/livechat/chat-widget-adapters?label=version)
@@ -23,7 +23,9 @@ yarn add @livechat/widget-angular
 
 ## Usage
 
-### Render
+### 1. LiveChat Widget (for livechat.com accounts)
+
+If you have an account on [livechat.com](https://livechat.com), use the `livechat-widget` component and provide your license number:
 
 ```ts
 // app.module.ts
@@ -64,22 +66,65 @@ export class AppComponent {
 ></livechat-widget>
 ```
 
+### 2. Text Widget (for text.com accounts)
+
+If you have an account on [text.com](https://text.com), use the `text-widget` component and provide your `organizationId`:
+
+```ts
+// app.module.ts
+
+import { NgModule } from '@angular/core'
+import { LiveChatWidgetModule } from '@livechat/widget-angular'
+
+@NgModule({
+  /* ... */
+  imports: [LiveChatWidgetModule],
+})
+export class AppModule {}
+```
+
+```ts
+// app.component.ts
+
+import { Component } from '@angular/core'
+import { EventHandlerPayload } from '@livechat/widget-angular'
+
+@Component({
+  /* ... */
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
+    console.log('TextWidget.onNewEvent', event)
+  }
+}
+```
+
+```html
+<!-- app.component.html -->
+<text-widget
+  organizationId="614fe72f-3319-43c6-9ae6-c410c65df230"
+  visibility="maximized"
+  (onNewEvent)="handleNewEvent($event)"
+></text-widget>
+```
+
 ### Assignable properties
 
 #### Config data
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop                   | Type                                   |
-| ---------------------- | -------------------------------------- |
-| license                | string (required)                      |
-| customerName           | string                                 |
-| group                  | string                                 |
-| customerEmail          | string                                 |
-| chatBetweenGroups      | boolean                                |
-| sessionVariables       | Record<string, string>                 |
-| visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => CustomerAuth                     |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license / organizationId | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider   | () => CustomerAuth                     |
 
 CustomerAuth:
 
@@ -107,7 +152,7 @@ All event handlers listed below are registered if provided for the first time. T
 
 ### Services
 
-The `LiveChatWidgetModule`, exported from this package, registers a set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance. It allows consuming reactive data from the chat widget in any place of the application, as long as the `LiveChatWidget` component is rendered in the tree.
+The `LiveChatWidgetModule`, exported from this package, registers a set of injectable services. All of them expose a subscribable [BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject) instance. It allows consuming reactive data from the chat widget in any place of the application, as long as the `LiveChatWidget` or `TextWidget` component is rendered in the tree.
 
 #### WidgetStateService
 

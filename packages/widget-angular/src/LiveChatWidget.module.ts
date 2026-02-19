@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 
-import { LiveChatWidgetComponent } from './LiveChatWidget.component'
+import { LiveChatWidgetComponent, TextWidgetComponent } from './LiveChatWidget.component'
 import { WidgetIsReadyService } from './services/WidgetIsReady.service'
 import { WidgetStateService } from './services/WidgetState.service'
 import { WidgetCustomerDataService } from './services/WidgetCustomerData.service'
@@ -9,8 +9,8 @@ import { WidgetGreetingService } from './services/WidgetGreeting.service'
 
 @NgModule({
 	imports: [],
-	declarations: [LiveChatWidgetComponent],
-	exports: [LiveChatWidgetComponent],
+	declarations: [LiveChatWidgetComponent, TextWidgetComponent],
+	exports: [LiveChatWidgetComponent, TextWidgetComponent],
 	providers: [
 		WidgetIsReadyService,
 		WidgetStateService,

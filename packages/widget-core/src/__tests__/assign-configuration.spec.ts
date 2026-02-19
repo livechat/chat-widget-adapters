@@ -69,4 +69,22 @@ describe('assignConfiguration', () => {
 	it('should throw an error if license is missing', () => {
 		expect(() => assignConfiguration({} as any)).toThrow()
 	})
+
+	it('should allow to pass only organizationId', () => {
+		assignConfiguration({ organizationId: 'test-org-id' })
+		expect(window.__lc).toMatchInlineSnapshot(`
+		Object {
+		  "organizationId": "test-org-id",
+		}
+	`)
+	})
+
+	it('should prefer organizationId over license', () => {
+		assignConfiguration({ organizationId: 'test-org-id', license: '123456' })
+		expect(window.__lc).toMatchInlineSnapshot(`
+		Object {
+		  "organizationId": "test-org-id",
+		}
+	`)
+	})
 })

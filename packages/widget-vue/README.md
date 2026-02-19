@@ -1,6 +1,6 @@
 # @livechat/widget-vue
 
-> This library allows to render and interact with the [LiveChat Chat Widget](https://developers.livechat.com/open-chat-widget/) inside a [Vue](https://vuejs.org/) application.
+> This library lets you easily add [chat widget functionality](https://platform.text.com/open-chat-widget) to your [Vue](https://vuejs.org/) application, whether you have an account on [livechat.com](https://livechat.com) or [text.com](https://text.com). This package supports both the LiveChat and Text widgets.
 
 [![mit](https://img.shields.io/badge/license-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 ![Github lerna version](https://img.shields.io/github/lerna-json/v/livechat/chat-widget-adapters?label=version)
@@ -23,9 +23,9 @@ yarn add @livechat/widget-vue
 
 ## Usage
 
-### Render
+### 1. LiveChat Widget (for livechat.com accounts)
 
-#### Vue 3
+If you have an account on [livechat.com](https://livechat.com), use the `LiveChatWidget` component and provide your license number:
 
 ```html
 <script lang="ts" setup>
@@ -39,6 +39,28 @@ yarn add @livechat/widget-vue
 <template>
   <LiveChatWidget
     license="12345678"
+    visibility="maximized"
+    v-on:new-event="handleNewEvent"
+  />
+</template>
+```
+
+### 2. Text Widget (for text.com accounts)
+
+If you have an account on [text.com](https://text.com), use the `TextWidget` component and provide your `organizationId`:
+
+```html
+<script lang="ts" setup>
+  import { TextWidget, EventHandlerPayload } from '@livechat/widget-vue'
+
+  function handleNewEvent(event: EventHandlerPayload<'onNewEvent'>) {
+    console.log('TextWidget.onNewEvent', event)
+  }
+</script>
+
+<template>
+  <TextWidget
+    organizationId="614fe72f-3319-43c6-9ae6-c410c65df230"
     visibility="maximized"
     v-on:new-event="handleNewEvent"
   />
@@ -79,16 +101,16 @@ yarn add @livechat/widget-vue
 
 All properties described below are used for initialization on the first render and later updates of the chat widget with new values on change.
 
-| Prop                   | Type                                   |
-| ---------------------- | -------------------------------------- |
-| license                | string (required)                      |
-| customerName           | string                                 |
-| group                  | string                                 |
-| customerEmail          | string                                 |
-| chatBetweenGroups      | boolean                                |
-| sessionVariables       | Record<string, string>                 |
-| visibility             | 'maximized' \| 'minimized' \| 'hidden' |
-| customIdentityProvider | () => CustomerAuth                     |
+| Prop                     | Type                                   |
+| ------------------------ | -------------------------------------- |
+| license / organizationId | string (required)                      |
+| customerName             | string                                 |
+| group                    | string                                 |
+| customerEmail            | string                                 |
+| chatBetweenGroups        | boolean                                |
+| sessionVariables         | Record<string, string>                 |
+| visibility               | 'maximized' \| 'minimized' \| 'hidden' |
+| customIdentityProvider   | () => CustomerAuth                     |
 
 CustomerAuth:
 
@@ -116,7 +138,7 @@ All event handlers listed below are registered if provided for the first time. T
 
 ### Composition API
 
-This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` component is rendered in the tree.
+This package exports a set of [Vue Composition API](https://v3.vuejs.org/api/composition-api.html#composition-api) utilities that allow consuming reactive data from the chat widget in any place of the application as long as the `LiveChatWidget` or `TextWidget` component is rendered in the tree.
 
 **The composition API is only availble for Vue 3 apps.**
 

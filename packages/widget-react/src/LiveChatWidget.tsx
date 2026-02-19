@@ -1,22 +1,43 @@
 import * as React from 'react'
 import { createWidget } from '@livechat/widget-core'
-import type { ExtendedWindow, WidgetConfig, WidgetInstance } from '@livechat/widget-core'
+import type { ExtendedWindow, WidgetConfig, WidgetInstance, ProductName } from '@livechat/widget-core'
 
 declare const window: ExtendedWindow
 
-export function LiveChatWidget(props: WidgetConfig) {
+type Props = Omit<WidgetConfig, 'organizationId' | 'license'> &
+	(
+		| {
+				organizationId: string
+		  }
+		| {
+				license: string
+		  }
+	)
+
+export function TextWidget(props: Props) {
+	return Widget(props, 'textapp')
+}
+
+export function LiveChatWidget(props: Props) {
+	return Widget(props, 'livechat')
+}
+
+function Widget(props: WidgetConfig, product: ProductName) {
 	const widgetRef = React.useRef<WidgetInstance | null>(null)
 
 	React.useEffect(() => {
 		widgetRef.current = createWidget(props)
 		window.__lc.integration_name = process.env.PACKAGE_NAME
+		if (product === 'textapp') {
+			window.__lc.product_name = 'text'
+		}
 		widgetRef.current.init()
 
 		return () => {
 			widgetRef.current?.destroy()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.license, props.group, props.chatBetweenGroups])
+	}, [props.organizationId, props.license, props.group, props.chatBetweenGroups])
 
 	React.useEffect(() => {
 		widgetRef.current?.updateVisibility(props.visibility)

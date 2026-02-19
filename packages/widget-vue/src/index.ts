@@ -1,5 +1,5 @@
 export * from './composition'
-export { LiveChatWidget } from './LiveChatWidget'
+export { LiveChatWidget, TextWidget } from './LiveChatWidget'
 
 export type {
 	ChatEvent,

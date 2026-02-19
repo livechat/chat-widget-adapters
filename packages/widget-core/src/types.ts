@@ -1,10 +1,12 @@
 export type ExtendedWindow = Window & {
 	__lc: {
 		license: number
+		organizationId: string
 		group?: number
 		params?: Array<{ name: string; value: string }>
 		chat_between_groups?: boolean
 		integration_name?: string
+		product_name?: string
 		custom_identity_provider?: CustomIdentityProvider
 	}
 	LiveChatWidget: {
@@ -58,7 +60,8 @@ export type CustomerData = MutableCustomerData & {
 }
 
 export type ConfigurationOptions = {
-	license: string
+	license?: string
+	organizationId?: string
 	group?: string
 	chatBetweenGroups?: boolean
 	sessionVariables?: CustomerData['sessionVariables']
@@ -131,3 +134,5 @@ export type CustomIdentityProvider = () => {
 	hasToken: () => Promise<boolean>
 	invalidate: () => Promise<void>
 }
+
+export type ProductName = 'livechat' | 'textapp'
