@@ -2,6 +2,9 @@ name: Publish packages
 on:
   release:
     types: [created]
+
+permissions: read-all
+
 jobs:
   publish:
     runs-on: ubuntu-latest
