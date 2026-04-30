@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - "**"
+
+permissions: read-all
+
 jobs:
   lint:
     runs-on: ubuntu-latest
