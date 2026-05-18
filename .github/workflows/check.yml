@@ -15,6 +15,15 @@ jobs:
         with:
           node-version: "16"
           cache: "yarn"
+      - name: Install Aikido Safe Chain 1.5.3
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/install-safe-chain.sh https://github.com/AikidoSec/safe-chain/releases/download/1.5.3/install-safe-chain.sh
+          echo "0107cbbbf90159379756157e902acae512d62ffbd174307e42c5fe9f266792d3  /tmp/install-safe-chain.sh" | sha256sum -c
+          sh /tmp/install-safe-chain.sh --ci
+      - name: Verify Aikido Safe Chain
+        shell: bash
+        run: safe-chain --version && npm safe-chain-verify
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Run lint script
@@ -27,6 +36,15 @@ jobs:
         with:
           node-version: "16"
           cache: "yarn"
+      - name: Install Aikido Safe Chain 1.5.3
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/install-safe-chain.sh https://github.com/AikidoSec/safe-chain/releases/download/1.5.3/install-safe-chain.sh
+          echo "0107cbbbf90159379756157e902acae512d62ffbd174307e42c5fe9f266792d3  /tmp/install-safe-chain.sh" | sha256sum -c
+          sh /tmp/install-safe-chain.sh --ci
+      - name: Verify Aikido Safe Chain
+        shell: bash
+        run: safe-chain --version && npm safe-chain-verify
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Run build script
@@ -39,6 +57,15 @@ jobs:
         with:
           node-version: "16"
           cache: "yarn"
+      - name: Install Aikido Safe Chain 1.5.3
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/install-safe-chain.sh https://github.com/AikidoSec/safe-chain/releases/download/1.5.3/install-safe-chain.sh
+          echo "0107cbbbf90159379756157e902acae512d62ffbd174307e42c5fe9f266792d3  /tmp/install-safe-chain.sh" | sha256sum -c
+          sh /tmp/install-safe-chain.sh --ci
+      - name: Verify Aikido Safe Chain
+        shell: bash
+        run: safe-chain --version && npm safe-chain-verify
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Run test script
@@ -51,6 +78,15 @@ jobs:
         with:
           node-version: "16"
           cache: "yarn"
+      - name: Install Aikido Safe Chain 1.5.3
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/install-safe-chain.sh https://github.com/AikidoSec/safe-chain/releases/download/1.5.3/install-safe-chain.sh
+          echo "0107cbbbf90159379756157e902acae512d62ffbd174307e42c5fe9f266792d3  /tmp/install-safe-chain.sh" | sha256sum -c
+          sh /tmp/install-safe-chain.sh --ci
+      - name: Verify Aikido Safe Chain
+        shell: bash
+        run: safe-chain --version && npm safe-chain-verify
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Start examples and run e2e tests
