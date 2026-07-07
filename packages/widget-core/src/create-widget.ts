@@ -56,7 +56,7 @@ export function createWidget(config: WidgetConfig): WidgetInstance {
 		},
 	}
 
-	const scriptRef = createJSApi()
+	const scriptRef = createJSApi(config.env)
 	assignConfiguration(config)
 	assignVisibility(config.visibility)
 	assignEventHandlers('on', state.currentEventHandlers)

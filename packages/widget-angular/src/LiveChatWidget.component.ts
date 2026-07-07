@@ -17,7 +17,15 @@ type Changes = Partial<{
 		currentValue: WidgetConfig[key]
 		isFirstChange(): boolean
 	}
-}>
+}> &
+	Partial<{
+		env: {
+			firstChange: boolean
+			previousValue: string | undefined
+			currentValue: string | undefined
+			isFirstChange(): boolean
+		}
+	}>
 
 @Directive()
 abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
@@ -30,6 +38,7 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() sessionVariables: WidgetConfig['sessionVariables']
 	@Input() chatBetweenGroups: WidgetConfig['chatBetweenGroups']
 	@Input() customIdentityProvider: WidgetConfig['customIdentityProvider']
+	@Input() env: string | undefined
 
 	@Output() onReady = new EventEmitter<EventHandlerPayload<'onReady'>>()
 	@Output() onNewEvent = new EventEmitter<EventHandlerPayload<'onNewEvent'>>()
@@ -50,7 +59,13 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: Changes) {
-		const fullReloadProps: Array<keyof WidgetConfig> = ['license', 'organizationId', 'group', 'chatBetweenGroups']
+		const fullReloadProps: Array<keyof WidgetConfig | 'env'> = [
+			'license',
+			'organizationId',
+			'group',
+			'chatBetweenGroups',
+			'env',
+		]
 		if (fullReloadProps.some((prop) => changes[prop] !== undefined && !changes[prop]?.isFirstChange())) {
 			this.reinitialize()
 			return
@@ -75,7 +90,7 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	setupWidget() {
-		this.widget = createWidget({
+		const config: WidgetConfig & { env?: string } = {
 			group: this.group,
 			license: this.license,
 			organizationId: this.organizationId,
@@ -85,6 +100,7 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			sessionVariables: this.sessionVariables,
 			chatBetweenGroups: this.chatBetweenGroups,
 			customIdentityProvider: this.customIdentityProvider,
+			env: this.env,
 			onReady: (data) => this.onReady.emit(data),
 			onNewEvent: (event) => this.onNewEvent.emit(event),
 			onFormSubmitted: (form) => this.onFormSubmitted.emit(form),
@@ -95,7 +111,8 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			onCustomerStatusChanged: (status) => this.onCustomerStatusChanged.emit(status),
 			onRichMessageButtonClicked: (button) => this.onRichMessageButtonClicked.emit(button),
 			onAvailabilityChanged: (availability) => this.onAvailabilityChanged.emit(availability),
-		})
+		}
+		this.widget = createWidget(config)
 		window.__lc.integration_name = process.env.PACKAGE_NAME
 		if (this.product === 'textapp') {
 			window.__lc.product_name = 'text'
