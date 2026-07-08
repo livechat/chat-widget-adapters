@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import type { DefineComponent, ComponentOptionsMixin } from 'vue'
 import { createWidget } from '@livechat/widget-core'
 import type {
 	ExtendedWindow,
@@ -11,12 +12,49 @@ import type {
 
 declare const window: ExtendedWindow
 
+type EmitEvent =
+	| 'ready'
+	| 'new-event'
+	| 'form-submitted'
+	| 'rating-submitted'
+	| 'greeting-hidden'
+	| 'greeting-displayed'
+	| 'visibility-changed'
+	| 'customer-status-changed'
+	| 'rich-message-button-clicked'
+	| 'availability-changed'
+
+// `env` is internal-only, so it's kept out of PublicProps and cast away below despite being a real runtime prop.
+type PublicProps = {
+	license?: string
+	organizationId?: string
+	group?: string
+	visibility?: string
+	customerName?: string
+	customerEmail?: string
+	sessionVariables?: Record<string, string>
+	chatBetweenGroups?: boolean
+	customIdentityProvider?: WidgetConfig['customIdentityProvider']
+}
+
+type PublicWidgetComponent = DefineComponent<
+	PublicProps,
+	unknown,
+	{ widget: WidgetInstance | null },
+	Record<never, never>,
+	{ setupWidget(): void; reinitialize(): void },
+	ComponentOptionsMixin,
+	ComponentOptionsMixin,
+	EmitEvent[],
+	EmitEvent
+>
+
 export const TextWidget = defineWidget('textapp')
 
 export const LiveChatWidget = defineWidget('livechat')
 
 function defineWidget(product: ProductName) {
-	return defineComponent({
+	const component = defineComponent({
 		props: {
 			license: {
 				type: String,
@@ -88,6 +126,7 @@ function defineWidget(product: ProductName) {
 		},
 		watch: {
 			license: 'reinitialize',
+			organizationId: 'reinitialize',
 			group: 'reinitialize',
 			chatBetweenGroups: 'reinitialize',
 			env: 'reinitialize',
@@ -151,4 +190,6 @@ function defineWidget(product: ProductName) {
 			return null
 		},
 	})
+
+	return component as PublicWidgetComponent
 }
