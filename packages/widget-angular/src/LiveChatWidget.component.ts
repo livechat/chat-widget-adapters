@@ -1,4 +1,14 @@
-import { Component, Directive, Input, Output, OnInit, OnDestroy, OnChanges, EventEmitter } from '@angular/core'
+import {
+	Component,
+	Directive,
+	ElementRef,
+	Input,
+	Output,
+	OnInit,
+	OnDestroy,
+	OnChanges,
+	EventEmitter,
+} from '@angular/core'
 import { createWidget } from '@livechat/widget-core'
 import type {
 	ExtendedWindow,
@@ -17,15 +27,7 @@ type Changes = Partial<{
 		currentValue: WidgetConfig[key]
 		isFirstChange(): boolean
 	}
-}> &
-	Partial<{
-		env: {
-			firstChange: boolean
-			previousValue: string | undefined
-			currentValue: string | undefined
-			isFirstChange(): boolean
-		}
-	}>
+}>
 
 @Directive()
 abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
@@ -38,7 +40,6 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() sessionVariables: WidgetConfig['sessionVariables']
 	@Input() chatBetweenGroups: WidgetConfig['chatBetweenGroups']
 	@Input() customIdentityProvider: WidgetConfig['customIdentityProvider']
-	@Input() env: string | undefined
 
 	@Output() onReady = new EventEmitter<EventHandlerPayload<'onReady'>>()
 	@Output() onNewEvent = new EventEmitter<EventHandlerPayload<'onNewEvent'>>()
@@ -54,18 +55,14 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	widget: WidgetInstance | null = null
 	protected abstract product: ProductName
 
+	constructor(private elementRef: ElementRef<HTMLElement>) {}
+
 	ngOnInit() {
 		this.setupWidget()
 	}
 
 	ngOnChanges(changes: Changes) {
-		const fullReloadProps: Array<keyof WidgetConfig | 'env'> = [
-			'license',
-			'organizationId',
-			'group',
-			'chatBetweenGroups',
-			'env',
-		]
+		const fullReloadProps: Array<keyof WidgetConfig> = ['license', 'organizationId', 'group', 'chatBetweenGroups']
 		if (fullReloadProps.some((prop) => changes[prop] !== undefined && !changes[prop]?.isFirstChange())) {
 			this.reinitialize()
 			return
@@ -100,7 +97,8 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			sessionVariables: this.sessionVariables,
 			chatBetweenGroups: this.chatBetweenGroups,
 			customIdentityProvider: this.customIdentityProvider,
-			env: this.env,
+			// env is internal: read from a host attribute so it never becomes an @Input
+			env: this.elementRef.nativeElement.getAttribute('env') ?? undefined,
 			onReady: (data) => this.onReady.emit(data),
 			onNewEvent: (event) => this.onNewEvent.emit(event),
 			onFormSubmitted: (form) => this.onFormSubmitted.emit(form),

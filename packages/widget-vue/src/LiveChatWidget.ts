@@ -1,5 +1,4 @@
 import { defineComponent } from 'vue'
-import type { DefineComponent, ComponentOptionsMixin } from 'vue'
 import { createWidget } from '@livechat/widget-core'
 import type {
 	ExtendedWindow,
@@ -12,49 +11,12 @@ import type {
 
 declare const window: ExtendedWindow
 
-type EmitEvent =
-	| 'ready'
-	| 'new-event'
-	| 'form-submitted'
-	| 'rating-submitted'
-	| 'greeting-hidden'
-	| 'greeting-displayed'
-	| 'visibility-changed'
-	| 'customer-status-changed'
-	| 'rich-message-button-clicked'
-	| 'availability-changed'
-
-// `env` is internal-only, so it's kept out of PublicProps and cast away below despite being a real runtime prop.
-type PublicProps = {
-	license?: string
-	organizationId?: string
-	group?: string
-	visibility?: string
-	customerName?: string
-	customerEmail?: string
-	sessionVariables?: Record<string, string>
-	chatBetweenGroups?: boolean
-	customIdentityProvider?: WidgetConfig['customIdentityProvider']
-}
-
-type PublicWidgetComponent = DefineComponent<
-	PublicProps,
-	unknown,
-	{ widget: WidgetInstance | null },
-	Record<never, never>,
-	{ setupWidget(): void; reinitialize(): void },
-	ComponentOptionsMixin,
-	ComponentOptionsMixin,
-	EmitEvent[],
-	EmitEvent
->
-
 export const TextWidget = defineWidget('textapp')
 
 export const LiveChatWidget = defineWidget('livechat')
 
 function defineWidget(product: ProductName) {
-	const component = defineComponent({
+	return defineComponent({
 		props: {
 			license: {
 				type: String,
@@ -101,11 +63,14 @@ function defineWidget(product: ProductName) {
 				required: false,
 				default: undefined,
 			},
-			env: {
-				type: String,
-				required: false,
-				default: undefined,
-			},
+			// env is internal: cast hides it from the inferred props type, not from runtime
+			...({
+				env: {
+					type: String,
+					required: false,
+					default: undefined,
+				},
+			} as Record<never, never>),
 		},
 		emits: [
 			'ready',
@@ -162,7 +127,7 @@ function defineWidget(product: ProductName) {
 					chatBetweenGroups: this.chatBetweenGroups,
 					visibility: this.visibility as WidgetConfig['visibility'],
 					customIdentityProvider: this.customIdentityProvider as WidgetConfig['customIdentityProvider'],
-					env: this.env,
+					env: (this.$props as { env?: string }).env,
 					onReady: (data) => this.$emit('ready', data),
 					onNewEvent: (event) => this.$emit('new-event', event),
 					onFormSubmitted: (form) => this.$emit('form-submitted', form),
@@ -190,6 +155,4 @@ function defineWidget(product: ProductName) {
 			return null
 		},
 	})
-
-	return component as PublicWidgetComponent
 }
