@@ -1,4 +1,14 @@
-import { Component, Directive, Input, Output, OnInit, OnDestroy, OnChanges, EventEmitter } from '@angular/core'
+import {
+	Component,
+	Directive,
+	ElementRef,
+	Input,
+	Output,
+	OnInit,
+	OnDestroy,
+	OnChanges,
+	EventEmitter,
+} from '@angular/core'
 import { createWidget } from '@livechat/widget-core'
 import type {
 	ExtendedWindow,
@@ -45,6 +55,8 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	widget: WidgetInstance | null = null
 	protected abstract product: ProductName
 
+	constructor(private elementRef: ElementRef<HTMLElement>) {}
+
 	ngOnInit() {
 		this.setupWidget()
 	}
@@ -75,7 +87,7 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	setupWidget() {
-		this.widget = createWidget({
+		const config: WidgetConfig & { env?: string } = {
 			group: this.group,
 			license: this.license,
 			organizationId: this.organizationId,
@@ -85,6 +97,8 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			sessionVariables: this.sessionVariables,
 			chatBetweenGroups: this.chatBetweenGroups,
 			customIdentityProvider: this.customIdentityProvider,
+			// env is internal: read from a host attribute so it never becomes an @Input
+			env: this.elementRef.nativeElement.getAttribute('env') ?? undefined,
 			onReady: (data) => this.onReady.emit(data),
 			onNewEvent: (event) => this.onNewEvent.emit(event),
 			onFormSubmitted: (form) => this.onFormSubmitted.emit(form),
@@ -95,7 +109,8 @@ abstract class BaseWidgetComponent implements OnInit, OnDestroy, OnChanges {
 			onCustomerStatusChanged: (status) => this.onCustomerStatusChanged.emit(status),
 			onRichMessageButtonClicked: (button) => this.onRichMessageButtonClicked.emit(button),
 			onAvailabilityChanged: (availability) => this.onAvailabilityChanged.emit(availability),
-		})
+		}
+		this.widget = createWidget(config)
 		window.__lc.integration_name = process.env.PACKAGE_NAME
 		if (this.product === 'textapp') {
 			window.__lc.product_name = 'text'

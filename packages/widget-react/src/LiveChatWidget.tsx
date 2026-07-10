@@ -37,7 +37,7 @@ function Widget(props: WidgetConfig, product: ProductName) {
 			widgetRef.current?.destroy()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.organizationId, props.license, props.group, props.chatBetweenGroups])
+	}, [props.organizationId, props.license, props.group, props.chatBetweenGroups, (props as { env?: string }).env])
 
 	React.useEffect(() => {
 		widgetRef.current?.updateVisibility(props.visibility)

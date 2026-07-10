@@ -59,6 +59,9 @@ export type CustomerData = MutableCustomerData & {
 	sessionVariables: Record<string, string>
 }
 
+/** @internal */
+export type Env = 'labs' | 'staging' | 'production'
+
 export type ConfigurationOptions = {
 	license?: string
 	organizationId?: string
@@ -66,6 +69,8 @@ export type ConfigurationOptions = {
 	chatBetweenGroups?: boolean
 	sessionVariables?: CustomerData['sessionVariables']
 	customIdentityProvider?: CustomIdentityProvider
+	/** @internal */
+	env?: Env
 }
 
 export type ChatData = {

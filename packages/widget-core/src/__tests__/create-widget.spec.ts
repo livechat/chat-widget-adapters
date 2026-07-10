@@ -73,6 +73,12 @@ describe('createWidget', () => {
 		expect(window.__lc).toHaveProperty('integration_name')
 	})
 
+	it('should pass the env through to createJSApi', () => {
+		createWidget({ ...widgetConfig, env: 'labs' })
+
+		expect(mockCreateJSApi).toBeCalledWith('labs')
+	})
+
 	it('should handle init method', () => {
 		const widget: WidgetInstance = createWidget(widgetConfig)
 

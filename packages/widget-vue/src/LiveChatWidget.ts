@@ -63,6 +63,14 @@ function defineWidget(product: ProductName) {
 				required: false,
 				default: undefined,
 			},
+			// env is internal: cast hides it from the inferred props type, not from runtime
+			...({
+				env: {
+					type: String,
+					required: false,
+					default: undefined,
+				},
+			} as Record<never, never>),
 		},
 		emits: [
 			'ready',
@@ -83,8 +91,10 @@ function defineWidget(product: ProductName) {
 		},
 		watch: {
 			license: 'reinitialize',
+			organizationId: 'reinitialize',
 			group: 'reinitialize',
 			chatBetweenGroups: 'reinitialize',
+			env: 'reinitialize',
 
 			visibility(visibility: WidgetState['visibility']) {
 				this.widget?.updateVisibility(visibility)
@@ -107,7 +117,7 @@ function defineWidget(product: ProductName) {
 		},
 		methods: {
 			setupWidget() {
-				this.widget = createWidget({
+				const config: WidgetConfig & { env?: string } = {
 					group: this.group,
 					license: this.license,
 					organizationId: this.organizationId,
@@ -117,6 +127,7 @@ function defineWidget(product: ProductName) {
 					chatBetweenGroups: this.chatBetweenGroups,
 					visibility: this.visibility as WidgetConfig['visibility'],
 					customIdentityProvider: this.customIdentityProvider as WidgetConfig['customIdentityProvider'],
+					env: (this.$props as { env?: string }).env,
 					onReady: (data) => this.$emit('ready', data),
 					onNewEvent: (event) => this.$emit('new-event', event),
 					onFormSubmitted: (form) => this.$emit('form-submitted', form),
@@ -127,7 +138,8 @@ function defineWidget(product: ProductName) {
 					onCustomerStatusChanged: (status) => this.$emit('customer-status-changed', status),
 					onRichMessageButtonClicked: (button) => this.$emit('rich-message-button-clicked', button),
 					onAvailabilityChanged: (availability) => this.$emit('availability-changed', availability),
-				})
+				}
+				this.widget = createWidget(config)
 				window.__lc.integration_name = process.env.PACKAGE_NAME
 				if (product === 'textapp') {
 					window.__lc.product_name = 'text'
