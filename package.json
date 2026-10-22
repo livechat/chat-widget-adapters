@@ -3,7 +3,7 @@
   "name": "chat-widget-adapters",
   "license": "MIT",
   "engines": {
-    "node": "16",
+    "node": "24",
     "yarn": "1",
     "npm": "please-use-yarn"
   },
